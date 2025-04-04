@@ -82,16 +82,16 @@ export const shared = defineConfig({
   themeConfig: {
     logo: { src: '/zarv-logo-mini.svg', width: 24, height: 24 },
 
+    i18nRouting: true,
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/zarvhq' },
-      { icon: 'zarv', link: 'https://www.zarv.com' },
       { icon: 'linkedin', link: 'https://www.linkedin.com/company/zarv' },
-      { icon: 'twitter', link: 'https://twitter.com/zarvhq' },
     ],
 
     footer: {
       message:
-        '<div style="color: #c0c0c0;font-size:0.9em"><a href="https://www.zarv.com/legal/tos">Terms of Use</a> | <a href="https://www.zarv.com/legal/privacy">Privacy Policy</a></div>',
+        '<div style="color: #c0c0c0;font-size:0.9em;margin-bottom:10px"><a href="https://www.zarv.com/legal/tos">Terms of Use</a> | <a href="https://www.zarv.com/legal/privacy">Privacy Policy</a></div>',
       copyright: `<div style="color: #c0c0c0; margin-bottom: 20px; font-size: 0.9em">Copyright © ${new Date().getFullYear()} <a href="https://www.zarv.com">Zarv Inc</a>. All rights reserved.</div>`,
     },
 

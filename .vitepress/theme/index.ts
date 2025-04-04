@@ -4,7 +4,7 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { theme, useTheme, locales, useOpenapi } from 'vitepress-openapi/client'
 import 'vitepress-openapi/dist/style.css'
-// import './style.css'
+import './zarv.css'
 // import 'virtual:group-icons.css'
 import spec from '../../swagger.json' assert { type: 'json' }
 
@@ -75,9 +75,12 @@ export default {
         // Set the number of columns to use in the OAOperation component.
         cols: 2,
         // Set the default base URL.
-        defaultBaseUrl: 'http://localhost',
+        defaultBaseUrl: 'https://developer.zarv.com',
         // Deprecated. Use `server.getServers` instead.
-        getServers: ({ method, path, operation }) => ['https://local.zarv.dev/v1/docs'],
+        getServers: ({ method, path, operation }) => [
+          'https://local.zarv.dev/v1/docs',
+          'https://api.zarv.com/v1/docs',
+        ],
       },
       // Set the i18n configuration.
       i18n: {
@@ -106,12 +109,12 @@ export default {
         showPathsSummary: true, // Show a summary of the paths when grouping by tags.
         avoidCirculars: false, // Avoid circular references when parsing schemas.
         lazyRendering: false, // Lazy render Paths and Tags components.
-        defaultTag: 'Default', // Default tag to use when a path has no tags.
+        defaultTag: 'General', // Default tag to use when a path has no tags.
         wrapExamples: true, // Wrap examples in a row or show them in a column.
       },
       server: {
         // Set a custom function to get servers.
-        getServers: ({ method, path, operation }) => [],
+        getServers: ({ method, path, operation }) => ['https://api.zarv.com/v1'],
         // Allow custom servers.
         allowCustomServer: true,
       },

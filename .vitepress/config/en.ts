@@ -1,7 +1,4 @@
-import { createRequire } from 'module'
 import { defineConfig, type DefaultTheme } from 'vitepress'
-
-const require = createRequire(import.meta.url)
 
 export const en = defineConfig({
   lang: 'en-US',
@@ -20,13 +17,13 @@ export const en = defineConfig({
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
-      text: 'Guide',
-      link: '/guide/what-is-vitepress',
+      text: 'Getting Started',
+      link: '/guide/welcome',
       activeMatch: '/guide/',
     },
     {
       text: 'Reference',
-      link: '/reference/site-config',
+      link: '/reference',
       activeMatch: '/reference/',
     },
     {

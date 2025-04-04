@@ -1,0 +1,408 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "operationId": "HealthController_index_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Health Check"
+        ]
+      }
+    },
+    "/v1/fipe": {
+      "get": {
+        "operationId": "FipesController_index_v1",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fipes retrieved successfully"
+          },
+          "404": {
+            "description": "No Fipes Found"
+          }
+        },
+        "tags": [
+          "FIPE"
+        ]
+      }
+    },
+    "/v1/fipe/reference": {
+      "get": {
+        "operationId": "FipesController_listReferences_v1",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "References retrieved successfully"
+          }
+        },
+        "tags": [
+          "FIPE"
+        ]
+      }
+    },
+    "/v1/fipe/update/brand": {
+      "get": {
+        "operationId": "FipesController_update_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Update brands"
+          }
+        },
+        "tags": [
+          "FIPE"
+        ]
+      }
+    },
+    "/v1/auth": {
+      "post": {
+        "operationId": "AuthController_signIn_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "description": "Sign-in credentials",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "User Access"
+                  },
+                  "secret": {
+                    "type": "string",
+                    "example": "User Secret"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully signed in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "token": "your-access-token"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        },
+        "summary": "Sign in to get an access token",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/reset-token": {
+      "post": {
+        "operationId": "AuthController_resetToken_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Token reset successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Reset the access token",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/profile/{id}": {
+      "get": {
+        "operationId": "ProfilesController_getVehicle_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Profile"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Zarv Asset ID API",
+    "description": "Support API to manage asset Profiles",
+    "version": "1.0.0",
+    "contact": {},
+    "termsOfService": "https://www.zarv.com/legal/tos"
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication and authorization"
+    },
+    {
+      "name": "Profile",
+      "description": "Locate asset profile"
+    },
+    {
+      "name": "FIPE",
+      "description": "Vehicle price table"
+    },
+    {
+      "name": "Health Check",
+      "description": "Check the health of the API"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://local.zarv.dev/v1",
+      "description": "Development"
+    },
+    {
+      "url": "https://api.zarv.dev/asset-id/v1",
+      "description": "Staging"
+    },
+    {
+      "url": "https://api.zarv.com/asset-id/v1",
+      "description": "Production"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {}
+  },
+  "externalDocs": {
+    "description": "Import API Docs",
+    "url": "/v1/docs/swagger.json"
+  }
+}
