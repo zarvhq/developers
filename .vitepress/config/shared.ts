@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
@@ -11,10 +11,13 @@ import {
 // import { search as ruSearch } from './ru'
 // import { search as zhSearch } from './zh'
 
-export const shared = defineConfig({
-  title: 'Zarv Developers',
+export const shared = withMermaid({
+  title: 'Developers',
+  titleTemplate: ':title - Zarv',
   description:
     "Welcome to the Zarv Developers Documentation - your hub for building with Zarv's embedded insurance and risk management platform. Here you'll find guides, API references, SDKs, and integration tutorials to help you onboard, protect, and manage assets using Zarv's powerful data, AI, and IoT capabilities.",
+
+  base: '/',
 
   rewrites: {
     'en/:rest*': ':rest*',
@@ -26,6 +29,10 @@ export const shared = defineConfig({
 
   markdown: {
     math: true,
+    languageAlias: {
+      svg: 'html',
+      'json#10': 'json',
+    },
     codeTransformers: [
       // We use `[!!code` in demo to prevent transformation, here we revert it back.
       {
@@ -51,7 +58,7 @@ export const shared = defineConfig({
         })()
         return fence(tokens, idx, options, env, self).replace(
           '<button title="Copy Code" class="copy"></button>',
-          `<button title="${codeCopyButtonTitle}" class="copy"></button>`
+          `<button title="${codeCopyButtonTitle}" class="copy"></button>`,
         )
       }
       md.use(groupIconMdPlugin)
@@ -76,7 +83,8 @@ export const shared = defineConfig({
     ['meta', { property: 'og:site_name', content: 'Zarv Developers' }],
     ['meta', { property: 'og:image', content: 'https://developers.zarv.com/zarv-developers-og.jpg' }],
     ['meta', { property: 'og:url', content: 'https://developers.zarv.com/' }],
-    // ['script', { src: 'https://cdn.usefathom.com/script.js', 'data-site': 'AZBRSFGG', 'data-spa': 'auto', defer: '' }]
+    ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-JE9M7ZNF3W', },],
+    ['script', {}, "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-JE9M7ZNF3W');"],
   ],
 
   themeConfig: {
@@ -125,14 +133,14 @@ export const shared = defineConfig({
     //   },
     // },
   },
-  // vite: {
-  //   plugins: [
-  //     groupIconVitePlugin({
-  //       customIcon: {
-  //         vitepress: localIconLoader(import.meta.url, '../../public/zarv-logo-mini.svg'),
-  //         firebase: 'logos:firebase',
-  //       },
-  //     }),
-  //   ],
-  // },
+  vite: {
+    plugins: [
+      // groupIconVitePlugin({
+      //   customIcon: {
+      //     vitepress: localIconLoader(import.meta.url, '../../public/zarv-logo-mini.svg'),
+      //     firebase: 'logos:firebase',
+      //   },
+      // }),
+    ],
+  },
 })

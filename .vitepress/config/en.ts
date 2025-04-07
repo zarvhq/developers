@@ -2,14 +2,14 @@ import { defineConfig, type DefaultTheme } from 'vitepress'
 
 export const en = defineConfig({
   lang: 'en-US',
-  description: 'Vite & Vue powered static site generator.',
+  description: 'Protection for every step of your journey.',
 
   themeConfig: {
     nav: nav(),
 
     sidebar: {
       '/guide/': { base: '/guide/', items: sidebarGuide() },
-      '/reference/': { base: '/reference/', items: sidebarReference() },
+      '/api/': { base: '/api/', items: sidebarApi() },
     },
   },
 })
@@ -17,27 +17,18 @@ export const en = defineConfig({
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
-      text: 'Getting Started',
-      link: '/guide/welcome',
+      text: 'Guide',
+      link: '/guide/getting-started',
       activeMatch: '/guide/',
     },
     {
       text: 'Reference',
-      link: '/reference',
-      activeMatch: '/reference/',
+      link: '/api/getting-started',
+      activeMatch: '/api/',
     },
     {
-      text: 'v1',
-      items: [
-        {
-          text: 'Changelog',
-          link: 'https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md',
-        },
-        {
-          text: 'Contributing',
-          link: 'https://github.com/vuejs/vitepress/blob/main/.github/contributing.md',
-        },
-      ],
+      text: 'Status',
+      link: 'https://status.zarv.com',
     },
   ]
 }
@@ -45,80 +36,117 @@ function nav(): DefaultTheme.NavItem[] {
 function sidebarGuide(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'Introduction',
-      collapsed: false,
+      text: 'Guide',
       items: [
-        { text: 'What is VitePress?', link: 'what-is-vitepress' },
         { text: 'Getting Started', link: 'getting-started' },
-        { text: 'Routing', link: 'routing' },
-        { text: 'Deploy', link: 'deploy' },
+        { text: 'API', link: 'api' },
+        { text: 'SDKs', link: 'sdk' },
       ],
     },
     {
-      text: 'Writing',
-      collapsed: false,
+      text: 'For Insurance',
       items: [
-        { text: 'Markdown Extensions', link: 'markdown' },
-        { text: 'Asset Handling', link: 'asset-handling' },
-        { text: 'Frontmatter', link: 'frontmatter' },
-        { text: 'Using Vue in Markdown', link: 'using-vue' },
-        { text: 'Internationalization', link: 'i18n' },
+        { text: 'Underwriting', link: 'insurance/underwriting' },
+        { text: 'Risk Exposure', link: 'insurance/risk-exposure' },
+        { text: 'Pricing', link: 'insurance/pricing' },
+        { text: 'Request Token', link: 'insurance/request-token' },
+        { text: 'API Reference', link: 'insurance/api-reference' },
       ],
     },
     {
-      text: 'Customization',
-      collapsed: false,
+      text: 'For Credit',
       items: [
-        { text: 'Using a Custom Theme', link: 'custom-theme' },
-        {
-          text: 'Extending the Default Theme',
-          link: 'extending-default-theme',
-        },
-        { text: 'Build-Time Data Loading', link: 'data-loading' },
-        { text: 'SSR Compatibility', link: 'ssr-compat' },
-        { text: 'Connecting to a CMS', link: 'cms' },
+        { text: 'Risk Score', link: 'credit/risk-score' },
+        { text: 'Default Recovery', link: 'credit/default-recovery' },
+        { text: 'Pricing', link: 'credit/pricing' },
+        { text: 'Request Token', link: 'credit/request-token' },
+        { text: 'API Reference', link: 'credit/api-reference' },
+      ],
+    },
+    // {
+    //   text: 'For Fleets',
+    //   items: [
+    //     { text: 'Risk Score', link: 'fleets/risk-score' },
+    //     { text: 'Default Recovery', link: 'fleets/default-recovery' },
+    //     { text: 'Road Safety', link: 'fleets/road-safety' },
+    //     { text: 'Pricing', link: 'fleets/pricing' },
+    //     { text: 'Request Token', link: 'fleets/request-token' },
+    //     { text: 'API Reference', link: 'insurance/api-reference' },
+    //   ],
+    // },
+    {
+      text: 'For Governments',
+      items: [
+        { text: 'Why Zarv?', link: 'governments/why-zarv' },
+        { text: 'Safety Reports', link: 'governments/safety-reports' },
+        { text: 'Road Safety', link: 'governments/road-safety' },
+        { text: 'Request Token', link: 'governments/request-token' },
+        { text: 'API Reference', link: 'insurance/api-reference' },
       ],
     },
     {
-      text: 'Experimental',
-      collapsed: false,
+      text: 'For Data Providers',
       items: [
-        { text: 'MPA Mode', link: 'mpa-mode' },
-        { text: 'Sitemap Generation', link: 'sitemap-generation' },
+        { text: 'Opex Improvement', link: 'data-providers/why-zarv' },
+        { text: 'LPR Devices', link: 'data-providers/lpr-devices' },
+        { text: 'GPS Devices', link: 'data-providers/gps-devices' },
+        { text: 'Request Token', link: 'data-providers/request-token' },
+        { text: 'API Reference', link: 'data-providers/api-reference' },
       ],
     },
-    { text: 'Config & API Reference', base: '/reference/', link: 'site-config' },
+    {
+      text: 'Privacy',
+      collapsed: true,
+      items: [
+        { text: 'Privacy Policy', link: 'privacy/privacy-policy' },
+        { text: 'Terms of Service', link: 'privacy/terms-of-service' },
+        { text: 'Data Protection', link: 'privacy/data-protection' },
+        { text: 'Data Retention', link: 'privacy/data-retention' },
+        { text: 'LGPD', link: 'privacy/lgpd' },
+        { text: 'GDPR', link: 'privacy/gdpr' },
+        { text: 'CCPA', link: 'privacy/ccpa' },
+      ],
+    },
   ]
 }
 
-function sidebarReference(): DefaultTheme.SidebarItem[] {
+function sidebarApi(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'Reference',
       items: [
-        { text: 'Site Config', link: 'site-config' },
-        { text: 'Frontmatter Config', link: 'frontmatter-config' },
-        { text: 'Runtime API', link: 'runtime-api' },
-        { text: 'CLI', link: 'cli' },
-        {
-          text: 'Default Theme',
-          base: '/reference/default-theme-',
-          items: [
-            { text: 'Overview', link: 'config' },
-            { text: 'Nav', link: 'nav' },
-            { text: 'Sidebar', link: 'sidebar' },
-            { text: 'Home Page', link: 'home-page' },
-            { text: 'Footer', link: 'footer' },
-            { text: 'Layout', link: 'layout' },
-            { text: 'Badge', link: 'badge' },
-            { text: 'Team Page', link: 'team-page' },
-            { text: 'Prev / Next Links', link: 'prev-next-links' },
-            { text: 'Edit Link', link: 'edit-link' },
-            { text: 'Last Updated Timestamp', link: 'last-updated' },
-            { text: 'Search', link: 'search' },
-            { text: 'Carbon Ads', link: 'carbon-ads' },
-          ],
-        },
+        { text: 'Getting Started', link: 'getting-started' },
+        { text: 'Authentication', link: 'authentication' },
+        { text: 'Errors', link: 'errors' },
+        { text: 'Rate Limits', link: 'rate-limits' },
+        { text: 'Webhooks', link: 'webhooks' },
+      ],
+    },
+    {
+      text: 'Services',
+      collapsed: true,
+      items: [
+        { text: 'Assets', link: 'assets' },
+        { text: 'Claims', link: 'claims' },
+        { text: 'Coverages', link: 'coverages' },
+        { text: 'Documents', link: 'documents' },
+        { text: 'Events', link: 'events' },
+        { text: 'Integrations', link: 'integrations' },
+        { text: 'Policies', link: 'policies' },
+        { text: 'Quotes', link: 'quotes' },
+        { text: 'Risks', link: 'risks' },
+        { text: 'Transactions', link: 'transactions' },
+        { text: 'Policies', link: 'policies' },
+        { text: 'Users', link: 'users' },
+        { text: 'Webhooks', link: 'webhooks' },
+      ],
+    },
+    {
+      text: 'Experimental',
+      collapsed: true,
+      items: [
+        { text: 'MPA Mode', link: 'mpa-mode' },
+        { text: 'Sitemap Generation', link: 'sitemap-generation' },
       ],
     },
   ]

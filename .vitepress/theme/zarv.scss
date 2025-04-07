@@ -1,0 +1,32 @@
+:root {
+  --vp-c-brand-1: #5d2a7c;
+  --vp-c-brand-2: #5d2a7c;
+  --vp-c-brand-3: #5d2a7c;
+  --vp-c-brand-4: #5d2a7c;
+}
+/* button with pill style */
+a.vp-button {
+  background-color: var(--vp-c-brand-1);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* add a brigter color from vp-c-brand-1 */
+a.vp-button:hover {
+  background-color: color-mix(in srgb, var(--vp-c-brand-1), white 10%);
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 0 6px var(--vp-c-brand-1);
+  transition: all 0.3s ease;
+}
+
+.img-fluid {
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-default-1);
+}

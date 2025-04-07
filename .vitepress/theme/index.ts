@@ -4,17 +4,15 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { theme, useTheme, locales, useOpenapi } from 'vitepress-openapi/client'
 import 'vitepress-openapi/dist/style.css'
-import './zarv.css'
+import './zarv.scss'
 // import 'virtual:group-icons.css'
 import spec from '../../swagger.json' assert { type: 'json' }
+import Layout from './Layout.vue'
 
 export default {
   extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    })
-  },
+  Layout,
+  NotFound: () => h('p', { class: 'not-found' }, 'Page not found'),
   async enhanceApp({ app }) {
     const openapi = useOpenapi({
       spec,
