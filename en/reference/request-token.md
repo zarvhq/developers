@@ -41,12 +41,12 @@ const submitForm = () => {
 
 This is a simple form that allows you to request a token.
 
-<form @submit.prevent="submitForm">
-  <div>
+<form @submit.prevent="submitForm" class="form">
+  <div class="form-group">
     <label for="email">Email:</label>
     <input type="email" id="email" v-model="email" required />
   </div>
-  <div>
+  <div class="form-group">
     <label for="token">Token:</label>
     <input type="text" id="token" v-model="token" required />
   </div>

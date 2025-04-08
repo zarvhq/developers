@@ -5,20 +5,21 @@ import DefaultTheme from 'vitepress/theme'
 import { theme, useTheme, locales, useOpenapi } from 'vitepress-openapi/client'
 import 'vitepress-openapi/dist/style.css'
 import './zarv.scss'
+import './style.scss'
 // import 'virtual:group-icons.css'
-import spec from '../../swagger.json' assert { type: 'json' }
 import Layout from './Layout.vue'
+
+// import spec from '../../swagger.json' assert { type: 'json' }
 
 export default {
   extends: DefaultTheme,
   Layout,
   NotFound: () => h('p', { class: 'not-found' }, 'Page not found'),
-  async enhanceApp({ app }) {
-    const openapi = useOpenapi({
-      spec,
-    })
+  enhanceApp({ app, router, siteData }) {
 
-    theme.enhanceApp({ app })
+    // const openapi = useOpenapi({ spec }) as any
+    useOpenapi()
+    theme.enhanceApp({ app, router, siteData })
 
     useTheme({
       requestBody: {
@@ -69,16 +70,13 @@ export default {
           'footer',
         ],
         // Slots to hide in the OAOperation component.
-        hiddenSlots: [],
+        hiddenSlots: ['try-it'],
         // Set the number of columns to use in the OAOperation component.
         cols: 2,
         // Set the default base URL.
         defaultBaseUrl: 'https://developer.zarv.com',
         // Deprecated. Use `server.getServers` instead.
-        getServers: ({ method, path, operation }) => [
-          'https://local.zarv.dev/v1/docs',
-          'https://api.zarv.com/v1/docs',
-        ],
+        getServers: ({ method, path, operation }) => [],
       },
       // Set the i18n configuration.
       i18n: {
@@ -112,7 +110,7 @@ export default {
       },
       server: {
         // Set a custom function to get servers.
-        getServers: ({ method, path, operation }) => ['https://api.zarv.com/v1'],
+        getServers: ({ method, path, operation }) => [],
         // Allow custom servers.
         allowCustomServer: true,
       },

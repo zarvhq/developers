@@ -1,11 +1,13 @@
 :root {
   --vp-c-brand-1: #5d2a7c;
-  --vp-c-brand-2: #5d2a7c;
+  // add 20% white to the color
+  --vp-c-brand-2: color-mix(in srgb, var(--vp-c-brand-1), white 30%);
   --vp-c-brand-3: #5d2a7c;
   --vp-c-brand-4: #5d2a7c;
 }
+
 /* button with pill style */
-a.vp-button {
+.vp-button {
   background-color: var(--vp-c-brand-1);
   color: #fff;
   border-radius: 6px;
@@ -14,19 +16,77 @@ a.vp-button {
   text-align: center;
   text-decoration: none;
   transition: all 0.3s ease;
-}
 
-/* add a brigter color from vp-c-brand-1 */
-a.vp-button:hover {
-  background-color: color-mix(in srgb, var(--vp-c-brand-1), white 10%);
-  color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
-  box-shadow: 0 0 6px var(--vp-c-brand-1);
-  transition: all 0.3s ease;
+  &:hover {
+    background-color: color-mix(in srgb, var(--vp-c-brand-1), white 10%);
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    box-shadow: 0 0 6px var(--vp-c-brand-1);
+    transition: all 0.3s ease;
+  }
 }
 
 .img-fluid {
   border-radius: 6px;
   border: 1px solid var(--vp-c-default-1);
+}
+
+/* add format to forms */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 600px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 0.4rem;
+  width: 100%;
+
+  label {
+    font-size: 0.9rem;
+    color: var(--vp-c-default-1);
+    margin-bottom: 0.5rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="color"],
+  input[type="file"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="range"] {
+    border-radius: 6px;
+    border: 1px solid var(--vp-c-default-1);
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: var(--vp-c-default-3);
+    margin-bottom: 1rem;
+    outline: none;
+    color: #333;
+
+    &:focus {
+      border: 1px solid var(--vp-c-brand-1);
+      background-color: var(--vp-c-default-2);
+    }
+    &:hover {
+      border: 1px solid var(--vp-c-brand-1);
+      background-color: var(--vp-c-default-2);
+    }
+  }
 }

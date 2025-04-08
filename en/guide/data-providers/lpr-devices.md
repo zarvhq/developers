@@ -17,7 +17,7 @@ graph LR
 If you sent both `Base64` and `External Image`, our system will use only the Base64 data.
 :::
 
-:lock: [Check here how to authenticate](./authentication.md)
+:lock: [Check here how to authenticate](../api/authentication.md)
 
 ---
 

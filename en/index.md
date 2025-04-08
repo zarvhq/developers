@@ -4,7 +4,7 @@ layout: home
 hero:
   # name: Zarv Developers
   text: Built to protect. Designed for trust.
-  tagline: Zarv is a AI-powered risk management platform that helps organizations identify, assess, and mitigate risks in real-time.
+  tagline: Zarv is a AI-powered risk management platform helps organizations to identify, assess, and mitigate risks in real-time.
   actions:
     - theme: brand
       text: Quickstart
@@ -13,7 +13,7 @@ hero:
       text: API Reference
       link: /api
   image:
-    src: /welcome-heroe.svg
+    src: /home/umbrella.png
     alt: Zarv Developers
 
 features:

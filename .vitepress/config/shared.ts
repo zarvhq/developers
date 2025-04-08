@@ -33,14 +33,6 @@ export const shared = withMermaid({
       svg: 'html',
       'json#10': 'json',
     },
-    codeTransformers: [
-      // We use `[!!code` in demo to prevent transformation, here we revert it back.
-      {
-        postprocess(code) {
-          return code.replace(/\[\!\!code/g, '[!code')
-        },
-      },
-    ],
     config(md) {
       // TODO: remove when https://github.com/vuejs/vitepress/issues/4431 is fixed
       const fence = md.renderer.rules.fence!
@@ -74,6 +66,10 @@ export const shared = withMermaid({
 
   /* prettier-ignore */
   head: [
+    ['link', { rel: 'preconnect', href: 'https://cdn.zarv.com' }],
+    ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }],
+    ['link', { rel: 'preconnect', href: 'https://cdn.segment.com' }],
+    ['link', { rel: 'preconnect', href: 'https://api.segment.com' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/zarv-logo-mini.svg' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/zarv-logo-mini.png' }],
     ['meta', { name: 'theme-color', content: '#5d2a7c' }],
@@ -85,6 +81,7 @@ export const shared = withMermaid({
     ['meta', { property: 'og:url', content: 'https://developers.zarv.com/' }],
     ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-JE9M7ZNF3W', },],
     ['script', {}, "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-JE9M7ZNF3W');"],
+    ['script', {}, `!function(){var i="analytics",analytics=window[i]=window[i]||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","screen","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware","register"];analytics.factory=function(e){return function(){if(window[i].initialized)return window[i][e].apply(window[i],arguments);var n=Array.prototype.slice.call(arguments);if(["track","screen","alias","group","page","identify"].indexOf(e)>-1){var c=document.querySelector("link[rel='canonical']");n.push({__t:"bpc",c:c&&c.getAttribute("href")||void 0,p:location.pathname,u:location.href,s:location.search,t:document.title,r:document.referrer})}n.unshift(e);analytics.push(n);return analytics}};for(var n=0;n<analytics.methods.length;n++){var key=analytics.methods[n];analytics[key]=analytics.factory(key)}analytics.load=function(key,n){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.setAttribute("data-global-segment-analytics-key",i);t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r);analytics._loadOptions=n};analytics._writeKey="VLroqXfffW6TG2XJ2EpJfOYCqyumiSVX";analytics.SNIPPET_VERSION="5.2.0";\nanalytics.load("VLroqXfffW6TG2XJ2EpJfOYCqyumiSVX");\nanalytics.page();\n}}();`],
   ],
 
   themeConfig: {
@@ -94,7 +91,7 @@ export const shared = withMermaid({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/zarvhq' },
-      { icon: 'linkedin', link: 'https://www.linkedin.com/company/zarv' },
+      { icon: 'linkedin', link: 'https://linkedin.com/company/zarv' },
     ],
 
     footer: {
@@ -135,12 +132,12 @@ export const shared = withMermaid({
   },
   vite: {
     plugins: [
-      // groupIconVitePlugin({
-      //   customIcon: {
-      //     vitepress: localIconLoader(import.meta.url, '../../public/zarv-logo-mini.svg'),
-      //     firebase: 'logos:firebase',
-      //   },
-      // }),
+      groupIconVitePlugin({
+        customIcon: {
+          vitepress: localIconLoader(import.meta.url, '../../public/zarv-logo-mini.svg'),
+          firebase: 'logos:firebase',
+        },
+      }),
     ],
   },
 })

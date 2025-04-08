@@ -1,4 +1,5 @@
 import { defineConfig, type DefaultTheme } from 'vitepress'
+import { services } from '../../en/reference/api/services'
 
 export const en = defineConfig({
   lang: 'en-US',
@@ -9,7 +10,7 @@ export const en = defineConfig({
 
     sidebar: {
       '/guide/': { base: '/guide/', items: sidebarGuide() },
-      '/api/': { base: '/api/', items: sidebarApi() },
+      '/reference/': { base: '/reference/', items: sidebarReference() },
     },
   },
 })
@@ -23,11 +24,11 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       text: 'Reference',
-      link: '/api/getting-started',
-      activeMatch: '/api/',
+      link: '/reference/getting-started',
+      activeMatch: '/reference/',
     },
     {
-      text: 'Status',
+      text: 'Status Page',
       link: 'https://status.zarv.com',
     },
   ]
@@ -48,7 +49,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         { text: 'Underwriting', link: 'insurance/underwriting' },
         { text: 'Risk Exposure', link: 'insurance/risk-exposure' },
-        { text: 'Pricing', link: 'insurance/pricing' },
+        { text: 'Investigations', link: 'insurance/investigations' },
         { text: 'Request Token', link: 'insurance/request-token' },
         { text: 'API Reference', link: 'insurance/api-reference' },
       ],
@@ -110,44 +111,25 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
   ]
 }
 
-function sidebarApi(): DefaultTheme.SidebarItem[] {
+function sidebarReference(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'Reference',
+      collapsed: false,
       items: [
         { text: 'Getting Started', link: 'getting-started' },
         { text: 'Authentication', link: 'authentication' },
         { text: 'Errors', link: 'errors' },
         { text: 'Rate Limits', link: 'rate-limits' },
-        { text: 'Webhooks', link: 'webhooks' },
+        { text: 'Access Token', link: 'request-token' },
       ],
     },
     {
       text: 'Services',
-      collapsed: true,
-      items: [
-        { text: 'Assets', link: 'assets' },
-        { text: 'Claims', link: 'claims' },
-        { text: 'Coverages', link: 'coverages' },
-        { text: 'Documents', link: 'documents' },
-        { text: 'Events', link: 'events' },
-        { text: 'Integrations', link: 'integrations' },
-        { text: 'Policies', link: 'policies' },
-        { text: 'Quotes', link: 'quotes' },
-        { text: 'Risks', link: 'risks' },
-        { text: 'Transactions', link: 'transactions' },
-        { text: 'Policies', link: 'policies' },
-        { text: 'Users', link: 'users' },
-        { text: 'Webhooks', link: 'webhooks' },
-      ],
-    },
-    {
-      text: 'Experimental',
-      collapsed: true,
-      items: [
-        { text: 'MPA Mode', link: 'mpa-mode' },
-        { text: 'Sitemap Generation', link: 'sitemap-generation' },
-      ],
+      items: services.map((service: any) => ({
+        text: service.label,
+        link: `/api/${service.slug}`,
+      })),
     },
   ]
 }
