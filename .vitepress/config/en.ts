@@ -52,7 +52,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Risk Exposure', link: 'insurance/risk-exposure' },
         { text: 'Investigations', link: 'insurance/investigations' },
         { text: 'Request Token', base: '/', link: 'request-token?origin=insurance' },
-        { text: 'API Reference', link: 'insurance/api-reference' },
       ],
     },
     {

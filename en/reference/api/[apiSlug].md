@@ -76,7 +76,7 @@ const defaultTheme = {
     // Set the number of columns to use in the OAOperation component.
     cols: 2,
     // Set the default base URL.
-    // defaultBaseUrl: 'https://developers.zarv.com',
+    defaultBaseUrl: 'https://api.zarv.com',
   },
   spec: {
     groupByTags: true, // Group paths by tags.
