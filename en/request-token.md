@@ -19,39 +19,56 @@ const email = ref('');
 const phone = ref('');
 const company = ref('');
 const industry = ref('');
+const role = ref('');
 
 let industryLabel = 'Developers'
-if (origin === 'data-provider') {
-  industryLabel = 'Data Providers'
-  industry.value = 'data-provider'
+if (origin === 'data-partner') {
+  industryLabel = 'Data Partner'
+  industry.value = 'data-partner'
 } else if (origin === 'government') {
   industryLabel = 'Government'
   industry.value = 'government'
 } else if (origin === 'insurance') {
-  industryLabel = 'Insurance Companies'
+  industryLabel = 'Insurance Company'
   industry.value = 'insurance'
 } else if (origin === 'credit') {
-  industryLabel = 'Finance/Credit Companies'
+  industryLabel = 'Finance/Credit Company'
   industry.value = 'credit'
 }
 
 const submitForm = () => {
   loading.value = true;
   sent.value = false;
-  const payload = {
-    name: name.value,
-    email: email.value,
-    phone: phone.value,
-    company: company.value,
-    industry: industry.value,
+  if (!!email.value && !!name.value && !!phone.value && !!company.value && !!industry.value && !!role.value) {
+    window.analytics.identify(email.value.toLowerCase(), {
+      name: name.value,
+      phone: phone.value,
+      company: company.value,
+      industry: industry.value,
+      role: role.value,
+    })
+    window.analytics.track('DEVELOPER_TOKEN', {
+      name: name.value,
+      email: email.value.toLowerCase(),
+      phone: phone.value,
+      company: company.value,
+      industry: industryLabel,
+      role: role.value,
+    });
+  } else {
+    error.value = true;
+    loading.value = false;
   }
-  console.log({ payload})
-  window.analytics.track('DEVELOPER_TOKEN', payload);
   sent.value = true;
 };
 </script>
 
-# {{ $frontmatter.title }} for {{ industryLabel }}<Badge type="warning" text="beta" />
+<h1 v-if="origin === null">
+  {{ $frontmatter.title }}<Badge type="warning" text="beta" />
+</h1>
+<h1 v-else>
+  {{ $frontmatter.title }} for {{ industryLabel }}<Badge type="warning" text="beta" />
+</h1>
 
 To gain access to our API, you need to sign up and wait for our team to review your application. This process ensures that we can provide you with the best possible support and maintain the security of our platform.
 
@@ -68,12 +85,12 @@ To gain access to our API, you need to sign up and wait for our team to review y
 <form @submit.prevent="submitForm" class="form" v-if="!sent">
   <div class="form-group">
     <label for="industry">Access Type:</label>
-    <select v-model="industry" id="industry" :disabled="origin !== null">
-      <option value="data-provider">Data Providers</option>
+    <select v-model="industry" id="industry" :disabled="origin !== null" required>
+      <option value="insurance">Insurance Company</option>
+      <option value="credit">Finance/Credit Company</option>
+      <option value="data-partner">Data Partner</option>
       <option value="government">Government</option>
-      <option value="insurance">Insurance Companies</option>
-      <option value="credit">Finance/Credit Companies</option>
-      <option value="other">Single Developer</option>
+      <option value="startup">Startup</option>
     </select>
   </div>
   <div class="form-group">
@@ -87,6 +104,19 @@ To gain access to our API, you need to sign up and wait for our team to review y
   <div class="form-group">
     <label for="email">Your Work Email</label>
     <input type="email" id="email" v-model="email" required />
+  </div>
+  <div class="form-group" required>
+    <label for="role">Role:</label>
+    <select v-model="role" id="role">
+      <option value="engineer">Engineer</option>
+      <option value="product-manager">Product Manager</option>
+      <option value="data-scientist">Data Scientist</option>
+      <option value="business-analyst">Business Analyst</option>
+      <option value="ceo">CEO</option>
+      <option value="cto">CTO</option>
+      <option value="founder">Founder</option>
+      <option value="other">Other</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="phone">Your Whatsapp:</label>
