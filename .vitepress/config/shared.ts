@@ -67,9 +67,9 @@ export const shared = withMermaid({
   /* prettier-ignore */
   head: [
     ['link', { rel: 'preconnect', href: 'https://cdn.zarv.com' }],
-    ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }],
     ['link', { rel: 'preconnect', href: 'https://cdn.segment.com' }],
     ['link', { rel: 'preconnect', href: 'https://api.segment.io' }],
+    ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/zarv-logo-mini.svg' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/zarv-logo-mini.png' }],
     ['meta', { name: 'theme-color', content: '#5d2a7c' }],
@@ -131,6 +131,13 @@ export const shared = withMermaid({
     // },
   },
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern',
+        },
+      },
+    },
     plugins: [
       groupIconVitePlugin({
         customIcon: {
