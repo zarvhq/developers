@@ -18,6 +18,7 @@ export const shared = withMermaid({
     "Welcome to the Zarv Developers Documentation - your hub for building with Zarv's embedded insurance and risk management platform. Here you'll find guides, API references, SDKs, and integration tutorials to help you onboard, protect, and manage assets using Zarv's powerful data, AI, and IoT capabilities.",
 
   base: '/',
+  outDir: './dist',
 
   rewrites: {
     'en/:rest*': ':rest*',
@@ -60,7 +61,7 @@ export const shared = withMermaid({
   sitemap: {
     hostname: 'https://developers.zarv.com',
     transformItems(items) {
-      return items.filter((item) => !item.url.includes('migration'))
+      return items.filter((item) => !item.url.includes('request-token'))
     },
   },
 

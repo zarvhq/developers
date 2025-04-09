@@ -46,4 +46,4 @@ If you have any questions about our GDPR compliance or wish to exercise your rig
 
 ## Conclusion
 
-We are committed to protecting your personal data and ensuring compliance with GDPR. For more information, please refer to our [Privacy Policy](../privacy-policy.md).
+We are committed to protecting your personal data and ensuring compliance with GDPR. For more information, please refer to our [Privacy Policy](../privacy/privacy-policy.md).

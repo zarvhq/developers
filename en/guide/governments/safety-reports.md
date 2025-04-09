@@ -2,7 +2,7 @@
 
 Zarv serves as a vital data hub, bridging the gap between the private sector and government agencies. By providing access to private-sector data that governments typically cannot obtain directly, Zarv empowers authorities with actionable insights to enhance public safety and foster a more secure environment for citizens.
 
-![Zarv Safety Reports](/guide/governments/safety-reports.png){.img-fluid}
+![Zarv Safety Reports](/images/guide/governments/safety-reports.png){.img-fluid}
 
 ## Types of Information Shared
 

@@ -22,13 +22,13 @@ We may collect the following categories of personal information:
 - Internet activity (e.g., browsing history on our site)
 - Geolocation data
 
-For a full list of the data we collect, please refer to our [Privacy Policy](../privacy-policy.md).
+For a full list of the data we collect, please refer to our [Privacy Policy](../privacy/privacy-policy.md).
 
 ## How to Exercise Your Rights
 
 To exercise your CCPA rights, you can:
 
-- Submit a request via our [Privacy Request Form](../privacy-request-form.md).
+<!-- - Submit a request via our [Privacy Request Form](../privacy-request-form.md). -->
 - Contact us at [privacy@zarv.com](mailto:privacy@zarv.com).
 
 We will verify your identity before processing your request to ensure the security of your information.

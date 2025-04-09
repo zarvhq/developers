@@ -6,7 +6,7 @@ category: 'Partners'
 # Authentication
 
 ::: warning Important!
-If you need an ApiKey, please [follow these steps](./request-token.md).
+If you need an ApiKey, please [follow these steps](../../request-token.md).
 :::
 
 ## How to authenticate?
@@ -17,7 +17,7 @@ All requests are authenticated using the custom header `apikey` following your A
 
 ### Request
 
-The `INTEGRATION_PAYLOAD` could change based on if you are integrating a [Camera](./camera.md) or [GPS Device](./gps.md).
+The `INTEGRATION_PAYLOAD` could change based on if you are integrating a [Camera](./lpr-devices.md) or [GPS Device](./gps-devices.md).
 
 ::: code-group
 

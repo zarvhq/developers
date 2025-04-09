@@ -13,24 +13,24 @@ hero:
       text: API Reference
       link: /reference/getting-started
   image:
-    src: /home/umbrella.png
+    src: /images/home/umbrella.png
     alt: Zarv Developers
 
 features:
   - icon:
-      src: /home/shield.png
+      src: /images/home/shield.png
     title: Strengthen Your Security
     details: Leverage AI-driven insights to identify and mitigate risks before they become threats.
   - icon:
-      src: /home/statistics.png
+      src: /images/home/statistics.png
     title: Real-Time Risk Analysis
     details: Gain actionable intelligence with real-time monitoring and comprehensive risk assessments.
   - icon: 
-      src: /home/workflow.png
+      src: /images/home/workflow.png
     title: Customize Your Workflow
     details: Tailor risk management processes to fit your organization's unique needs and objectives.
   - icon:
-      src: /home/rocket.png
+      src: /images/home/rocket.png
     title: Accelerate Decision-Making
     details: Make informed decisions faster with predictive analytics and automated risk prioritization.
 ---

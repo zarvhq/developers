@@ -1,6 +1,6 @@
 # Road Safety Guide for Governments
 
-![Zarv Safety Reports](/guide/governments/road-safety.png){.img-fluid}
+![Zarv Safety Reports](/images/guide/governments/road-safety.png){.img-fluid}
 
 ## Introduction
 

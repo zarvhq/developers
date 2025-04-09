@@ -13,8 +13,6 @@ graph LR
     F --> |Storage| E
 ```
 
-:lock: [Check here how to authenticate](../api/authentication.md)
-
 ## API Fields
 
 | Field                                                      | Type   | Description                                                                                                         |

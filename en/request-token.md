@@ -5,11 +5,16 @@ aside: false
 ---
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-// With window location, get orign from URL
-const url = new URL(window.location.href);
-const origin = url.searchParams.get('origin') || null;
+const origins = {
+  'data-partner': 'Data Partner',
+  'government': 'Government',
+  'insurance': 'Insurance Company',
+  'credit': 'Finance/Credit Company',
+  'startup': 'Startup',
+  'other': 'Other',
+}
 
 const loading = ref(false)
 const sent = ref(false)
@@ -20,24 +25,6 @@ const phone = ref('');
 const company = ref('');
 const industry = ref('');
 const role = ref('');
-
-let industryLabel = ''
-if (origin === 'data-partner') {
-  industryLabel = 'Data Partner'
-  industry.value = 'data-partner'
-} else if (origin === 'government') {
-  industryLabel = 'Government'
-  industry.value = 'government'
-} else if (origin === 'insurance') {
-  industryLabel = 'Insurance Company'
-  industry.value = 'insurance'
-} else if (origin === 'credit') {
-  industryLabel = 'Finance/Credit Company'
-  industry.value = 'credit'
-} else if (origin === 'startup') {
-  industryLabel = 'Startup'
-  industry.value = 'startup'
-}
 
 const submitForm = () => {
   loading.value = true;
@@ -55,7 +42,7 @@ const submitForm = () => {
       email: email.value.toLowerCase(),
       phone: phone.value,
       company: company.value,
-      industry: industryLabel,
+      industry: origins[industry.value],
       role: role.value,
     });
   } else {
@@ -66,12 +53,7 @@ const submitForm = () => {
 };
 </script>
 
-<h1 v-if="origin === null">
-  {{ $frontmatter.title }}<Badge type="warning" text="beta" />
-</h1>
-<h1 v-else>
-  {{ $frontmatter.title }} for {{ industryLabel }}<Badge type="warning" text="beta" />
-</h1>
+# {{ $frontmatter.title }}<Badge type="warning" text="beta" />
 
 To gain access to our API, you need to sign up and wait for our team to review your application. This process ensures that we can provide you with the best possible support and maintain the security of our platform.
 
@@ -87,21 +69,23 @@ To gain access to our API, you need to sign up and wait for our team to review y
 
 <form @submit.prevent="submitForm" class="form" v-if="!sent">
   <div class="form-group">
-    <label for="industry">Access Type:</label>
-    <select v-model="industry" id="industry" :disabled="origin !== null" required>
-      <option value="insurance">Insurance Company</option>
-      <option value="credit">Finance/Credit Company</option>
+    <label for="industry">Company Type</label>
+    <select v-model="industry" id="industry" required>
+      <option value="" disabled selected>Select your option</option>
       <option value="data-partner">Data Partner</option>
       <option value="government">Government</option>
+      <option value="insurance">Insurance Company</option>
+      <option value="credit">Finance/Credit Company</option>
       <option value="startup">Startup</option>
+      <option value="other">Other</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="company">Company Name:</label>
+    <label for="company">Company Name</label>
     <input type="text" id="company" v-model="company" required />
   </div>
   <div class="form-group">
-    <label for="name">Your Name:</label>
+    <label for="name">Your Name</label>
     <input type="text" id="name" v-model="name" required />
   </div>
   <div class="form-group">
@@ -109,7 +93,7 @@ To gain access to our API, you need to sign up and wait for our team to review y
     <input type="email" id="email" v-model="email" required />
   </div>
   <div class="form-group" required>
-    <label for="role">Role:</label>
+    <label for="role">Your Role</label>
     <select v-model="role" id="role">
       <option value="engineer">Engineer</option>
       <option value="product-manager">Product Manager</option>
@@ -122,7 +106,7 @@ To gain access to our API, you need to sign up and wait for our team to review y
     </select>
   </div>
   <div class="form-group">
-    <label for="phone">Your Whatsapp:</label>
+    <label for="phone">Your Whatsapp</label>
     <input type="text" id="phone" v-model="phone" required />
   </div>
   <div class="form-group">

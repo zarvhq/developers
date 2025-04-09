@@ -1,6 +1,6 @@
 # Getting Started with Zarv's API
 
-<img src="/guide/faq-heroe.svg" alt="Zarv FAQ Hero" style="display: block; margin: 30px auto;" />
+![](/images/guide/faq-heroe.svg){.img-fluid}
 
 Welcome to Zarv's API guide! This section addresses common questions from our partners and will be updated regularly as new queries arise. If you're interested in becoming a partner, feel free to reach out to us at <partnership@zarv.com>.
 
@@ -13,12 +13,6 @@ Zarv's API is designed to provide seamless integration for various equipment and
 - **Native Integrations**: Easily integrate with platforms like Monuv for video management, reducing the complexity of setup and maintenance.
 - **Scalability**: Designed to handle large-scale operations, Zarv's API can support thousands of devices simultaneously.
 - **Security**: Built with robust encryption and authentication mechanisms to ensure data privacy and integrity.
-
-For detailed instructions, explore the following guides:
-
-- [Supported Integrations](./supported-integrations.md)
-- [Compensation Model](./compensation-model.md)
-- [FAQ](./faq.md)
 
 ## Supported Integrations
 
