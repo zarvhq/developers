@@ -1,7 +1,7 @@
 ---
 aside: false
 outline: false
-title: {{ apiTitle}}
+title: API Reference
 ---
 
 <script setup lang="ts">
@@ -15,25 +15,13 @@ const apiTitle = route.data.params.title
 const apiSlug = route.data.params.apiSlug
 const spec = JSON.parse(JSON.stringify(route.data.params.specUrl))
 const themeConfig = route.data.params.themeConfig
-const loadSpec = ref(null)
+const loadSpec = ref('')
+const loading = ref(true)
 
-const defaultConfig = {
-  jsonViewer: {
-    deep: 1,
-  },
-  schemaViewer: {
-    deep: 1,
-  },
-  requestBody: {
-    defaultView: 'schema',
-  },
-}
-
-useTheme({ ...defaultConfig, ...themeConfig })
+useTheme(themeConfig)
 
 onUnmounted(() => {
   useTheme().reset()
-  loadSpec.value = null
 })
 
 onMounted(async () => {
@@ -43,15 +31,23 @@ onMounted(async () => {
 })
 </script>
 
-# API Reference - {{ apiTitle }}
+<div class="vp-loading" v-if="!loadSpec">
+  <h1>Loading {{ apiTitle }} Reference...</h1>
+  <OASpecSkeleton style="margin:10px 0 0 -20px" />
+</div>
+<div v-else>
+
+# API Reference - {{ loadSpec.info?.title }}<Badge type="warning" :text="`v ${ loadSpec.info?.version }`" />
+
+{{ loadSpec.info?.description }}
 
 <OASpec
   :groupByTags="false"
   :hideInfo="true"
-  :hideOperations="true"
   :hideServers="true"
-  :hideTags="true"
   :hideBranding="true"
   :hidePathsSummary="true"
   :spec="loadSpec"
 />
+
+</div>

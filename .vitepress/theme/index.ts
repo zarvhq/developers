@@ -9,7 +9,7 @@ import './style.scss'
 // import 'virtual:group-icons.css'
 import Layout from './Layout.vue'
 
-// import spec from '../../swagger.json' assert { type: 'json' }
+import spec from '../../swagger.json' assert { type: 'json' }
 
 export default {
   extends: DefaultTheme,
@@ -17,9 +17,10 @@ export default {
   NotFound: () => h('p', { class: 'not-found' }, 'Page not found'),
   enhanceApp({ app, router, siteData }) {
 
-    // const openapi = useOpenapi({ spec }) as any
-    useOpenapi()
-    theme.enhanceApp({ app, router, siteData })
+    const openapi = useOpenapi({ spec }) as any
+
+    // useOpenapi()
+    theme.enhanceApp({ app, openapi, router, siteData })
 
     useTheme({
       requestBody: {
@@ -28,19 +29,19 @@ export default {
       },
       jsonViewer: {
         // Set the JSON viewer depth.
-        deep: Infinity,
+        deep: 1,
       },
       schemaViewer: {
         // Set the schema viewer depth.
-        deep: Infinity,
+        deep: 1,
       },
       // Set the heading levels.
       headingLevels: {
-        h1: 1,
-        h2: 2,
-        h3: 3,
-        h4: 4,
-        h5: 5,
+        h1: 2,
+        h2: 3,
+        h3: 4,
+        h4: 5,
+        h5: 6,
         h6: 6,
       },
       response: {
@@ -59,24 +60,21 @@ export default {
         // Slots to render in the OAOperation component.
         slots: [
           'header',
+          // 'tags',
           'path',
           'description',
           'security',
           'request-body',
+          'parameters',
           'responses',
-          'playground',
           'code-samples',
-          'branding',
-          'footer',
         ],
         // Slots to hide in the OAOperation component.
-        hiddenSlots: ['try-it'],
+        hiddenSlots: ['try-it', 'branding', 'footer', 'playground'],
         // Set the number of columns to use in the OAOperation component.
-        cols: 2,
+        cols: 1,
         // Set the default base URL.
-        defaultBaseUrl: 'https://developer.zarv.com',
-        // Deprecated. Use `server.getServers` instead.
-        getServers: ({ method, path, operation }) => [],
+        // defaultBaseUrl: 'https://developers.zarv.com',
       },
       // Set the i18n configuration.
       i18n: {
@@ -91,6 +89,10 @@ export default {
             ...locales.es,
             'operation.badgePrefix.operationId': 'ID de operación',
           },
+          'pt-BR': {
+            ...locales['pt-BR'],
+            'operation.badgePrefix.operationId': 'ID da operação',
+          },
         },
         availableLocales: [
           { code: 'en', label: 'English' },
@@ -102,18 +104,42 @@ export default {
       spec: {
         groupByTags: true, // Group paths by tags.
         collapsePaths: false, // Collapse paths when grouping by tags.
-        showPathsSummary: true, // Show a summary of the paths when grouping by tags.
-        avoidCirculars: false, // Avoid circular references when parsing schemas.
+        showPathsSummary: false, // Show a summary of the paths when grouping by tags.
+        avoidCirculars: true, // Avoid circular references when parsing schemas.
         lazyRendering: false, // Lazy render Paths and Tags components.
-        defaultTag: 'General', // Default tag to use when a path has no tags.
-        wrapExamples: true, // Wrap examples in a row or show them in a column.
+        defaultTag: 'Default', // Default tag to use when a path has no tags.
+        wrapExamples: false, // Wrap examples in a row or show them in a column.
       },
-      server: {
-        // Set a custom function to get servers.
-        getServers: ({ method, path, operation }) => [],
-        // Allow custom servers.
-        allowCustomServer: true,
-      },
+      // server: {
+      //   allowCustomServer: false,
+
+      //   getServers: (): string[] => {
+      //     return ['https://api.zarv.com']
+
+      //     //   JSON.stringify({
+      //     //     url: 'https://api.zarv.com',
+      //     //     description: 'Zarv API',
+      //     //     variables: {
+      //     //       env: {
+      //     //         default: 'prod',
+      //     //         enum: ['prod', 'staging'],
+      //     //         description: 'Environment',
+      //     //       },
+      //     //       region: {
+      //     //         default: 'us',
+      //     //         enum: ['us', 'eu'],
+      //     //         description: 'Region',
+      //     //       },
+      //     //       version: {
+      //     //         default: 'v1',
+      //     //         enum: ['v1', 'v2'],
+      //     //         description: 'Version',
+      //     //       },
+      //     //     },
+      //     //   }),
+      //     // ]
+      //   },
+      // },
     })
   },
 } satisfies Theme

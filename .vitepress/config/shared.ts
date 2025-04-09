@@ -69,7 +69,7 @@ export const shared = withMermaid({
     ['link', { rel: 'preconnect', href: 'https://cdn.zarv.com' }],
     ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }],
     ['link', { rel: 'preconnect', href: 'https://cdn.segment.com' }],
-    ['link', { rel: 'preconnect', href: 'https://api.segment.com' }],
+    ['link', { rel: 'preconnect', href: 'https://api.segment.io' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/zarv-logo-mini.svg' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/zarv-logo-mini.png' }],
     ['meta', { name: 'theme-color', content: '#5d2a7c' }],

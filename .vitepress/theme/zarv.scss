@@ -6,15 +6,25 @@
   --vp-c-brand-4: #5d2a7c;
 }
 
+.bg-primary {
+  background-color: var(--vp-c-brand-1);
+  border-radius: 6px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--vp-c-brand-1), white 10%);
+  }
+}
+
 /* button with pill style */
 .vp-button {
   background-color: var(--vp-c-brand-1);
-  color: #fff;
+  color: #fff!important;
   border-radius: 6px;
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none!important;
   transition: all 0.3s ease;
 
   &:hover {
@@ -30,6 +40,11 @@
 .img-fluid {
   border-radius: 6px;
   border: 1px solid var(--vp-c-default-1);
+
+  .heroe {
+    border: none;
+    max-height: 100px;
+  }
 }
 
 /* add format to forms */
@@ -52,10 +67,11 @@
 
   label {
     font-size: 0.9rem;
-    color: var(--vp-c-default-1);
+    color: var(--vp-c-default-0);
     margin-bottom: 0.5rem;
   }
 
+  select,
   input[type="text"],
   input[type="email"],
   input[type="password"],

@@ -1,6 +1,6 @@
 # Getting Started with Zarv's API
 
-<img src="/faq-heroe.svg" alt="Zarv FAQ Hero" style="display: block; margin: 30px auto;" />
+<img src="/guide/faq-heroe.svg" alt="Zarv FAQ Hero" style="display: block; margin: 30px auto;" />
 
 Welcome to Zarv's API guide! This section addresses common questions from our partners and will be updated regularly as new queries arise. If you're interested in becoming a partner, feel free to reach out to us at <partnership@zarv.com>.
 
