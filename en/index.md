@@ -11,7 +11,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: API Reference
-      link: /api
+      link: /reference/getting-started
   image:
     src: /home/umbrella.png
     alt: Zarv Developers

@@ -72,7 +72,7 @@ export default {
         // Slots to hide in the OAOperation component.
         hiddenSlots: ['try-it', 'branding', 'footer', 'playground'],
         // Set the number of columns to use in the OAOperation component.
-        cols: 1,
+        cols: 2,
         // Set the default base URL.
         // defaultBaseUrl: 'https://developers.zarv.com',
       },

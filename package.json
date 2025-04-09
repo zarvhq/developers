@@ -23,6 +23,7 @@
     "cytoscape-cose-bilkent": "4.1.0",
     "dayjs": "1.11.13",
     "debug": "4.4.0",
+    "markdown-it": "14.1.0",
     "markdown-it-mathjax3": "4.3.2",
     "mermaid": "11.6.0",
     "open-cli": "8.0.0",

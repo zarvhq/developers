@@ -42,6 +42,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Getting Started', link: 'getting-started' },
         { text: 'API', link: 'api' },
         { text: 'SDKs', link: 'sdk' },
+        { text: 'API Reference', base: 'reference/', link: 'getting-started' },
       ],
     },
     {
@@ -61,7 +62,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Default Recovery', link: 'credit/default-recovery' },
         { text: 'Pricing', link: 'credit/pricing' },
         { text: 'Request Token', base: '/', link: 'request-token?origin=credit' },
-        { text: 'API Reference', link: 'credit/api-reference' },
       ],
     },
     // {
@@ -82,7 +82,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Safety Reports', link: 'governments/safety-reports' },
         { text: 'Road Safety', link: 'governments/road-safety' },
         { text: 'Request Token', base: '/', link: 'request-token?origin=government' },
-        { text: 'API Reference', link: 'insurance/api-reference' },
       ],
     },
     {
@@ -92,7 +91,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'LPR Devices', link: 'data-partners/lpr-devices' },
         { text: 'GPS Devices', link: 'data-partners/gps-devices' },
         { text: 'Request Token', base: '/', link: 'request-token?origin=data-partner' },
-        { text: 'API Reference', link: 'data-partners/api-reference' },
+        { text: 'API Reference', base: 'reference/', link: 'collector' },
       ],
     },
     {

@@ -21,7 +21,7 @@ const company = ref('');
 const industry = ref('');
 const role = ref('');
 
-let industryLabel = 'Developers'
+let industryLabel = ''
 if (origin === 'data-partner') {
   industryLabel = 'Data Partner'
   industry.value = 'data-partner'
@@ -34,6 +34,9 @@ if (origin === 'data-partner') {
 } else if (origin === 'credit') {
   industryLabel = 'Finance/Credit Company'
   industry.value = 'credit'
+} else if (origin === 'startup') {
+  industryLabel = 'Startup'
+  industry.value = 'startup'
 }
 
 const submitForm = () => {

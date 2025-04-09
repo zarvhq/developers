@@ -9,17 +9,7 @@ export const services = [
     slug: 'criptoya-argentina',
     label: 'CriptoYa Argentina',
     specUrl: 'https://docs.criptoya.com/argentina/openapi.json',
-    themeConfig: {
-      jsonViewer: {
-        deep: 1,
-      },
-      schemaViewer: {
-        deep: 1,
-      },
-      requestBody: {
-        defaultView: 'schema',
-      },
-    },
+    themeConfig: {},
   },
   {
     slug: 'scalar-galaxy',
