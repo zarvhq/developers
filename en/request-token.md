@@ -6,6 +6,7 @@ aside: false
 
 <script setup>
 import { ref } from 'vue'
+import { useUrlSearchParams } from '@vueuse/core'
 
 const origins = {
   'data-partner': 'Data Partner',
@@ -16,6 +17,13 @@ const origins = {
   'other': 'Other',
 }
 
+const params = useUrlSearchParams('hash-params', {
+  origin: {
+    type: String,
+    default: null,
+  },
+})
+
 const loading = ref(false)
 const sent = ref(false)
 const error = ref(false)
@@ -23,7 +31,7 @@ const name = ref('');
 const email = ref('');
 const phone = ref('');
 const company = ref('');
-const industry = ref('');
+const industry = ref(params.origin || null);
 const role = ref('');
 
 const submitForm = () => {

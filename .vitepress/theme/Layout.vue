@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import DefaultTheme from 'vitepress/theme'
-import { useData, inBrowser } from 'vitepress'
 import { watchEffect } from 'vue'
+import { useData, inBrowser } from 'vitepress'
+import { useCookies } from '@vueuse/integrations/useCookies'
+import DefaultTheme from 'vitepress/theme'
 
 const { lang } = useData()
+const cookies = useCookies(['locale'])
+
 watchEffect(() => {
   if (inBrowser) {
-    document.cookie = `nf_lang=${lang.value}; expires=Mon, 1 Jan 2030 00:00:00 UTC; path=/`
+    cookies.set('nf_lang', lang.value, { expires: new Date('2030-01-01T00:00:00Z'), path: '/' })
   }
 })
 </script>

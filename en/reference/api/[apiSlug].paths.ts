@@ -19,6 +19,21 @@ export default {
       openApiSpecs.map(async (spec, index) => {
         const { slug } = services[index]
         const filePath = `./public/openapi/${slug}.json`
+
+
+        // Remove the "servers" property from the spec
+        if (spec.servers) {
+          delete spec.servers
+        }
+        // Remove the "basePath" property from the spec
+        if (spec.basePath) {
+          delete spec.basePath
+        }
+        // Remove the "host" property from the spec
+        if (spec.host) {
+          delete spec.host
+        }
+
         await fs.promises.writeFile(
           filePath,
           JSON.stringify(spec),

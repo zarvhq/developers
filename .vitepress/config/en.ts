@@ -51,7 +51,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Underwriting', link: 'insurance/underwriting' },
         { text: 'Risk Exposure', link: 'insurance/risk-exposure' },
         { text: 'Investigations', link: 'insurance/investigations' },
-        { text: 'Request Token', base: '/', link: 'request-token?origin=insurance' },
+        { text: 'Request Token', base: '/', link: 'request-token#origin=insurance' },
       ],
     },
     {
@@ -60,7 +60,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Risk Score', link: 'credit/risk-score' },
         { text: 'Default Recovery', link: 'credit/default-recovery' },
         { text: 'Pricing', link: 'credit/pricing' },
-        { text: 'Request Token', base: '/', link: 'request-token?origin=credit' },
+        { text: 'Request Token', base: '/', link: 'request-token#origin=credit' },
       ],
     },
     // {
@@ -80,7 +80,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Why Zarv?', link: 'governments/why-zarv' },
         { text: 'Safety Reports', link: 'governments/safety-reports' },
         { text: 'Road Safety', link: 'governments/road-safety' },
-        { text: 'Request Token', base: '/', link: 'request-token?origin=government' },
+        { text: 'Request Token', base: '/', link: 'request-token#origin=government' },
       ],
     },
     {
@@ -89,7 +89,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Opex Improvement', link: 'data-partners/why-zarv' },
         { text: 'LPR Devices', link: 'data-partners/lpr-devices' },
         { text: 'GPS Devices', link: 'data-partners/gps-devices' },
-        { text: 'Request Token', base: '/', link: 'request-token?origin=data-partner' },
+        { text: 'Request Token', base: '/', link: 'request-token#origin=data-partner' },
         { text: 'API Reference', base: 'reference/', link: 'collector' },
       ],
     },

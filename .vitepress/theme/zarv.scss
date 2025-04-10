@@ -40,10 +40,12 @@
 .img-fluid {
   border-radius: 6px;
   border: 1px solid var(--vp-c-default-1);
+  margin: 10px auto;
 
-  .heroe {
+  &.heroe {
     border: none;
-    max-height: 100px;
+    max-height: 250px;
+    margin: 20px auto;
   }
 }
 
