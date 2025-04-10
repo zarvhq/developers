@@ -27,6 +27,6 @@ Before you begin, ensure you have the following:
 
 ## Need Help?
 
-If you encounter any issues or have questions, check out our [API documentation](#) or contact our support team.
+If you encounter any issues or have questions, check out our API documentation or contact our support team.
 
 Happy coding!
