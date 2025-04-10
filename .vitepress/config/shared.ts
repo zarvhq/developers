@@ -76,7 +76,7 @@ export const shared = withMermaid({
   sitemap: {
     hostname: 'https://developers.zarv.com',
     transformItems(items) {
-      return items.filter((item) => !item.url.includes('request-token'))
+      return items.filter((item) => !item.url.includes('request-token') && !item.url.includes('SECURITY') && !item.url.includes('README'))
     },
   },
 

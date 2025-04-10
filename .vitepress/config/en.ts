@@ -3,7 +3,7 @@ import { services } from '../../en/reference/api/services'
 
 export const en = defineConfig({
   lang: 'en-US',
-  description: 'Protection for every step of your journey.',
+  description: 'Zarv is a AI-powered risk management platform helps organizations to identify, assess, and mitigate risks in real-time.',
 
   themeConfig: {
     nav: nav(),
