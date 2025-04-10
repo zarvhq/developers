@@ -67,12 +67,23 @@ To gain access to our API, you need to sign up and wait for our team to review y
 
 ---
 
-<div v-if="sent" style="text-align:center">
-  <h2 style="font-weight:bold;border:none">Thank you for your application!</h2>
+<div v-if="sent">
+  <div style="text-align:center;padding-top:20px;padding-bottom:20px">
+    <h2 style="font-weight:bold;border:none;margin-top:10px">Thank you for your application!</h2>
+
+We will review your request and get back to you shortly.
   
-  We will review your request and get back to you shortly.
-  
-  <a href="/en/guide/getting-started" class="vp-button">Getting Started</a>
+  <a href="/" class="vp-button">Back home</a>
+</div>
+
+## What Happens Next?
+
+Once you submit your application, our team will carefully review the details you provided. This review process typically takes a few business days. Please ensure that all the information in your application is accurate and complete to avoid delays.
+
+::: tip Important!
+After your application is approved, you will receive your API key **via email**, which you can use to authenticate with our API. Keep this key secure, as it grants access to your account and our services. If you lose your API key or suspect unauthorized access, contact our support team immediately to revoke and regenerate your key.
+:::
+
 </div>
 
 <form @submit.prevent="submitForm" class="form" v-if="!sent">
@@ -121,14 +132,6 @@ To gain access to our API, you need to sign up and wait for our team to review y
     <button type="submit" class="vp-button">Request API Access</button>
   </div>
 </form>
-
-## What Happens Next?
-
-Once you submit your application, our team will carefully review the details you provided. This review process typically takes a few business days. Please ensure that all the information in your application is accurate and complete to avoid delays.
-
-::: tip Important!
-After your application is approved, you will receive your API key **via email**, which you can use to authenticate with our API. Keep this key secure, as it grants access to your account and our services. If you lose your API key or suspect unauthorized access, contact our support team immediately to revoke and regenerate your key.
-:::
 
 ## Need Help?
 
