@@ -1,5 +1,5 @@
 import { defineConfig, type DefaultTheme } from 'vitepress'
-import { services } from '../../en/reference/api/services'
+import { services } from '../../services.config'
 
 export const en = defineConfig({
   lang: 'en-US',

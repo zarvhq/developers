@@ -1,15 +1,16 @@
 import { defineConfig, type DefaultTheme } from 'vitepress'
+import { services } from '../../services.config'
 
 export const pt = defineConfig({
   lang: 'pt-BR',
-  description: 'Gerador de sites estáticos com Vite e Vue.',
+  description: 'Zarv é uma plataforma de gerenciamento de riscos baseada em IA que ajuda organizações a identificar, avaliar e mitigar riscos em tempo real.',
 
   themeConfig: {
     nav: nav(),
 
     sidebar: {
-      '/guia/': { base: '/guia/', items: sidebarGuide() },
-      '/referencia/': { base: '/referencia/', items: sidebarReference() },
+      '/guide/': { base: '/guide/', items: sidebarGuide() },
+      '/reference/': { base: '/reference/', items: sidebarReference() },
     },
   },
 })
@@ -18,26 +19,17 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Guia',
-      link: '/guia/o-que-e-vitepress',
-      activeMatch: '/guia/',
+      link: '/guide/getting-started',
+      activeMatch: '/guide/',
     },
     {
       text: 'Referência',
-      link: '/referencia/configuracao-do-site',
-      activeMatch: '/referencia/',
+      link: '/reference/getting-started',
+      activeMatch: '/reference/',
     },
     {
-      text: 'v1',
-      items: [
-        {
-          text: 'Changelog',
-          link: 'https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md',
-        },
-        {
-          text: 'Contribuindo',
-          link: 'https://github.com/vuejs/vitepress/blob/main/.github/contributing.md',
-        },
-      ],
+      text: 'Página de Status',
+      link: 'https://status.zarv.com',
     },
   ]
 }
@@ -45,52 +37,63 @@ function nav(): DefaultTheme.NavItem[] {
 function sidebarGuide(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'Introdução',
-      collapsed: false,
+      text: 'Guia',
       items: [
-        { text: 'O que é o VitePress?', link: 'o-que-e-vitepress' },
-        { text: 'Começando', link: 'comecando' },
-        { text: 'Roteamento', link: 'roteamento' },
-        { text: 'Deploy', link: 'deploy' },
+        { text: 'Introdução', link: 'getting-started' },
+        { text: 'API', link: 'api' },
+        { text: 'SDKs', link: 'sdk' },
+        { text: 'Referência da API', base: 'reference/', link: 'getting-started' },
       ],
     },
     {
-      text: 'Escrevendo',
-      collapsed: false,
+      text: 'Para Seguros',
       items: [
-        { text: 'Extensões de Markdown', link: 'markdown' },
-        { text: 'Manipulação de Assets', link: 'manipulacao-de-assets' },
-        { text: 'Frontmatter', link: 'frontmatter' },
-        { text: 'Usando Vue no Markdown', link: 'usando-vue' },
-        { text: 'Internacionalização', link: 'i18n' },
+        { text: 'Subscrição', link: 'insurance/underwriting' },
+        { text: 'Exposição ao Risco', link: 'insurance/risk-exposure' },
+        { text: 'Investigações', link: 'insurance/investigations' },
+        { text: 'Solicitar Token', base: '/', link: 'request-token#origin=insurance' },
       ],
     },
     {
-      text: 'Customização',
-      collapsed: false,
+      text: 'Para Crédito',
       items: [
-        { text: 'Usando um Tema Customizado', link: 'tema-customizado' },
-        {
-          text: 'Estendendo o Tema Padrão',
-          link: 'estendendo-tema-padrao',
-        },
-        { text: 'Carregamento de Dados em Tempo de Build', link: 'carregamento-de-dados' },
-        { text: 'Compatibilidade SSR', link: 'compatibilidade-ssr' },
-        { text: 'Conectando a um CMS', link: 'cms' },
+        { text: 'Pontuação de Risco', link: 'credit/risk-score' },
+        { text: 'Recuperação de Inadimplência', link: 'credit/default-recovery' },
+        { text: 'Precificação', link: 'credit/pricing' },
+        { text: 'Solicitar Token', base: '/', link: 'request-token#origin=credit' },
       ],
     },
     {
-      text: 'Experimental',
-      collapsed: false,
+      text: 'Para Governos',
       items: [
-        { text: 'Modo MPA', link: 'modo-mpa' },
-        { text: 'Geração de Sitemap', link: 'geracao-de-sitemap' },
+        { text: 'Por que Zarv?', link: 'governments/why-zarv' },
+        { text: 'Relatórios de Segurança', link: 'governments/safety-reports' },
+        { text: 'Segurança Viária', link: 'governments/road-safety' },
+        { text: 'Solicitar Token', base: '/', link: 'request-token#origin=government' },
       ],
     },
     {
-      text: 'Configuração & Referência de API',
-      base: '/referencia/',
-      link: 'configuracao-do-site',
+      text: 'Para Provedores de Dados',
+      items: [
+        { text: 'Melhoria de Opex', link: 'data-partners/why-zarv' },
+        { text: 'Dispositivos LPR', link: 'data-partners/lpr-devices' },
+        { text: 'Dispositivos GPS', link: 'data-partners/gps-devices' },
+        { text: 'Solicitar Token', base: '/', link: 'request-token#origin=data-partner' },
+        { text: 'Referência da API', base: 'reference/', link: 'collector' },
+      ],
+    },
+    {
+      text: 'Privacidade',
+      collapsed: true,
+      items: [
+        { text: 'Política de Privacidade', link: 'privacy/privacy-policy' },
+        { text: 'Termos de Serviço', link: 'privacy/terms-of-service' },
+        { text: 'Proteção de Dados', link: 'privacy/data-protection' },
+        { text: 'Retenção de Dados', link: 'privacy/data-retention' },
+        { text: 'LGPD', link: 'privacy/lgpd' },
+        { text: 'GDPR', link: 'privacy/gdpr' },
+        { text: 'CCPA', link: 'privacy/ccpa' },
+      ],
     },
   ]
 }
@@ -99,31 +102,21 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'Referência',
+      collapsed: false,
       items: [
-        { text: 'Configuração do Site', link: 'configuracao-do-site' },
-        { text: 'Configuração do Frontmatter', link: 'configuracao-do-frontmatter' },
-        { text: 'API de Runtime', link: 'api-de-runtime' },
-        { text: 'CLI', link: 'cli' },
-        {
-          text: 'Tema Padrão',
-          base: '/referencia/tema-padrao-',
-          items: [
-            { text: 'Visão Geral', link: 'configuracao' },
-            { text: 'Navegação', link: 'navegacao' },
-            { text: 'Barra Lateral', link: 'barra-lateral' },
-            { text: 'Página Inicial', link: 'pagina-inicial' },
-            { text: 'Rodapé', link: 'rodape' },
-            { text: 'Layout', link: 'layout' },
-            { text: 'Badge', link: 'badge' },
-            { text: 'Página da Equipe', link: 'pagina-da-equipe' },
-            { text: 'Links Anterior / Próximo', link: 'links-anterior-proximo' },
-            { text: 'Link de Edição', link: 'link-de-edicao' },
-            { text: 'Última Atualização', link: 'ultima-atualizacao' },
-            { text: 'Busca', link: 'busca' },
-            { text: 'Anúncios Carbon', link: 'anuncios-carbon' },
-          ],
-        },
+        { text: 'Introdução', link: 'getting-started' },
+        { text: 'Autenticação', link: 'authentication' },
+        { text: 'Erros', link: 'errors' },
+        { text: 'Limites de Taxa', link: 'rate-limits' },
+        { text: 'Token de Acesso', base: '/', link: 'request-token' },
       ],
+    },
+    {
+      text: 'Serviços',
+      items: services.map((service: any) => ({
+        text: service.label,
+        link: `/api/${service.slug}`,
+      })),
     },
   ]
 }

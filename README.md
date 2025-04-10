@@ -56,7 +56,7 @@ We use [VitePress](https://vitepress.dev/) to manage the project documentation a
 
 ## API Documentation
 
-To add a new API doc, update the OpenAPI configuration in `[language]/reference/api/services.ts` with the following structure:
+To add a new API doc, update the OpenAPI configuration in `services.config.ts` with the following structure:
 
 ```javascript
 export default [
