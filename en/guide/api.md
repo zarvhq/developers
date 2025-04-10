@@ -27,6 +27,6 @@ You can check your current rate limits by making a request to the `/rate-limits`
 
 ## Support
 
-If you encounter any issues or have questions, please contact our [Developer Support](mailto:developers@zarv.com).
+If you encounter any issues or have questions, please contact our [Developer Support](mailto:developer@zarv.com).
 
 Happy coding!

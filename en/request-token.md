@@ -27,12 +27,12 @@ const params = useUrlSearchParams('hash-params', {
 const loading = ref(false)
 const sent = ref(false)
 const error = ref(false)
-const name = ref('');
-const email = ref('');
-const phone = ref('');
-const company = ref('');
-const industry = ref(params.origin || null);
-const role = ref('');
+const name = ref('')
+const email = ref('')
+const phone = ref('')
+const company = ref('')
+const industry = ref(params.origin || null)
+const role = ref('')
 
 const submitForm = () => {
   loading.value = true;
@@ -135,4 +135,4 @@ After your application is approved, you will receive your API key **via email**,
 
 ## Need Help?
 
-If you have any questions or encounter issues during the application process, feel free to reach out to our support team. We're here to assist you every step of the way. You can contact us via email at [help@zarv.com](mailto:help@zarv.com). Additionally, our FAQ section provides answers to common questions about the application process and API usage.
+If you have any questions or encounter issues during the application process, feel free to reach out to our support team. We're here to assist you every step of the way. You can contact us via email at [developer@zarv.com](mailto:developer@zarv.com). Additionally, our FAQ section provides answers to common questions about the application process and API usage.

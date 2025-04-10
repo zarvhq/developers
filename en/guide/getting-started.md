@@ -23,7 +23,7 @@ Zarv's API currently supports the following integrations:
 - **Fixed Surveillance Cameras**: Connect your surveillance systems with ease to enhance security and monitoring.
 - **License Plate Recognition (LPR) Systems**: Integrate LPR systems to automate vehicle identification and tracking.
 
-We are continuously working to expand our supported integrations. If you have specific requirements, please contact us at <developers@zarv.com>.
+We are continuously working to expand our supported integrations. If you have specific requirements, please contact us at [developer@zarv.com](mailto:developer@zarv.com).
 
 ## Does Zarv's API Support Camera Streaming?
 
@@ -37,7 +37,7 @@ Zarv's partner compensation model is inspired by [Spotify's royalty distribution
 - For each piece of equipment involved, you'll receive a share of the total bonus available.
 - Bonuses are calculated dynamically based on the complexity and success rate of the operation.
 
-This model ensures fairness and incentivizes active participation. For more details, contact us at <developers@zarv.com>.
+This model ensures fairness and incentivizes active participation. For more details, contact us at [developer@zarv.com](mailto:developer@zarv.com).
 
 ## Getting API Access
 
