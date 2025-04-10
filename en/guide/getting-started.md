@@ -37,7 +37,7 @@ Zarv's partner compensation model is inspired by [Spotify's royalty distribution
 - For each piece of equipment involved, you'll receive a share of the total bonus available.
 - Bonuses are calculated dynamically based on the complexity and success rate of the operation.
 
-This model ensures fairness and incentivizes active participation. For more details, contact us at <developer@zarv.com>.
+This model ensures fairness and incentivizes active participation. For more details, contact us at <developers@zarv.com>.
 
 ## Getting API Access
 
