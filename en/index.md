@@ -34,3 +34,12 @@ features:
     title: Accelerate Decision-Making
     details: Make informed decisions faster with predictive analytics and automated risk prioritization.
 ---
+
+<script setup>
+import { useData } from 'vitepress'
+
+const { isDark } = useData()
+</script>
+
+<iframe src="https://status.zarv.com/badge?theme=dark" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-if="isDark"></iframe>
+<iframe src="https://status.zarv.com/badge?theme=light" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-else></iframe>
