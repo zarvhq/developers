@@ -17,17 +17,17 @@ on:
       - feature/*
       - release/*
 
+env:
+  NODE_ENV: production
+  AWS_REGION: ${{ envs.AWS_REGION || 'us-east-1' }}
+  AWS_BUCKET: ${{ envs.AWS_BUCKET }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
-
-    env:
-      NODE_ENV: production
-      AWS_REGION: ${{ envs.AWS_REGION || 'us-east-1' }}
-      AWS_BUCKET: ${{ envs.AWS_BUCKET }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
       - name: Checkout code
