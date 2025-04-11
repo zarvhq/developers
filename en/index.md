@@ -13,7 +13,7 @@ hero:
       text: API Reference
       link: /reference/getting-started
   image:
-    src: /images/home/shield-home.png
+    src: /images/home/heroe.png
     alt: Zarv Developers
 
 features:
