@@ -42,4 +42,4 @@ const { isDark } = useData()
 </script>
 
 <iframe src="https://status.zarv.com/badge?theme=dark" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-if="isDark"></iframe>
-<iframe src="https://status.zarv.com/badge?theme=light" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-else></iframe>
+<iframe src="https://status.zarv.com/badge?theme=light" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-if="!isDark"></iframe>
