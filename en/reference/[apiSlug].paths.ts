@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { services } from '../../../services.config'
+import { services } from '../../services.config'
 
 export default {
   async paths() {

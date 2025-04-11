@@ -126,7 +126,7 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
       text: 'Services',
       items: services.map((service: any) => ({
         text: service.label,
-        link: `/api/${service.slug}`,
+        link: `/${service.slug}`,
       })),
     },
   ]

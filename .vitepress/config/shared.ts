@@ -8,6 +8,7 @@ import {
 // import { search as ptSearch } from './pt'
 
 const headConfig: any[] = [
+  ['link', { rel: 'image/x-icon', href: '/favicon.ico' }],
   ['link', { rel: 'icon', type: 'image/svg+xml', href: '/images/brand/zarv-logo-mini.svg' }],
   ['link', { rel: 'icon', type: 'image/png', href: '/images/brand/arv-logo-mini.png' }],
   ['meta', { name: 'theme-color', content: '#5d2a7c' }],
