@@ -69,8 +69,8 @@ importers:
         specifier: 0.0.3-alpha.69
         version: 0.0.3-alpha.69(vitepress@1.6.3(@algolia/client-search@5.23.2)(@types/node@22.14.0)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.86.3)(search-insights@2.17.3)(universal-cookie@8.0.1))(vue@3.5.13)
       vitepress-plugin-group-icons:
-        specifier: 1.4.1
-        version: 1.4.1
+        specifier: 1.5.1
+        version: 1.5.1
       vitepress-plugin-mermaid:
         specifier: 2.0.17
         version: 2.0.17(mermaid@11.6.0)(vitepress@1.6.3(@algolia/client-search@5.23.2)(@types/node@22.14.0)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.86.3)(search-insights@2.17.3)(universal-cookie@8.0.1))
@@ -427,8 +427,8 @@ packages:
   '@iconify-json/simple-icons@1.2.30':
     resolution: {integrity: sha512-KiVViMvnohpS5Q9WMP+4ksOhF3Dnq73Ba9hxBhUIIhp1r6RJ6edMZ8QGKZcFZp/B0/PZC4jAIhXcKKq73WZckQ==}
 
-  '@iconify-json/vscode-icons@1.2.18':
-    resolution: {integrity: sha512-TFkzbQb6X87xf4OyPQc9TFYEz0Qlw6tfIqtOPS81U1cbfQgYSuEGoAdvqiO9wEVms6bzVOyDfwYG/IysA7Wl9A==}
+  '@iconify-json/vscode-icons@1.2.19':
+    resolution: {integrity: sha512-M6Ujx2Ncmr/jfHhLJ+unqaILOJ/wWAkfc84Eh3+e8PccFmB1TS4KwOSyqbawybbqKK7JaaEk5uhFYSFpYOeuOA==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1977,8 +1977,8 @@ packages:
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
-  ufo@1.5.4:
-    resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
+  ufo@1.6.1:
+    resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
   ultramatter@0.0.4:
     resolution: {integrity: sha512-1f/hO3mR+/Hgue4eInOF/Qm/wzDqwhYha4DxM0hre9YIUyso3fE2XtrAU6B4njLqTC8CM49EZaYgsVSa+dXHGw==}
@@ -2068,8 +2068,8 @@ packages:
       vitepress: '>=1.0.0'
       vue: ^3.0.0
 
-  vitepress-plugin-group-icons@1.4.1:
-    resolution: {integrity: sha512-4APG5wzUvl2JbZcy6+I7K9DleBJE7W5RCkPu2mDPxzKxI/9pF3GmIACDnIlhyfIpUyfW4eanbyoMuP7tzLpM3Q==}
+  vitepress-plugin-group-icons@1.5.1:
+    resolution: {integrity: sha512-IF4xZ5C/BNbod7QFJk3z3XnxckJPw1Dc1pHUQp7FaJxPRt0Y7j11fM1krSR1S8D5FBEpbYp7KJI9XVmrpFOU5w==}
 
   vitepress-plugin-mermaid@2.0.17:
     resolution: {integrity: sha512-IUzYpwf61GC6k0XzfmAmNrLvMi9TRrVRMsUyCA8KNXhg/mQ1VqWnO0/tBVPiX5UoKF1mDUwqn5QV4qAJl6JnUg==}
@@ -2486,7 +2486,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/vscode-icons@1.2.18':
+  '@iconify-json/vscode-icons@1.2.19':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -3730,7 +3730,7 @@ snapshots:
       acorn: 8.14.1
       pathe: 2.0.3
       pkg-types: 1.3.1
-      ufo: 1.5.4
+      ufo: 1.6.1
 
   ms@2.1.3: {}
 
@@ -4128,7 +4128,7 @@ snapshots:
 
   uc.micro@2.1.0: {}
 
-  ufo@1.5.4: {}
+  ufo@1.6.1: {}
 
   ultramatter@0.0.4: {}
 
@@ -4208,10 +4208,10 @@ snapshots:
       - '@vue/composition-api'
       - typescript
 
-  vitepress-plugin-group-icons@1.4.1:
+  vitepress-plugin-group-icons@1.5.1:
     dependencies:
       '@iconify-json/logos': 1.2.4
-      '@iconify-json/vscode-icons': 1.2.18
+      '@iconify-json/vscode-icons': 1.2.19
       '@iconify/utils': 2.3.0
     transitivePeerDependencies:
       - supports-color
