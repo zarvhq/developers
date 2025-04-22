@@ -74,7 +74,12 @@ export const shared = withMermaid({
   sitemap: {
     hostname: 'https://developers.zarv.com',
     transformItems(items) {
-      return items.filter((item) => !item.url.includes('request-token') && !item.url.includes('SECURITY') && !item.url.includes('README'))
+      return items.filter(
+        (item) =>
+          !item.url.includes('request-token') &&
+          !item.url.includes('SECURITY') &&
+          !item.url.includes('README'),
+      )
     },
   },
 
@@ -93,8 +98,8 @@ export const shared = withMermaid({
 
     footer: {
       message:
-        '<div style="color: #c0c0c0;font-size:0.9em;margin-bottom:10px"><a href="https://www.zarv.com/legal/tos">Terms of Use</a> | <a href="https://www.zarv.com/legal/privacy">Privacy Policy</a></div>',
-      copyright: `<div style="color: #c0c0c0; margin-bottom: 20px; font-size: 0.9em">Copyright © ${new Date().getFullYear()} <a href="https://www.zarv.com">Zarv Inc</a>. All rights reserved.</div>`,
+        '<div style="color: #c0c0c0;font-size:0.9em;margin-bottom:10px"><a href="https://www.zarv.com/legal/tos?utm_source=developers&utm_campaign=footer">Terms of Use</a> | <a href="https://www.zarv.com/legal/privacy?utm_source=developers&utm_campaign=footer">Privacy Policy</a></div>',
+      copyright: `<div style="color: #c0c0c0; margin-bottom: 20px; font-size: 0.9em">Copyright © ${new Date().getFullYear()} <a href="https://www.zarv.com?utm_source=developers&utm_campaign=footer">Zarv Inc</a>. All rights reserved.</div>`,
     },
 
     search: {
@@ -130,7 +135,10 @@ export const shared = withMermaid({
     plugins: [
       groupIconVitePlugin({
         customIcon: {
-          vitepress: localIconLoader(import.meta.url, '../../public/images/brand/zarv-logo-mini.svg'),
+          vitepress: localIconLoader(
+            import.meta.url,
+            '../../public/images/brand/zarv-logo-mini.svg',
+          ),
           firebase: 'logos:firebase',
         },
       }),
