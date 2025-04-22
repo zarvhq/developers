@@ -3,7 +3,12 @@
   // add 20% white to the color
   --vp-c-brand-2: color-mix(in srgb, var(--vp-c-brand-1), white 30%);
   --vp-c-brand-3: #5d2a7c;
-  --vp-c-brand-4: #5d2a7c;
+  --vp-c-brand-4: #5d2a7c; 
+}
+
+.dark {
+  --vp-c-brand-1: color-mix(in srgb, #5d2a7c, white 40%);
+  --vp-c-brand-2: #FFFFFF;
 }
 
 .bg-primary {

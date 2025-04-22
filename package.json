@@ -44,6 +44,9 @@
     "onlyBuiltDependencies": [
       "esbuild",
       "vue-demi"
-    ]
+    ],
+    "overrides": {
+      "universal-cookie": "8.0.1"
+    }
   }
 }

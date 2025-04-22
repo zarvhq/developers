@@ -1,4 +1,4 @@
-# Getting Started with Zarv's API
+# Getting Started with Zarv
 
 ![](/images/guide/faq-heroe.svg){.img-fluid .heroe}
 

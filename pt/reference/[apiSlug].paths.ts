@@ -3,7 +3,6 @@ import { services } from '../../services.config'
 
 export default {
   async paths() {
-
     // Download the OpenAPI spec files and save them to the local filesystem
     const openApiSpecs = await Promise.all(
       services.map(async ({ slug, specUrl }) => {

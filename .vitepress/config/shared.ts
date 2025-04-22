@@ -8,22 +8,57 @@ import {
 // import { search as ptSearch } from './pt'
 
 const headConfig: any[] = [
-  ['link', { rel: 'image/x-icon', href: '/favicon.ico' }],
+  ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ['link', { rel: 'icon', type: 'image/svg+xml', href: '/images/brand/zarv-logo-mini.svg' }],
-  ['link', { rel: 'icon', type: 'image/png', href: '/images/brand/arv-logo-mini.png' }],
+  ['link', { rel: 'icon', type: 'image/png', href: '/images/brand/zarv-logo-mini.png' }],
   ['meta', { name: 'theme-color', content: '#5d2a7c' }],
   ['meta', { property: 'og:type', content: 'website' }],
   ['meta', { property: 'og:locale', content: 'en' }],
   ['meta', { property: 'og:title', content: 'Zarv Developers' }],
   ['meta', { property: 'og:site_name', content: 'Zarv Developers' }],
-  ['meta', { property: 'og:image', content: 'https://developers.zarv.com/images/brand/zarv-developers-og.jpg' }],
+  [
+    'meta',
+    {
+      property: 'og:image',
+      content: 'https://developers.zarv.com/images/brand/zarv-developers-og.jpg',
+    },
+  ],
   ['meta', { property: 'og:url', content: 'https://developers.zarv.com/' }],
 ]
 
 if (process.env.NODE_ENV === 'production') {
-  headConfig.push(['script', { type: 'text/javascript', src: 'https://uptime.betterstack.com/widgets/announcement.js', 'data-id': '166087', 'async': '' }]),
-  headConfig.push(['script', {}, `!function(){var i="analytics",analytics=window[i]=window[i]||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","screen","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware","register"];analytics.factory=function(e){return function(){if(window[i].initialized)return window[i][e].apply(window[i],arguments);var n=Array.prototype.slice.call(arguments);if(["track","screen","alias","group","page","identify"].indexOf(e)>-1){var c=document.querySelector("link[rel='canonical']");n.push({__t:"bpc",c:c&&c.getAttribute("href")||void 0,p:location.pathname,u:location.href,s:location.search,t:document.title,r:document.referrer})}n.unshift(e);analytics.push(n);return analytics}};for(var n=0;n<analytics.methods.length;n++){var key=analytics.methods[n];analytics[key]=analytics.factory(key)}analytics.load=function(key,n){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.setAttribute("data-global-segment-analytics-key",i);t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r);analytics._loadOptions=n};analytics._writeKey="VLroqXfffW6TG2XJ2EpJfOYCqyumiSVX";analytics.SNIPPET_VERSION="5.2.0";\nanalytics.load("VLroqXfffW6TG2XJ2EpJfOYCqyumiSVX");\nanalytics.page();\n}}();`])
+  headConfig.push([
+    'script',
+    {
+      type: 'text/javascript',
+      src: 'https://uptime.betterstack.com/widgets/announcement.js',
+      'data-id': '166087',
+      async: '',
+    },
+  ])
+
+  const segmentApiKey = process.env.VITE_SEGMENT_API_KEY || null
+
+  if (segmentApiKey) {
+    headConfig.push([
+      'script',
+      {},
+      `!function(){var i="analytics",analytics=window[i]=window[i]||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","screen","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware","register"];analytics.factory=function(e){return function(){if(window[i].initialized)return window[i][e].apply(window[i],arguments);var n=Array.prototype.slice.call(arguments);if(["track","screen","alias","group","page","identify"].indexOf(e)>-1){var c=document.querySelector("link[rel='canonical']");n.push({__t:"bpc",c:c&&c.getAttribute("href")||void 0,p:location.pathname,u:location.href,s:location.search,t:document.title,r:document.referrer})}n.unshift(e);analytics.push(n);return analytics}};for(var n=0;n<analytics.methods.length;n++){var key=analytics.methods[n];analytics[key]=analytics.factory(key)}analytics.load=function(key,n){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.setAttribute("data-global-segment-analytics-key",i);t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r);analytics._loadOptions=n};analytics._writeKey="${segmentApiKey}";analytics.SNIPPET_VERSION="5.2.0";\nanalytics.load("${segmentApiKey}");\nanalytics.page();\n}}();`,
+    ])
+  }
 }
+
+const sitemapBlacklist = [
+  'detran-api',
+  'request-token',
+  'SECURITY',
+  'README',
+  'CONTRIBUTING',
+  'CHANGELOG',
+  'LICENSE',
+  'CODE_OF_CONDUCT',
+  'SUPPORT',
+]
 
 export const shared = withMermaid({
   title: 'Developers',
@@ -75,10 +110,7 @@ export const shared = withMermaid({
     hostname: 'https://developers.zarv.com',
     transformItems(items) {
       return items.filter(
-        (item) =>
-          !item.url.includes('request-token') &&
-          !item.url.includes('SECURITY') &&
-          !item.url.includes('README'),
+        (item) => !sitemapBlacklist.some((blacklisted) => item.url.includes(blacklisted)),
       )
     },
   },
@@ -98,31 +130,24 @@ export const shared = withMermaid({
 
     footer: {
       message:
-        '<div style="color: #c0c0c0;font-size:0.9em;margin-bottom:10px"><a href="https://www.zarv.com/legal/tos?utm_source=developers&utm_campaign=footer">Terms of Use</a> | <a href="https://www.zarv.com/legal/privacy?utm_source=developers&utm_campaign=footer">Privacy Policy</a></div>',
-      copyright: `<div style="color: #c0c0c0; margin-bottom: 20px; font-size: 0.9em">Copyright © ${new Date().getFullYear()} <a href="https://www.zarv.com?utm_source=developers&utm_campaign=footer">Zarv Inc</a>. All rights reserved.</div>`,
+        '<div style="color: #c0c0c0;font-size:0.9em;margin-bottom:10px"><a href="https://www.zarv.com/legal/tos/?utm_source=developers&utm_campaign=footer">Terms of Use</a> | <a href="https://www.zarv.com/legal/privacy/?utm_source=developers&utm_campaign=footer">Privacy Policy</a></div>',
+      copyright: `<div style="color: #c0c0c0; margin-bottom: 20px; font-size: 0.9em">Copyright © ${new Date().getFullYear()} <a href="https://www.zarv.com/?utm_source=developers&utm_campaign=footer">Zarv Inc</a>. All rights reserved.</div>`,
     },
 
     search: {
       provider: 'local',
+      // provider: 'algolia',
       // options: {
-      //   locales: {
-      //     ...ptSearch,
+      //   appId: '8J64VVRP8K',
+      //   apiKey: '52f578a92b88ad6abde815aae2b0ad7c',
+      //   indexName: 'zarv-developers',
+      // locales: {
+      //   ...enSearch,
+      //   ...ptSearch,
       //     ...esSearch,
-      //   },
+      // },
       // },
     },
-    // search: {
-    //   provider: 'algolia',
-    //   options: {
-    //     appId: '8J64VVRP8K',
-    //     apiKey: '52f578a92b88ad6abde815aae2b0ad7c',
-    //     indexName: 'vitepress',
-    //     locales: {
-    //       ...ptSearch,
-    //       ...esSearch,
-    //     },
-    //   },
-    // },
   },
   vite: {
     css: {

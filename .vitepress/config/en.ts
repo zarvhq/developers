@@ -89,8 +89,8 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Opex Improvement', link: 'data-partners/why-zarv' },
         { text: 'LPR Devices', link: 'data-partners/lpr-devices' },
         { text: 'GPS Devices', link: 'data-partners/gps-devices' },
-        { text: 'Request Token', base: '/', link: 'request-token#origin=data-partner' },
         { text: 'API Reference', base: 'reference/', link: 'collector' },
+        { text: 'Request Token', base: '/', link: 'request-token#origin=data-partner' },
       ],
     },
     {
