@@ -18,7 +18,7 @@
     "@braintree/sanitize-url": "7.1.1",
     "@docsearch/js": "3.9.0",
     "@lunariajs/core": "0.1.1",
-    "@segment/analytics-next": "1.80.0",
+    "@segment/analytics-next": "1.81.0",
     "@types/node": "22.14.1",
     "@vueuse/core": "13.1.0",
     "@vueuse/integrations": "13.1.0",
@@ -33,7 +33,7 @@
     "prettier": "3.5.3",
     "sass-embedded": "1.87.0",
     "universal-cookie": "8.0.1",
-    "vitepress": "1.6.3",
+    "vitepress": "2.0.0-alpha.5",
     "vitepress-openapi": "0.0.3-alpha.69",
     "vitepress-plugin-group-icons": "1.5.2",
     "vitepress-plugin-mermaid": "2.0.17",
@@ -46,7 +46,11 @@
       "vue-demi"
     ],
     "overrides": {
-      "universal-cookie": "8.0.1"
+      "universal-cookie": "8.0.1",
+      "vitepress": "2.0.0-alpha.5"
     }
+  },
+  "dependencies": {
+    "vitepress-plugin-llms": "1.1.0"
   }
 }

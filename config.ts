@@ -1,9 +1,10 @@
-import { defineConfig, type DefaultTheme } from 'vitepress'
-import { services } from '../../services.config'
+import { defineAdditionalConfig, type DefaultTheme } from 'vitepress'
+import { services } from './services.config'
 
-export const en = defineConfig({
+export default defineAdditionalConfig({
   lang: 'en-US',
-  description: 'Zarv is a AI-powered risk management platform helps organizations to identify, assess, and mitigate risks in real-time.',
+  description:
+    'Zarv is a AI-powered risk management platform helps organizations to identify, assess, and mitigate risks in real-time.',
 
   themeConfig: {
     nav: nav(),

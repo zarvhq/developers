@@ -5,9 +5,9 @@ Bem-vindo ao Guia da API Zarv! Este documento fornece uma visão geral de como i
 ## Introdução
 
 1. **Cadastre-se para acesso à API**  
-  [Registre-se para obter uma chave de API](/request-token).
+  [Registre-se para obter uma chave de API](../request-token.md).
 
-2. **URL Base**  
+1. **URL Base**  
   Todas as solicitações à API são feitas para a seguinte URL base:  
 
   ```

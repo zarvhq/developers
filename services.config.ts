@@ -6,8 +6,8 @@ export const services = [
     themeConfig: {},
   },
   {
-    slug: 'fleet-id',
-    label: 'Fleet ID',
+    slug: 'asset-id',
+    label: 'Asset ID',
     specUrl: 'https://api-services.zarv.com/asset-id/v1/docs/swagger.json',
   },
   // {
