@@ -3,7 +3,7 @@ import { locales } from "vitepress-openapi/client"
 export default {
   requestBody: {
     // Set the default schema view.
-    defaultView: 'schema', // schema or contentType
+    defaultView: 'contentType', // schema or contentType
   },
   jsonViewer: {
     // Set the JSON viewer depth.
@@ -30,7 +30,7 @@ export default {
     maxTabs: 5,
     body: {
       // Set the default view.
-      defaultView: 'schema', // schema or contentType
+      defaultView: 'contentType', // schema or contentType
     },
   },
   operation: {

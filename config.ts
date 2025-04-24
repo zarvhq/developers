@@ -20,17 +20,18 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Guide',
-      link: '/guide/getting-started',
+      link: '/guide//',
       activeMatch: '/guide/',
     },
     {
       text: 'Reference',
-      link: '/reference/getting-started',
+      link: '/reference//',
       activeMatch: '/reference/',
     },
     {
       text: 'Status Page',
       link: 'https://status.zarv.com',
+      target: '_blank',
     },
   ]
 }
@@ -40,10 +41,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'Guide',
       items: [
-        { text: 'Getting Started', link: 'getting-started' },
+        { text: 'Getting Started', link: '/' },
         { text: 'API', link: 'api' },
         { text: 'SDKs', link: 'sdk' },
-        { text: 'API Reference', base: 'reference/', link: 'getting-started' },
+        { text: 'API Reference', base: 'reference/', link: '/' },
       ],
     },
     {
@@ -116,7 +117,7 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
       text: 'Reference',
       collapsed: false,
       items: [
-        { text: 'Getting Started', link: 'getting-started' },
+        { text: 'Getting Started', link: '/' },
         { text: 'Authentication', link: 'authentication' },
         { text: 'Errors', link: 'errors' },
         { text: 'Rate Limits', link: 'rate-limits' },
@@ -125,10 +126,10 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'Services',
-      items: services.map((service: any) => ({
-        text: service.label,
-        link: `/${service.slug}`,
-      })),
+      items: services.map(({ label, slug }) => ({
+        text: label,
+        link: `/${slug}`,
+      })) as DefaultTheme.SidebarItem[],
     },
   ]
 }

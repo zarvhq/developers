@@ -50,16 +50,16 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Guia',
-      link: '/pt/guide/getting-started',
+      link: '/pt/guide/',
       activeMatch: '/pt/guide/',
     },
     {
       text: 'Referência',
-      link: '/pt/reference/getting-started',
+      link: '/pt/reference/',
       activeMatch: '/pt/reference/',
     },
     {
-      text: 'Página de Status',
+      text: 'Status',
       link: 'https://status.zarv.com',
     },
   ]
@@ -70,10 +70,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'Guia',
       items: [
-        { text: 'Introdução', link: 'getting-started' },
+        { text: 'Introdução', link: '/' },
         { text: 'API', link: 'api' },
         { text: 'SDKs', link: 'sdk' },
-        { text: 'Referência da API', link: 'getting-started' },
+        { text: 'Referência da API', base: '/pt/reference/', link: '/' },
       ],
     },
     {
@@ -135,7 +135,7 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
       text: 'Referência',
       collapsed: false,
       items: [
-        { text: 'Introdução', link: 'getting-started' },
+        { text: 'Introdução', link: '/' },
         { text: 'Autenticação', link: 'authentication' },
         { text: 'Erros', link: 'errors' },
         { text: 'Limites de Taxa', link: 'rate-limits' },
@@ -144,11 +144,11 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'Serviços',
-      items: services.map((service: any) => ({
-        text: service.label,
+      items: services.map(({ label, slug }) => ({
+        text: label,
         base: '/pt/reference/',
-        link: `/${service.slug}`,
-      })),
+        link: `/${slug}`,
+      })) as DefaultTheme.SidebarItem[],
     },
   ]
 }

@@ -1,0 +1,266 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Detran API - Retomada Extrajudicial de Veículos",
+    "version": "1.0.0",
+    "description": "API para automação do processo de retomada extrajudicial de veículos junto ao Detran, integrando com parceiros como a Zarv."
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "nome": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "telefone": { "type": "string" }
+        }
+      },
+      "Veiculo": {
+        "type": "object",
+        "properties": {
+          "placa": { "type": "string" },
+          "renavam": { "type": "string" },
+          "modelo": { "type": "string" },
+          "ano": { "type": "integer" },
+          "cor": { "type": "string" }
+        }
+      },
+      "Notificacao": {
+        "type": "object",
+        "properties": {
+          "idNotificacao": { "type": "string" },
+          "idContrato": { "type": "string" },
+          "dataEnvio": { "type": "string", "format": "date-time" },
+          "meioEnvio": { "type": "string", "enum": ["eletronico", "postal"] }
+        }
+      },
+      "Retomada": {
+        "type": "object",
+        "properties": {
+          "idContrato": { "type": "string" },
+          "valorDebito": { "type": "number" },
+          "valorContrato": { "type": "number" },
+          "parcelasAtraso": { "type": "number" },
+          "placa": { "type": "string" },
+          "renavam": { "type": "string" },
+          "numeroDocumento": { "type": "string" },
+          "dataRetomada": { "type": "string", "format": "date" },
+          "motivo": { "type": "string" }
+        }
+      }
+    }
+  },
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/autenticacao": {
+      "post": {
+        "summary": "Autenticar usuário",
+        "description": "O token gerado tem validade de 24 horas. Apenas usuários cadastrados têm acesso.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario": { "type": "string" },
+                  "senha": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Token gerado com sucesso" },
+          "401": { "description": "Usuário ou senha inválidos" }
+        }
+      }
+    },
+    "/registro": {
+      "post": {
+        "summary": "Criar retomada de veículo",
+        "description": "**Regras de negócio**:\n- O contrato deve estar inadimplente, ou seja, com parcelas em atraso.\n- O valor do débito não pode exceder o valor total do contrato.\n- A data de retomada deve ser futura, com um limite máximo de 30 dias a partir da data atual.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Retomada" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Retomada registrada com sucesso" }
+        }
+      }
+    },
+    "/cancelamento": {
+      "put": {
+        "summary": "Cancelar retomada",
+        "description": "**Regras de negócio**:\n- Apenas registros com status 'pendente' podem ser cancelados.\n- O motivo do cancelamento deve ser informado e pode conter no máximo 255 caracteres.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idContrato": { "type": "string" },
+                  "motivo": { "type": "string", "maxLength": 255 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Retomada cancelada com sucesso" }
+        }
+      }
+    },
+    "/transferencia": {
+      "put": {
+        "summary": "Transferir propriedade",
+        "description": "**Regras de negócio**:\n- Apenas veículos com retomada concluída podem ser transferidos.\n- A data de transferência deve ser futura, com um limite máximo de 15 dias a partir da data atual.\n- O documento de transferência deve ser válido e estar em conformidade com as exigências legais.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idContrato": { "type": "string" },
+                  "dataTransferencia": { "type": "string", "format": "date" },
+                  "documentoTransferencia": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Propriedade transferida com sucesso" }
+        }
+      }
+    },
+    "/notificacao": {
+      "post": {
+        "summary": "Notificar devedor",
+        "description": "**Regras de negócio**:\n- A notificação deve ser enviada eletronicamente como primeira tentativa.\n- Caso a notificação eletrônica não seja bem-sucedida, deve ser enviada por correio postal.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": { "type": "string" },
+                  "renavam": { "type": "string" },
+                  "meioEnvio": { "type": "string", "enum": ["eletronico", "postal"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Notificação enviada" }
+        }
+      }
+    },
+    "/restricao-circulacao": {
+      "post": {
+        "summary": "Aplicar restrição de circulação",
+        "description": "**Regras de negócio**:\n- O veículo receberá uma restrição RENAVAM, impedindo sua circulação até que a situação seja regularizada.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "renavam": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Restrição aplicada" }
+        }
+      }
+    },
+    "/busca-apreensao": {
+      "post": {
+        "summary": "Emitir ordem de busca e apreensão",
+        "description": "**Regras de negócio**:\n- Após a emissão da certidão, o veículo será recolhido conforme decisão administrativa.\n- A ordem de busca deve ser emitida apenas para veículos com situação irregular.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idContrato": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Ordem de busca emitida" }
+        }
+      }
+    },
+    "/auto-apreensao": {
+      "post": {
+        "summary": "Registrar auto de apreensão",
+        "description": "**Regras de negócio**:\n- A documentação deve registrar o estado do veículo no momento da apreensão.\n- O local de destino do veículo deve ser informado.\n- O devedor deve ser identificado e registrado no processo.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idContrato": { "type": "string" },
+                  "estadoVeiculo": { "type": "string" },
+                  "localDestino": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Auto de apreensão registrado" }
+        }
+      }
+    },
+    "/averbacao": {
+      "post": {
+        "summary": "Realizar averbação final",
+        "description": "**Regras de negócio**:\n- Após a apreensão do veículo, a propriedade será transferida ao credor.\n- A transferência de propriedade deve ser realizada mediante a regularização documental e cumprimento das exigências legais.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idContrato": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Averbação concluída" }
+        }
+      }
+    }
+  }
+}

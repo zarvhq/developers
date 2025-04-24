@@ -1,6 +1,8 @@
 ---
 aside: false
 outline: false
+next: false
+prev: false
 title: Referência da API
 ---
 
