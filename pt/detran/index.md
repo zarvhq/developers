@@ -13,7 +13,16 @@ O diagrama abaixo ilustra o fluxo de dados entre os principais endpoints da API:
   
 ![Fluxo de Dados da API](./api.svg){.img-fluid.no-border}
 
-<!-- <script setup>
+<OASpec
+  :groupByTags="false"
+  :hideInfo="true"
+  :hideServers="true"
+  :hideBranding="true"
+  :hidePathsSummary="true"
+  :spec="loadSpec"
+/>
+
+<script setup lang="ts">
   import { useTheme } from 'vitepress-openapi/client'
   import openApiConfig from '../../.vitepress/theme/openapi.config'
   import detranSpec from './detran.json'
@@ -50,12 +59,3 @@ O diagrama abaixo ilustra o fluxo de dados entre os principais endpoints da API:
     },
   ]
  </script>
-
-<OASpec
-  :groupByTags="false"
-  :hideInfo="true"
-  :hideServers="true"
-  :hideBranding="true"
-  :hidePathsSummary="true"
-  :spec="loadSpec"
-/> -->

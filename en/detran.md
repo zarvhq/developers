@@ -1,3 +1,8 @@
+---
+aside: false
+outline: true
+---
+
 # Detran API
 
 ::: danger Heads up!

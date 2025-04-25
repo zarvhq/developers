@@ -2,7 +2,7 @@ up:
 	pnpm dev
 
 clean:
-	rm -rf node_modules .vitepress/dist .vitepress/cache
+	rm -rf node_modules dist .vitepress/cache
 
 install:
 	export NODE_VERSION=22.13.1
