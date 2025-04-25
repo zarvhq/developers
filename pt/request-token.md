@@ -135,4 +135,4 @@ Após a aprovação da sua solicitação, você receberá sua chave de API **por
 
 ## Precisa de Ajuda?
 
-Se você tiver dúvidas ou encontrar problemas durante o processo de solicitação, entre em contato com nossa equipe de suporte. Estamos aqui para ajudá-lo em cada etapa do processo. Você pode nos contatar por e-mail em [developer@zarv.com](mailto:developer@zarv.com). Além disso, nossa seção de FAQ fornece respostas para perguntas comuns sobre o processo de solicitação e uso da API.
+Se você tiver dúvidas ou encontrar problemas durante o processo de solicitação, entre em contato com nossa equipe de suporte. Estamos aqui para ajudá-lo em cada etapa do processo. Você pode nos contatar por e-mail em [developers@zarv.com](mailto:developers@zarv.com). Além disso, nossa seção de FAQ fornece respostas para perguntas comuns sobre o processo de solicitação e uso da API.

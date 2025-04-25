@@ -48,6 +48,6 @@ Para começar a usar a API da Zarv, siga estas etapas:
 3. **Revise a Documentação**: Familiarize-se com os endpoints da API e os guias de integração.
 4. **Comece a Integrar**: Use os SDKs e códigos de exemplo fornecidos para integrar a API da Zarv aos seus sistemas.
 
-Se você encontrar algum problema, nossa equipe de suporte está aqui para ajudar. Entre em contato conosco pelo e-mail <support@zarv.com>.
+Se você encontrar algum problema, nossa equipe de suporte está aqui para ajudar. Entre em contato conosco pelo e-mail [developers@zarv.com](mailto:developers@zarv.com).
 
 Estamos ansiosos para colaborar com você!

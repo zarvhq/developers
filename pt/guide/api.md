@@ -27,6 +27,6 @@ Você pode verificar seus limites de taxa atuais fazendo uma solicitação ao en
 
 ## Suporte
 
-Se você encontrar algum problema ou tiver dúvidas, entre em contato com nosso [Suporte ao Desenvolvedor](mailto:developer@zarv.com).
+Se você encontrar algum problema ou tiver dúvidas, entre em contato com nosso [Suporte ao Desenvolvedor](mailto:developers@zarv.com).
 
 Boa codificação!
