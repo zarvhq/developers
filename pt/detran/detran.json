@@ -1,9 +1,513 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Detran API - Retomada Extrajudicial de Veículos",
-    "version": "1.0.0",
-    "description": "API para automação do processo de retomada extrajudicial de veículos junto ao Detran, integrando com parceiros como a Zarv."
+    "title": "API de Inadimplência Veicular",
+    "version": "1.1.0",
+    "description": "API para registro, consulta e gestão de inadimplência veicular, incluindo autenticação, cancelamento, apreensão e averbação."
+  },
+  "paths": {
+    "/autenticacao": {
+      "post": {
+        "summary": "Gerar token JWT",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                },
+                "required": ["usuario", "senha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token JWT gerado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Acesso inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/registro": {
+      "post": {
+        "summary": "Registrar inadimplência",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": {
+                    "type": "string"
+                  },
+                  "renavam": {
+                    "type": "string"
+                  },
+                  "docProprietario": {
+                    "type": "string"
+                  },
+                  "phoneProprietario": {
+                    "type": "string"
+                  },
+                  "emailProprietario": {
+                    "type": "string"
+                  },
+                  "idContrato": {
+                    "type": "string"
+                  },
+                  "docCredor": {
+                    "type": "string"
+                  },
+                  "dataContrato": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "valorDebito": {
+                    "type": "number"
+                  },
+                  "valorContrato": {
+                    "type": "number"
+                  },
+                  "parcelasAtraso": {
+                    "type": "integer"
+                  },
+                  "urlAtendimento": {
+                    "type": "string"
+                  },
+                  "urlPagamento": {
+                    "type": "string"
+                  },
+                  "observacoes": {
+                    "type": "string"
+                  },
+                  "dataCriacao": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "dataAtualizacao": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "placa",
+                  "renavam",
+                  "docProprietario",
+                  "idContrato",
+                  "docCredor",
+                  "dataContrato",
+                  "valorDebito",
+                  "valorContrato",
+                  "parcelasAtraso",
+                  "urlAtendimento",
+                  "urlPagamento",
+                  "observacoes",
+                  "dataCriacao",
+                  "dataAtualizacao"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cadastro de inadimplência criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "idRegistro": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "dataCriacao": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "status": {
+                      "$ref": "#/components/schemas/RegistroStatus"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Renavam inexistente"
+          },
+          "401": {
+            "description": "Acesso Inválido"
+          }
+        },
+        "description": "- O contrato deve estar inadimplente, com parcelas em atraso.\n- O credor fiduciário deve fornecer URLs para pagamento e negociação.\n- Verificar validade de Placa + Renavam + Doc Proprietário e inexistência de registro ativo/finalizado.\n- Verificar vínculo do docCredor à alienação fiduciária do veículo.\n- Notificar o proprietário por todos os canais conhecidos.\n- Registrar restrição de circulação do veículo."
+      }
+    },
+    "/registro/{renavam}": {
+      "get": {
+        "summary": "Consultar registro de inadimplência",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "renavam",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistroCompleto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não há registro para este Renavam"
+          },
+          "401": {
+            "description": "Acesso Inválido"
+          }
+        },
+        "description": "- Retorna todos os dados do registro de inadimplência vinculado ao Renavam informado."
+      },
+      "delete": {
+        "summary": "Cancelar registro de inadimplência",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idRegistro": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "placa": {
+                    "type": "string"
+                  },
+                  "docProprietario": {
+                    "type": "string"
+                  },
+                  "idContrato": {
+                    "type": "string"
+                  },
+                  "docCredor": {
+                    "type": "string"
+                  },
+                  "motivoCancelamento": {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  "status": {
+                    "enum": ["CANCELADO"]
+                  }
+                },
+                "required": [
+                  "idRegistro",
+                  "placa",
+                  "docProprietario",
+                  "idContrato",
+                  "docCredor",
+                  "motivoCancelamento",
+                  "status"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Registro cancelado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RegistroCompleto"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Não há registro para este Renavam"
+            },
+            "401": {
+              "description": "Acesso Inválido"
+            }
+          }
+        },
+        "description": "- Apenas registros com status 'ATIVO', 'APREENSAO' ou 'APREENDIDO' podem ser cancelados.\n- O motivo do cancelamento deve conter no máximo 255 caracteres.\n- Verificar vínculo do docCredor e validade dos dados do veículo e proprietário."
+      }
+    },
+    "/apreensao/{idRegistro}": {
+      "post": {
+        "summary": "Emitir ordem de busca e apreensão",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "idRegistro",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": {
+                    "type": "string"
+                  },
+                  "renavam": {
+                    "type": "string"
+                  },
+                  "docCredorAgente": {
+                    "type": "string"
+                  }
+                },
+                "required": ["placa", "renavam", "docCredorAgente"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ordem emitida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistroCompleto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Renavam inexistente"
+          },
+          "401": {
+            "description": "Acesso Inválido"
+          }
+        },
+        "description": "- Apenas registros com status 'ATIVO' podem ser apreendidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Ordem de busca só pode ser emitida após 7 dias do registro de inadimplência.\n- O status do registro será alterado para: APREENSAO."
+      },
+      "put": {
+        "summary": "Registrar auto de apreensão",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": {
+                    "type": "string"
+                  },
+                  "renavam": {
+                    "type": "string"
+                  },
+                  "docCredorAgente": {
+                    "type": "string"
+                  },
+                  "imagensVeiculo": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  },
+                  "descricaoApreensao": {
+                    "type": "string"
+                  },
+                  "localizacao": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "endereco": {
+                    "type": "string"
+                  },
+                  "dataApreensao": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "placa",
+                  "renavam",
+                  "docCredorAgente",
+                  "imagensVeiculo",
+                  "descricaoApreensao",
+                  "localizacao",
+                  "endereco",
+                  "dataApreensao"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Auto registrado com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RegistroCompleto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Dados inválidos"
+            },
+            "404": {
+              "description": "Renavam inexistente"
+            },
+            "401": {
+              "description": "Acesso Inválido"
+            }
+          }
+        },
+        "description": "- Apenas registros com status 'APREENSAO' podem ser apreendidos.\n- Verificar vínculo do docCredor e validade dos dados do veículo.\n- O status do registro será alterado para: APREENDIDO."
+      }
+    },
+    "/averbacao/{idRegistro}": {
+      "post": {
+        "summary": "Registrar a averbação do veículo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "idRegistro",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": {
+                    "type": "string"
+                  },
+                  "renavam": {
+                    "type": "string"
+                  },
+                  "docProprietario": {
+                    "type": "string"
+                  },
+                  "idContrato": {
+                    "type": "string"
+                  },
+                  "docCredor": {
+                    "type": "string"
+                  }
+                },
+                "required": ["placa", "renavam", "docProprietario", "idContrato", "docCredor"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Averbação registrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistroCompleto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Renavam inexistente"
+          },
+          "401": {
+            "description": "Acesso Inválido"
+          }
+        },
+        "description": "- Apenas registros com status 'APREENDIDO' podem ser transferidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Não pode haver dívidas ativas para efetivar a transferência.\n- A transferência só pode ser feita para o docCredor registrado."
+      }
+    }
   },
   "components": {
     "securitySchemes": {
@@ -14,252 +518,141 @@
       }
     },
     "schemas": {
-      "Usuario": {
+      "TokenResponse": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "nome": { "type": "string" },
-          "email": { "type": "string", "format": "email" },
-          "telefone": { "type": "string" }
+          "token": {
+            "type": "string"
+          }
         }
       },
-      "Veiculo": {
+      "ErroPadrao": {
         "type": "object",
         "properties": {
-          "placa": { "type": "string" },
-          "renavam": { "type": "string" },
-          "modelo": { "type": "string" },
-          "ano": { "type": "integer" },
-          "cor": { "type": "string" }
+          "message": {
+            "type": "string"
+          }
         }
       },
-      "Notificacao": {
-        "type": "object",
-        "properties": {
-          "idNotificacao": { "type": "string" },
-          "idContrato": { "type": "string" },
-          "dataEnvio": { "type": "string", "format": "date-time" },
-          "meioEnvio": { "type": "string", "enum": ["eletronico", "postal"] }
-        }
+      "RegistroStatus": {
+        "type": "string",
+        "enum": ["ATIVO", "APREENSAO", "APREENDIDO", "CANCELADO", "TRANSFERIDO"]
       },
-      "Retomada": {
+      "RegistroBase": {
         "type": "object",
         "properties": {
-          "idContrato": { "type": "string" },
-          "valorDebito": { "type": "number" },
-          "valorContrato": { "type": "number" },
-          "parcelasAtraso": { "type": "number" },
-          "placa": { "type": "string" },
-          "renavam": { "type": "string" },
-          "numeroDocumento": { "type": "string" },
-          "dataRetomada": { "type": "string", "format": "date" },
-          "motivo": { "type": "string" }
-        }
-      }
-    }
-  },
-  "security": [{ "bearerAuth": [] }],
-  "paths": {
-    "/autenticacao": {
-      "post": {
-        "summary": "Autenticar usuário",
-        "description": "O token gerado tem validade de 24 horas. Apenas usuários cadastrados têm acesso.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "usuario": { "type": "string" },
-                  "senha": { "type": "string" }
+          "placa": {
+            "type": "string"
+          },
+          "renavam": {
+            "type": "string"
+          },
+          "docProprietario": {
+            "type": "string"
+          },
+          "idContrato": {
+            "type": "string"
+          },
+          "docCredor": {
+            "type": "string"
+          },
+          "dataContrato": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "valorDebito": {
+            "type": "number"
+          },
+          "valorContrato": {
+            "type": "number"
+          },
+          "parcelasAtraso": {
+            "type": "integer"
+          },
+          "urlAtendimento": {
+            "type": "string"
+          },
+          "urlPagamento": {
+            "type": "string"
+          },
+          "observacoes": {
+            "type": "string"
+          },
+          "dataCriacao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataAtualizacao": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "placa",
+          "renavam",
+          "docProprietario",
+          "idContrato",
+          "docCredor",
+          "dataContrato",
+          "valorDebito",
+          "valorContrato",
+          "parcelasAtraso",
+          "urlAtendimento",
+          "urlPagamento",
+          "observacoes",
+          "dataCriacao",
+          "dataAtualizacao"
+        ]
+      },
+      "RegistroCompleto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RegistroBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "idRegistro": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "$ref": "#/components/schemas/RegistroStatus"
+              },
+              "docCredorAgente": {
+                "type": "string"
+              },
+              "imagensVeiculo": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
                 }
+              },
+              "descricaoApreensao": {
+                "type": "string"
+              },
+              "localizacao": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "endereco": {
+                "type": "string"
+              },
+              "dataApreensao": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "motivoCancelamento": {
+                "type": "string"
               }
             }
           }
-        },
-        "responses": {
-          "200": { "description": "Token gerado com sucesso" },
-          "401": { "description": "Usuário ou senha inválidos" }
-        }
-      }
-    },
-    "/registro": {
-      "post": {
-        "summary": "Criar retomada de veículo",
-        "description": "**Regras de negócio**:\n- O contrato deve estar inadimplente, ou seja, com parcelas em atraso.\n- O valor do débito não pode exceder o valor total do contrato.\n- A data de retomada deve ser futura, com um limite máximo de 30 dias a partir da data atual.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/Retomada" }
-            }
-          }
-        },
-        "responses": {
-          "201": { "description": "Retomada registrada com sucesso" }
-        }
-      }
-    },
-    "/cancelamento": {
-      "put": {
-        "summary": "Cancelar retomada",
-        "description": "**Regras de negócio**:\n- Apenas registros com status 'pendente' podem ser cancelados.\n- O motivo do cancelamento deve ser informado e pode conter no máximo 255 caracteres.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "idContrato": { "type": "string" },
-                  "motivo": { "type": "string", "maxLength": 255 }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Retomada cancelada com sucesso" }
-        }
-      }
-    },
-    "/transferencia": {
-      "put": {
-        "summary": "Transferir propriedade",
-        "description": "**Regras de negócio**:\n- Apenas veículos com retomada concluída podem ser transferidos.\n- A data de transferência deve ser futura, com um limite máximo de 15 dias a partir da data atual.\n- O documento de transferência deve ser válido e estar em conformidade com as exigências legais.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "idContrato": { "type": "string" },
-                  "dataTransferencia": { "type": "string", "format": "date" },
-                  "documentoTransferencia": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Propriedade transferida com sucesso" }
-        }
-      }
-    },
-    "/notificacao": {
-      "post": {
-        "summary": "Notificar devedor",
-        "description": "**Regras de negócio**:\n- A notificação deve ser enviada eletronicamente como primeira tentativa.\n- Caso a notificação eletrônica não seja bem-sucedida, deve ser enviada por correio postal.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "placa": { "type": "string" },
-                  "renavam": { "type": "string" },
-                  "meioEnvio": { "type": "string", "enum": ["eletronico", "postal"] }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Notificação enviada" }
-        }
-      }
-    },
-    "/restricao-circulacao": {
-      "post": {
-        "summary": "Aplicar restrição de circulação",
-        "description": "**Regras de negócio**:\n- O veículo receberá uma restrição RENAVAM, impedindo sua circulação até que a situação seja regularizada.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "renavam": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Restrição aplicada" }
-        }
-      }
-    },
-    "/busca-apreensao": {
-      "post": {
-        "summary": "Emitir ordem de busca e apreensão",
-        "description": "**Regras de negócio**:\n- Após a emissão da certidão, o veículo será recolhido conforme decisão administrativa.\n- A ordem de busca deve ser emitida apenas para veículos com situação irregular.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "idContrato": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Ordem de busca emitida" }
-        }
-      }
-    },
-    "/auto-apreensao": {
-      "post": {
-        "summary": "Registrar auto de apreensão",
-        "description": "**Regras de negócio**:\n- A documentação deve registrar o estado do veículo no momento da apreensão.\n- O local de destino do veículo deve ser informado.\n- O devedor deve ser identificado e registrado no processo.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "idContrato": { "type": "string" },
-                  "estadoVeiculo": { "type": "string" },
-                  "localDestino": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Auto de apreensão registrado" }
-        }
-      }
-    },
-    "/averbacao": {
-      "post": {
-        "summary": "Realizar averbação final",
-        "description": "**Regras de negócio**:\n- Após a apreensão do veículo, a propriedade será transferida ao credor.\n- A transferência de propriedade deve ser realizada mediante a regularização documental e cumprimento das exigências legais.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "idContrato": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Averbação concluída" }
-        }
+        ]
       }
     }
   }

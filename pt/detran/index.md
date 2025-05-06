@@ -3,13 +3,13 @@ aside: false
 outline: true
 ---
 
-# Detran API
+# Detran API<Badge type="info" text="1.1.0" />
 
-A API de Retomada de Veículos, desenvolvida pelo Detran, facilita a integração com a Zarv para a gestão de processos de retomada extrajudicial de veículos. Ela oferece endpoints para autenticação, criação, cancelamento de retomadas e transferência de propriedade, automatizando e simplificando operações com maior eficiência e segurança.
+A API de Retomada de Veículos, desenvolvida pelo Detran, facilita a gestão de processos de retomada extrajudicial de veículos. Ela oferece endpoints para autenticação, criação, cancelamento de retomadas e transferência de propriedade, automatizando e simplificando operações com maior eficiência e segurança.
 
-## Fluxo de Dados da API
+## Visão Geral
 
-O diagrama abaixo ilustra o fluxo de dados entre os principais endpoints da API:
+O diagrama abaixo ilustra as principais etapas do processo de retomada de veículos, desde a autenticação até a regularização de dívidas. Cada etapa é representada por um endpoint específico da API, permitindo uma visão clara do fluxo de dados e das interações necessárias para a execução bem-sucedida do processo.
   
 ![Fluxo de Dados da API](./api.svg){.img-fluid.no-border}
 
@@ -18,7 +18,7 @@ O diagrama abaixo ilustra o fluxo de dados entre os principais endpoints da API:
   :hideInfo="true"
   :hideServers="true"
   :hideBranding="true"
-  :hidePathsSummary="true"
+  :hidePathsSummary="false"
   :spec="loadSpec"
 />
 
@@ -42,7 +42,7 @@ O diagrama abaixo ilustra o fluxo de dados entre os principais endpoints da API:
           'request-body',
           'parameters',
           'responses',
-          'code-samples',
+          // 'code-samples',
         ],
         // Slots to hide in the OAOperation component.
         hiddenSlots: ['try-it', 'branding', 'footer', 'playground'],
