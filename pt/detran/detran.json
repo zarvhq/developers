@@ -181,13 +181,67 @@
             }
           },
           "400": {
-            "description": "Dados inválidos"
+            "description": "Dados inválidos",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 400
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Dados inválidos. Verifique os campos obrigatórios."
+                  }
+                }
+              }
+            ]
           },
           "404": {
-            "description": "Renavam inexistente"
+            "description": "Renavam inexistente",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 404
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Renavam não encontrado."
+                  }
+                }
+              }
+            ]
           },
           "401": {
-            "description": "Acesso Inválido"
+            "description": "Acesso Inválido",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 401
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Token de autenticação inválido."
+                  }
+                }
+              }
+            ]
           }
         },
         "description": "- O contrato deve estar inadimplente, com parcelas em atraso.\n- O credor fiduciário deve fornecer URLs para pagamento e negociação.\n- Verificar validade de Placa + Renavam + Doc Proprietário e inexistência de registro ativo/finalizado.\n- Verificar vínculo do docCredor à alienação fiduciária do veículo.\n- Notificar o proprietário por todos os canais conhecidos.\n- Registrar restrição de circulação do veículo."
@@ -223,10 +277,46 @@
             }
           },
           "404": {
-            "description": "Não há registro para este Renavam"
+            "description": "Não há registro para este Renavam",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 404
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Registro não encontrado."
+                  }
+                }
+              }
+            ]
           },
           "401": {
-            "description": "Acesso Inválido"
+            "description": "Acesso Inválido",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 401
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Token de autenticação inválido."
+                  }
+                }
+              }
+            ]
           }
         },
         "description": "- Retorna todos os dados do registro de inadimplência vinculado ao Renavam informado."
@@ -302,10 +392,46 @@
               }
             },
             "404": {
-              "description": "Não há registro para este Renavam"
+              "description": "Não há registro para este Renavam",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Registro não encontrado."
+                    }
+                  }
+                }
+              ]
             },
             "401": {
-              "description": "Acesso Inválido"
+              "description": "Acesso Inválido",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token de autenticação inválido."
+                    }
+                  }
+                }
+              ]
             }
           }
         },
@@ -354,7 +480,7 @@
         },
         "responses": {
           "200": {
-            "description": "Ordem emitida",
+            "description": "Ordem de apreensão emitida",
             "content": {
               "application/json": {
                 "schema": {
@@ -364,13 +490,67 @@
             }
           },
           "400": {
-            "description": "Dados inválidos"
+            "description": "Dados inválidos",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 400
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Apreensão não pode ser registrada. Verifique o status do registro."
+                  }
+                }
+              }
+            ]
           },
           "404": {
-            "description": "Renavam inexistente"
+            "description": "Renavam inexistente",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 404
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Registro não encontrado."
+                  }
+                }
+              }
+            ]
           },
           "401": {
-            "description": "Acesso Inválido"
+            "description": "Acesso Inválido",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 401
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Token de autenticação inválido."
+                  }
+                }
+              }
+            ]
           }
         },
         "description": "- Apenas registros com status `ATIVO` podem ser apreendidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Ordem de busca só pode ser emitida após 7 dias do registro de inadimplência.\n- O status do registro será alterado para: `APREENSAO`."
@@ -413,7 +593,11 @@
                     "items": {
                       "type": "string",
                       "format": "uri"
-                    }
+                    },
+                    "example": [
+                      "https://example.com/imagem1.jpg",
+                      "https://example.com/imagem2.jpg"
+                    ]
                   },
                   "descricaoApreensao": {
                     "type": "string",
@@ -425,7 +609,8 @@
                       "type": "number"
                     },
                     "minItems": 2,
-                    "maxItems": 2
+                    "maxItems": 2,
+                    "example": [37.7749, -122.4194]
                   },
                   "endereco": {
                     "$ref": "#/components/schemas/Endereco"
@@ -459,13 +644,67 @@
               }
             },
             "400": {
-              "description": "Dados inválidos"
+              "description": "Dados inválidos",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Apreensão não pode ser registrada. Verifique o status do registro."
+                    }
+                  }
+                }
+              ]
             },
             "404": {
-              "description": "Renavam inexistente"
+              "description": "Renavam inexistente",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Registro não encontrado."
+                    }
+                  }
+                }
+              ]
             },
             "401": {
-              "description": "Acesso Inválido"
+              "description": "Acesso Inválido",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token de autenticação inválido."
+                    }
+                  }
+                }
+              ]
             }
           }
         },
@@ -534,13 +773,67 @@
             }
           },
           "400": {
-            "description": "Dados inválidos"
+            "description": "Dados inválidos",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 400
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Averbação não pode ser registrada. Verifique o status do registro."
+                  }
+                }
+              }
+            ]
           },
           "404": {
-            "description": "Renavam inexistente"
+            "description": "Renavam inexistente",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 404
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Registro não encontrado."
+                  }
+                }
+              }
+            ]
           },
           "401": {
-            "description": "Acesso Inválido"
+            "description": "Acesso Inválido",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ErroPadrao"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "integer",
+                    "example": 401
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Token de autenticação inválido."
+                  }
+                }
+              }
+            ]
           }
         },
         "description": "- Apenas registros com status `APREENDIDO` podem ser transferidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Não pode haver dívidas ativas para efetivar a transferência.\n- A transferência só pode ser feita para o docCredor registrado."
@@ -656,8 +949,7 @@
             "$ref": "#/components/schemas/NationalId"
           },
           "dataContrato": {
-            "type": "string",
-            "format": "date-time"
+            "$ref": "#/components/schemas/DateTime"
           },
           "valorDebito": {
             "type": "number",
@@ -690,12 +982,10 @@
             "type": "string"
           },
           "dataCriacao": {
-            "type": "string",
-            "format": "date-time"
+            "$ref": "#/components/schemas/DateTime"
           },
           "dataAtualizacao": {
-            "type": "string",
-            "format": "date-time"
+            "$ref": "#/components/schemas/DateTime"
           }
         },
         "required": [
@@ -721,27 +1011,46 @@
           "cep": {
             "type": "string",
             "minLength": 8,
-            "maxLength": 8
+            "maxLength": 8,
+            "description": "Formato do CEP, sem traços ou espaços.",
+            "example": "12345678"
           },
           "logradouro": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 255,
+            "description": "Nome da rua, avenida ou logradouro.",
+            "example": "Rua das Flores"
           },
           "numero": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 10,
+            "description": "Número do imóvel.",
+            "example": "123"
           },
           "complemento": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 50,
+            "description": "Complemento do endereço, como apartamento ou bloco.",
+            "example": "Apto 101"
           },
           "bairro": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome do bairro.",
+            "example": "Centro"
           },
           "cidade": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome da cidade.",
+            "example": "São Paulo"
           },
           "estado": {
             "type": "string",
             "minLength": 2,
-            "maxLength": 2
+            "maxLength": 2,
+            "description": "Sigla do estado, em formato ISO 3166-2.",
+            "example": "SP"
           }
         }
       },
