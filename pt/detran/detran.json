@@ -446,13 +446,7 @@
                     "maxLength": 255
                   },
                   "localizacao": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    },
-                    "minItems": 2,
-                    "maxItems": 2,
-                    "example": [37.7749, -122.4194]
+                    "$ref": "#/components/schemas/Geolocalizacao"
                   },
                   "endereco": {
                     "$ref": "#/components/schemas/Endereco"
@@ -799,6 +793,16 @@
           "dataAtualizacao"
         ]
       },
+      "Geolocalizacao": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "example": [37.7749, -122.4194],
+        "description": "Coordenadas geográficas no formato [latitude, longitude]."
+      },
       "Endereco": {
         "type": "object",
         "properties": {
@@ -883,12 +887,7 @@
                 "maxLength": 255
               },
               "localizacao": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                },
-                "minItems": 2,
-                "maxItems": 2
+                "$ref": "#/components/schemas/Geolocalizacao"
               },
               "endereco": {
                 "$ref": "#/components/schemas/Endereco"
