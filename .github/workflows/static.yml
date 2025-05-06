@@ -74,3 +74,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v2
+        with:
+          payload: |
+            {
+              "text": "New [Zarv Developers Docs](https://developers.zarv.com) published by ${{ github.actor }}!",
+              "channel": "${{ vars.NOTIFY_SLACK_CHANNEL }}",
+              "username": "GitHub Actions",
+              "icon_emoji": ":octocat:"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_CHANNEL: ${{ vars.NOTIFY_SLACK_CHANNEL }}
