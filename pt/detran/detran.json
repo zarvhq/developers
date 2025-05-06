@@ -794,14 +794,25 @@
         ]
       },
       "Geolocalizacao": {
-        "type": "array",
-        "items": {
-          "type": "number"
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "description": "Latitude da localização do veículo.",
+            "example": -23.55052
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Longitude da localização do veículo.",
+            "example": -46.633308
+          }
         },
-        "minItems": 2,
-        "maxItems": 2,
-        "example": [37.7749, -122.4194],
-        "description": "Coordenadas geográficas no formato [latitude, longitude]."
+        "required": ["latitude", "longitude"],
+        "description": "Geolocalização do veículo no momento da apreensão.",
+        "example": {
+          "latitude": -23.55052,
+          "longitude": -46.633308
+        }
       },
       "Endereco": {
         "type": "object",

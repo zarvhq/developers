@@ -75,14 +75,14 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Slack Notification
-        uses: slackapi/slack-github-action@v2
-        with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
-          payload: |
-            blocks:
-            - type: "section"
-              text:
-                type: "mrkdwn"
-                text: "@here New update published on Zarv Developers (https://developers.zarv.com) by ${{ github.actor }}"
+      # - name: Slack Notification
+      #   uses: slackapi/slack-github-action@v2
+      #   with:
+      #     webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #     webhook-type: incoming-webhook
+      #     payload: |
+      #       blocks:
+      #       - type: "section"
+      #         text:
+      #           type: "mrkdwn"
+      #           text: "@here New update published on Zarv Developers (https://developers.zarv.com) by ${{ github.actor }}"
