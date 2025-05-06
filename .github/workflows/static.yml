@@ -78,13 +78,12 @@ jobs:
       - name: Slack Notification
         uses: slackapi/slack-github-action@v2
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
-            {
-              "text": "New [Zarv Developers Docs](https://developers.zarv.com) published by ${{ github.actor }}!",
-              "channel": "${{ vars.NOTIFY_SLACK_CHANNEL }}",
-              "username": "GitHub Actions",
-              "icon_emoji": ":octocat:"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_CHANNEL: ${{ vars.NOTIFY_SLACK_CHANNEL }}
+            text: "New [Zarv Developers Docs](https://developers.zarv.com) published by ${{ github.actor }}!"
+            blocks:
+              - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "Update reference: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
