@@ -3,7 +3,7 @@ aside: false
 outline: true
 ---
 
-# Detran API<Badge type="info" text="1.1.0" />
+# Detran API <Badge type="info" :text="apiVersion" />
 
 A API de Retomada de Veículos, desenvolvida pelo Detran, facilita a gestão de processos de retomada extrajudicial de veículos. Ela oferece endpoints para autenticação, criação, cancelamento de retomadas e transferência de propriedade, automatizando e simplificando operações com maior eficiência e segurança.
 
@@ -58,4 +58,5 @@ O diagrama abaixo ilustra as principais etapas do processo de retomada de veícu
       description: 'Servidor de Produção',
     },
   ]
+  const apiVersion = loadSpec.info.version
  </script>
