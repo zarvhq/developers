@@ -81,14 +81,8 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            text: "New update published on [Zarv Developers](https://developers.zarv.com) by **${{ github.actor }}** 🎉"
             blocks:
-            - type: section
+            - type: "section"
               text:
-                type: mrkdwn
-                text: "New update published on [Zarv Developers](https://developers.zarv.com) by **${{ github.actor }}** 🎉"
-            - type: divider
-            - type: section
-              text:
-                type: mrkdwn
-                text: "Check out the [commit changes](${{ github.event.pull_request.html_url || github.event.head_commit.url }})"
+                type: "mrkdwn"
+                text: "New update published on [Zarv Developers](https://developers.zarv.com) by **${{ github.actor }}**"
