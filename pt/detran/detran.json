@@ -880,7 +880,8 @@
                 "items": {
                   "type": "string",
                   "format": "uri"
-                }
+                },
+                "example": ["https://example.com/imagem1.jpg", "https://example.com/imagem2.jpg"]
               },
               "descricaoApreensao": {
                 "type": "string",
