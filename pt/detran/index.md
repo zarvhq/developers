@@ -25,31 +25,31 @@ O diagrama abaixo ilustra as principais etapas do processo de retomada de veícu
 <script setup lang="ts">
   import { useTheme } from 'vitepress-openapi/client'
   import openApiConfig from '../../openapi.config'
-  import detranSpec from './detran.json'
+  import detranSpec from './detran.json' with { type: 'json' }
 
   useTheme({
-    ...openApiConfig,
+    schemaConfig: openApiConfig,
     operation: {
-        // Set the operation badges. The order is respected.
-        badges: ['deprecated'],
-        // Slots to render in the OAOperation component.
-        slots: [
-          'header',
-          // 'tags',
-          'path',
-          'description',
-          'security',
-          'request-body',
-          'parameters',
-          'responses',
-          // 'code-samples',
-        ],
-        // Slots to hide in the OAOperation component.
-        hiddenSlots: ['try-it', 'branding', 'footer', 'playground'],
-        // Set the number of columns to use in the OAOperation component.
-        cols: 1,
-      }
-     })
+      // Set the operation badges. The order is respected.
+      badges: ['deprecated'],
+      // Slots to render in the OAOperation component.
+      slots: [
+        'header',
+        // 'tags',
+        'path',
+        'description',
+        'security',
+        'request-body',
+        'parameters',
+        'responses',
+        // 'code-samples',
+      ],
+      // Slots to hide in the OAOperation component.
+      hiddenSlots: ['try-it', 'branding', 'footer', 'playground'],
+      // Set the number of columns to use in the OAOperation component.
+      cols: 1,
+    }
+  })
 
   const loadSpec = JSON.parse(JSON.stringify(detranSpec))
   loadSpec.servers = [
