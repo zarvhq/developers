@@ -85,4 +85,4 @@ jobs:
             - type: "section"
               text:
                 type: "mrkdwn"
-                text: "New update published on [Zarv Developers](https://developers.zarv.com) by **${{ github.actor }}**"
+                text: "New update published on Zarv Developers (https://developers.zarv.com) by ${{ github.actor }}"
