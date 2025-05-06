@@ -51,12 +51,13 @@ export default {
       'request-body',
       'parameters',
       'responses',
-      'code-samples',
+      // 'code-samples',
+      // 'playground',
     ],
     // Slots to hide in the OAOperation component.
-    hiddenSlots: ['try-it', 'branding', 'footer', 'playground'],
+    hiddenSlots: ['try-it', 'branding', 'footer'],
     // Set the number of columns to use in the OAOperation component.
-    cols: 2,
+    cols: 1,
     // Set the default base URL.
     defaultBaseUrl: 'https://api.zarv.com',
   },

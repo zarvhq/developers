@@ -42,7 +42,7 @@ onMounted(async () => {
 </div>
 <div v-else>
 
-# Documentação da {{ loadSpec.info?.title }}<Badge type="warning" :text="`v ${ loadSpec.info?.version }`" />
+# Documentação da {{ loadSpec.info?.title }}<Badge type="info" :text="`v ${ loadSpec.info?.version }`" />
 
 <div v-html="md.render(loadSpec.info?.description)" />
 
