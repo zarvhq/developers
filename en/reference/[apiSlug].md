@@ -11,7 +11,7 @@ import { onUnmounted, onMounted, ref } from 'vue'
 import { useRoute } from 'vitepress'
 import { useTheme } from 'vitepress-openapi/client'
 import markdownit from 'markdown-it'
-import openApiConfig from '../../.vitepress/theme/openapi.config'
+import openApiConfig from '../../openapi.config'
 
 const md = markdownit({
   html: true,

@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "API de Inadimplência Veicular",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "API para registro, consulta e gestão de inadimplência veicular, incluindo autenticação, cancelamento, apreensão e averbação."
   },
   "paths": {
@@ -17,10 +17,14 @@
                 "type": "object",
                 "properties": {
                   "usuario": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 5,
+                    "maxLength": 50
                   },
                   "senha": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 100
                   }
                 },
                 "required": ["usuario", "senha"]
@@ -57,7 +61,7 @@
         "summary": "Registrar inadimplência",
         "security": [
           {
-            "bearerAuth": []
+            "Authorization": []
           }
         ],
         "requestBody": {
@@ -68,55 +72,69 @@
                 "type": "object",
                 "properties": {
                   "placa": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Placa"
                   },
                   "renavam": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Renavam"
                   },
                   "docProprietario": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   },
                   "phoneProprietario": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Phone"
                   },
                   "emailProprietario": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Email"
                   },
                   "idContrato": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "description": "Identificador do contrato de financiamento ou leasing.",
+                    "example": "1234567890"
                   },
                   "docCredor": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   },
                   "dataContrato": {
-                    "type": "string",
-                    "format": "date-time"
+                    "$ref": "#/components/schemas/DateTime"
                   },
                   "valorDebito": {
-                    "type": "number"
+                    "type": "number",
+                    "description": "Valor total do débito em atraso.",
+                    "example": 1500
                   },
                   "valorContrato": {
-                    "type": "number"
+                    "type": "number",
+                    "description": "Valor total do contrato de financiamento ou leasing.",
+                    "example": 200000
                   },
                   "parcelasAtraso": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Número de parcelas em atraso.",
+                    "example": 3
                   },
                   "urlAtendimento": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL para atendimento ao cliente do credor fiduciário.",
+                    "example": "https://www.credor.com/atendimento"
                   },
                   "urlPagamento": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL para pagamento do débito.",
+                    "example": "https://www.credor.com/pagamento"
                   },
                   "observacoes": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 255
                   },
                   "dataCriacao": {
-                    "type": "string",
-                    "format": "date-time"
+                    "$ref": "#/components/schemas/DateTime"
                   },
                   "dataAtualizacao": {
-                    "type": "string",
-                    "format": "date-time"
+                    "$ref": "#/components/schemas/DateTime"
                   }
                 },
                 "required": [
@@ -148,15 +166,14 @@
                   "type": "object",
                   "properties": {
                     "idRegistro": {
-                      "type": "string",
-                      "format": "uuid"
+                      "$ref": "#/components/schemas/UUID"
                     },
                     "dataCriacao": {
-                      "type": "string",
-                      "format": "date-time"
+                      "$ref": "#/components/schemas/DateTime"
                     },
                     "status": {
-                      "$ref": "#/components/schemas/RegistroStatus"
+                      "$ref": "#/components/schemas/RegistroStatus",
+                      "example": "ATIVO"
                     }
                   }
                 }
@@ -181,7 +198,7 @@
         "summary": "Consultar registro de inadimplência",
         "security": [
           {
-            "bearerAuth": []
+            "Authorization": []
           }
         ],
         "parameters": [
@@ -190,7 +207,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "$ref": "#/components/schemas/Renavam"
             }
           }
         ],
@@ -218,7 +235,17 @@
         "summary": "Cancelar registro de inadimplência",
         "security": [
           {
-            "bearerAuth": []
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "renavam",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Renavam"
+            }
           }
         ],
         "requestBody": {
@@ -229,27 +256,27 @@
                 "type": "object",
                 "properties": {
                   "idRegistro": {
-                    "type": "string",
-                    "format": "uuid"
+                    "$ref": "#/components/schemas/UUID"
                   },
                   "placa": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Placa"
                   },
                   "docProprietario": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   },
                   "idContrato": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "description": "Identificador do contrato de financiamento ou leasing.",
+                    "example": "1234567890"
                   },
                   "docCredor": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   },
                   "motivoCancelamento": {
                     "type": "string",
                     "maxLength": 255
-                  },
-                  "status": {
-                    "enum": ["CANCELADO"]
                   }
                 },
                 "required": [
@@ -258,8 +285,7 @@
                   "docProprietario",
                   "idContrato",
                   "docCredor",
-                  "motivoCancelamento",
-                  "status"
+                  "motivoCancelamento"
                 ]
               }
             }
@@ -283,7 +309,7 @@
             }
           }
         },
-        "description": "- Apenas registros com status 'ATIVO', 'APREENSAO' ou 'APREENDIDO' podem ser cancelados.\n- O motivo do cancelamento deve conter no máximo 255 caracteres.\n- Verificar vínculo do docCredor e validade dos dados do veículo e proprietário."
+        "description": "- Apenas registros com status `ATIVO`, `APREENSAO` ou `APREENDIDO` podem ser cancelados.\n- O motivo do cancelamento deve conter no máximo 255 caracteres.\n- Verificar vínculo do docCredor e validade dos dados do veículo e proprietário."
       }
     },
     "/apreensao/{idRegistro}": {
@@ -291,7 +317,7 @@
         "summary": "Emitir ordem de busca e apreensão",
         "security": [
           {
-            "bearerAuth": []
+            "Authorization": []
           }
         ],
         "parameters": [
@@ -300,8 +326,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "$ref": "#/components/schemas/UUID"
             }
           }
         ],
@@ -313,13 +338,13 @@
                 "type": "object",
                 "properties": {
                   "placa": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Placa"
                   },
                   "renavam": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Renavam"
                   },
                   "docCredorAgente": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   }
                 },
                 "required": ["placa", "renavam", "docCredorAgente"]
@@ -348,13 +373,23 @@
             "description": "Acesso Inválido"
           }
         },
-        "description": "- Apenas registros com status 'ATIVO' podem ser apreendidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Ordem de busca só pode ser emitida após 7 dias do registro de inadimplência.\n- O status do registro será alterado para: APREENSAO."
+        "description": "- Apenas registros com status `ATIVO` podem ser apreendidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Ordem de busca só pode ser emitida após 7 dias do registro de inadimplência.\n- O status do registro será alterado para: `APREENSAO`."
       },
       "put": {
         "summary": "Registrar auto de apreensão",
         "security": [
           {
-            "bearerAuth": []
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "idRegistro",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
           }
         ],
         "requestBody": {
@@ -365,13 +400,13 @@
                 "type": "object",
                 "properties": {
                   "placa": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Placa"
                   },
                   "renavam": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Renavam"
                   },
                   "docCredorAgente": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   },
                   "imagensVeiculo": {
                     "type": "array",
@@ -381,7 +416,8 @@
                     }
                   },
                   "descricaoApreensao": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 255
                   },
                   "localizacao": {
                     "type": "array",
@@ -392,11 +428,10 @@
                     "maxItems": 2
                   },
                   "endereco": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Endereco"
                   },
                   "dataApreensao": {
-                    "type": "string",
-                    "format": "date-time"
+                    "$ref": "#/components/schemas/DateTime"
                   }
                 },
                 "required": [
@@ -434,7 +469,7 @@
             }
           }
         },
-        "description": "- Apenas registros com status 'APREENSAO' podem ser apreendidos.\n- Verificar vínculo do docCredor e validade dos dados do veículo.\n- O status do registro será alterado para: APREENDIDO."
+        "description": "- Apenas registros com status `APREENSAO` podem ser apreendidos.\n- Verificar vínculo do docCredor e validade dos dados do veículo.\n- O status do registro será alterado para: `APREENDIDO`."
       }
     },
     "/averbacao/{idRegistro}": {
@@ -442,7 +477,7 @@
         "summary": "Registrar a averbação do veículo",
         "security": [
           {
-            "bearerAuth": []
+            "Authorization": []
           }
         ],
         "parameters": [
@@ -451,8 +486,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "$ref": "#/components/schemas/UUID"
             }
           }
         ],
@@ -464,19 +498,23 @@
                 "type": "object",
                 "properties": {
                   "placa": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Placa"
                   },
                   "renavam": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/Renavam"
                   },
                   "docProprietario": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   },
                   "idContrato": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "description": "Identificador do contrato de financiamento ou leasing.",
+                    "example": "1234567890"
                   },
                   "docCredor": {
-                    "type": "string"
+                    "$ref": "#/components/schemas/NationalId"
                   }
                 },
                 "required": ["placa", "renavam", "docProprietario", "idContrato", "docCredor"]
@@ -505,19 +543,73 @@
             "description": "Acesso Inválido"
           }
         },
-        "description": "- Apenas registros com status 'APREENDIDO' podem ser transferidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Não pode haver dívidas ativas para efetivar a transferência.\n- A transferência só pode ser feita para o docCredor registrado."
+        "description": "- Apenas registros com status `APREENDIDO` podem ser transferidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Não pode haver dívidas ativas para efetivar a transferência.\n- A transferência só pode ser feita para o docCredor registrado."
       }
     }
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
+      "Authorization": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "in": "header",
+        "description": "Token JWT para autenticação. O cabeçalho deve ser: `Authorization: Bearer {token}`"
       }
     },
     "schemas": {
+      "NationalId": {
+        "type": "string",
+        "pattern": "^[0-9]{11,14}$",
+        "description": "Número do CPF ou CNPJ, dependendo do contexto.",
+        "minLength": 11,
+        "maxLength": 14,
+        "example": "12345678901"
+      },
+      "Email": {
+        "type": "string",
+        "format": "email",
+        "description": "Formato de e-mail válido.",
+        "minLength": 5,
+        "maxLength": 100,
+        "example": "email@server.com"
+      },
+      "Phone": {
+        "type": "string",
+        "pattern": "^\\+[1-9]\\d{1,14}$",
+        "description": "Formato de telefone internacional, começando com o código do país.",
+        "example": "+5511999999999",
+        "minLength": 10,
+        "maxLength": 15
+      },
+      "UUID": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Identificador único universal (UUID) para o registro.",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "DateTime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Data e hora no formato ISO 8601 em UTC.",
+        "example": "2025-01-01T00:00:00Z"
+      },
+      "Placa": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$",
+        "description": "Formato da placa do veículo, considerando o padrão Mercosul.",
+        "minLength": 7,
+        "maxLength": 7,
+        "example": "ABC1D23"
+      },
+      "Renavam": {
+        "type": "string",
+        "pattern": "^[0-9]{11}$",
+        "description": "Número do Renavam do veículo, com 11 dígitos.",
+        "minLength": 11,
+        "maxLength": 11,
+        "example": "12345678901"
+      },
       "TokenResponse": {
         "type": "object",
         "properties": {
@@ -529,6 +621,9 @@
       "ErroPadrao": {
         "type": "object",
         "properties": {
+          "statusCode": {
+            "type": "integer"
+          },
           "message": {
             "type": "string"
           }
@@ -542,38 +637,54 @@
         "type": "object",
         "properties": {
           "placa": {
-            "type": "string"
+            "$ref": "#/components/schemas/Placa"
           },
           "renavam": {
-            "type": "string"
+            "$ref": "#/components/schemas/Renavam"
           },
           "docProprietario": {
-            "type": "string"
+            "$ref": "#/components/schemas/NationalId"
           },
           "idContrato": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "description": "Identificador do contrato de financiamento ou leasing.",
+            "example": "1234567890"
           },
           "docCredor": {
-            "type": "string"
+            "$ref": "#/components/schemas/NationalId"
           },
           "dataContrato": {
             "type": "string",
             "format": "date-time"
           },
           "valorDebito": {
-            "type": "number"
+            "type": "number",
+            "description": "Valor total do débito em atraso.",
+            "example": 1500
           },
           "valorContrato": {
-            "type": "number"
+            "type": "number",
+            "description": "Valor total do contrato de financiamento ou leasing.",
+            "example": 200000
           },
           "parcelasAtraso": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Número de parcelas em atraso.",
+            "example": 3
           },
           "urlAtendimento": {
-            "type": "string"
+            "type": "string",
+            "format": "uri",
+            "description": "URL para atendimento ao cliente do credor fiduciário.",
+            "example": "https://www.credor.com/atendimento"
           },
           "urlPagamento": {
-            "type": "string"
+            "type": "string",
+            "format": "uri",
+            "description": "URL para pagamento do débito.",
+            "example": "https://www.credor.com/pagamento"
           },
           "observacoes": {
             "type": "string"
@@ -604,6 +715,36 @@
           "dataAtualizacao"
         ]
       },
+      "Endereco": {
+        "type": "object",
+        "properties": {
+          "cep": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 8
+          },
+          "logradouro": {
+            "type": "string"
+          },
+          "numero": {
+            "type": "string"
+          },
+          "complemento": {
+            "type": "string"
+          },
+          "bairro": {
+            "type": "string"
+          },
+          "cidade": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          }
+        }
+      },
       "RegistroCompleto": {
         "allOf": [
           {
@@ -614,13 +755,18 @@
             "properties": {
               "idRegistro": {
                 "type": "string",
-                "format": "uuid"
+                "format": "uuid",
+                "description": "Identificador único do registro de inadimplência.",
+                "example": "123e4567-e89b-12d3-a456-426614174000"
               },
               "status": {
-                "$ref": "#/components/schemas/RegistroStatus"
+                "$ref": "#/components/schemas/RegistroStatus",
+                "example": "ATIVO"
               },
               "docCredorAgente": {
-                "type": "string"
+                "type": "string",
+                "minLength": 14,
+                "maxLength": 14
               },
               "imagensVeiculo": {
                 "type": "array",
@@ -630,7 +776,8 @@
                 }
               },
               "descricaoApreensao": {
-                "type": "string"
+                "type": "string",
+                "maxLength": 255
               },
               "localizacao": {
                 "type": "array",
@@ -641,7 +788,7 @@
                 "maxItems": 2
               },
               "endereco": {
-                "type": "string"
+                "$ref": "#/components/schemas/Endereco"
               },
               "dataApreensao": {
                 "type": "string",

@@ -1,6 +1,11 @@
-import { locales } from "vitepress-openapi/client"
+import { locales } from 'vitepress-openapi/client'
 
 export default {
+  availableLanguages: [
+    { code: 'en', label: 'English' },
+    { code: 'es', label: 'Español' },
+    { code: 'pt-BR', label: 'Português (Brasil)' },
+  ],
   requestBody: {
     // Set the default schema view.
     defaultView: 'contentType', // schema or contentType

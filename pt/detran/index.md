@@ -24,7 +24,7 @@ O diagrama abaixo ilustra as principais etapas do processo de retomada de veícu
 
 <script setup lang="ts">
   import { useTheme } from 'vitepress-openapi/client'
-  import openApiConfig from '../../.vitepress/theme/openapi.config'
+  import openApiConfig from '../../openapi.config'
   import detranSpec from './detran.json'
 
   useTheme({

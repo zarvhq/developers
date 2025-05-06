@@ -2,7 +2,7 @@
 import { type Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { theme, useTheme } from 'vitepress-openapi/client'
-import openApiConfig from './openapi.config'
+import openApiConfig from '../../openapi.config'
 
 import Layout from './Layout.vue'
 import './zarv.scss'
