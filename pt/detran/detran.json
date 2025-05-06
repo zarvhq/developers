@@ -48,7 +48,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErroPadrao"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ErroPadrao"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "statusCode": {
+                          "type": "integer",
+                          "example": 401
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Usuário ou senha inválidos."
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -182,66 +199,33 @@
           },
           "400": {
             "description": "Dados inválidos",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 400
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Dados inválidos. Verifique os campos obrigatórios."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
                 }
               }
-            ]
+            }
           },
           "404": {
             "description": "Renavam inexistente",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 404
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Renavam não encontrado."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
                 }
               }
-            ]
+            }
           },
           "401": {
             "description": "Acesso Inválido",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 401
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Token de autenticação inválido."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
-            ]
+            }
           }
         },
         "description": "- O contrato deve estar inadimplente, com parcelas em atraso.\n- O credor fiduciário deve fornecer URLs para pagamento e negociação.\n- Verificar validade de Placa + Renavam + Doc Proprietário e inexistência de registro ativo/finalizado.\n- Verificar vínculo do docCredor à alienação fiduciária do veículo.\n- Notificar o proprietário por todos os canais conhecidos.\n- Registrar restrição de circulação do veículo."
@@ -276,47 +260,35 @@
               }
             }
           },
-          "404": {
-            "description": "Não há registro para este Renavam",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 404
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Registro não encontrado."
-                  }
+          "400": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
                 }
               }
-            ]
+            }
+          },
+          "404": {
+            "description": "Renavam inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso Inválido",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 401
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Token de autenticação inválido."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
-            ]
+            }
           }
         },
         "description": "- Retorna todos os dados do registro de inadimplência vinculado ao Renavam informado."
@@ -391,47 +363,35 @@
                 }
               }
             },
-            "404": {
-              "description": "Não há registro para este Renavam",
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ErroPadrao"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 404
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Registro não encontrado."
-                    }
+            "400": {
+              "description": "Dados inválidos",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error400"
                   }
                 }
-              ]
+              }
+            },
+            "404": {
+              "description": "Renavam inexistente",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error404"
+                  }
+                }
+              }
             },
             "401": {
               "description": "Acesso Inválido",
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ErroPadrao"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Token de autenticação inválido."
-                    }
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error401"
                   }
                 }
-              ]
+              }
             }
           }
         },
@@ -491,66 +451,33 @@
           },
           "400": {
             "description": "Dados inválidos",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 400
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Apreensão não pode ser registrada. Verifique o status do registro."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
                 }
               }
-            ]
+            }
           },
           "404": {
             "description": "Renavam inexistente",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 404
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Registro não encontrado."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
                 }
               }
-            ]
+            }
           },
           "401": {
             "description": "Acesso Inválido",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 401
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Token de autenticação inválido."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
-            ]
+            }
           }
         },
         "description": "- Apenas registros com status `ATIVO` podem ser apreendidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Ordem de busca só pode ser emitida após 7 dias do registro de inadimplência.\n- O status do registro será alterado para: `APREENSAO`."
@@ -645,66 +572,33 @@
             },
             "400": {
               "description": "Dados inválidos",
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ErroPadrao"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 400
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Apreensão não pode ser registrada. Verifique o status do registro."
-                    }
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error400"
                   }
                 }
-              ]
+              }
             },
             "404": {
               "description": "Renavam inexistente",
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ErroPadrao"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 404
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Registro não encontrado."
-                    }
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error404"
                   }
                 }
-              ]
+              }
             },
             "401": {
               "description": "Acesso Inválido",
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ErroPadrao"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Token de autenticação inválido."
-                    }
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error401"
                   }
                 }
-              ]
+              }
             }
           }
         },
@@ -774,66 +668,33 @@
           },
           "400": {
             "description": "Dados inválidos",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 400
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Averbação não pode ser registrada. Verifique o status do registro."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
                 }
               }
-            ]
+            }
           },
           "404": {
             "description": "Renavam inexistente",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 404
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Registro não encontrado."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
                 }
               }
-            ]
+            }
           },
           "401": {
             "description": "Acesso Inválido",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ErroPadrao"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "statusCode": {
-                    "type": "integer",
-                    "example": 401
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Token de autenticação inválido."
-                  }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
-            ]
+            }
           }
         },
         "description": "- Apenas registros com status `APREENDIDO` podem ser transferidos.\n- Verificar vínculo do docCredor e validade do registro e dados do veículo.\n- Não pode haver dívidas ativas para efetivar a transferência.\n- A transferência só pode ser feita para o docCredor registrado."
@@ -851,6 +712,87 @@
       }
     },
     "schemas": {
+      "Error401": {
+        "description": "Acesso inválido",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Usuário ou senha inválidos."
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Error404": {
+        "description": "Recurso não encontrado",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recurso não encontrado."
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Error400": {
+        "description": "Erro de validação",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ErroPadrao"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Dados inválidos. Verifique os campos obrigatórios."
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
       "NationalId": {
         "type": "string",
         "pattern": "^[0-9]{11,14}$",
