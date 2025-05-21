@@ -119,6 +119,7 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
       items: [
         { text: 'Getting Started', link: '/' },
         { text: 'Authentication', link: 'authentication' },
+        { text: 'Authentication v2', link: 'authentication-v2' },
         { text: 'Errors', link: 'errors' },
         { text: 'Rate Limits', link: 'rate-limits' },
         { text: 'Access Token', base: '/', link: 'request-token' },
