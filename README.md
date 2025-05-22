@@ -1,4 +1,4 @@
-# Developers Guide
+# Developers Guide.
 
 [![VitePress Documentation](https://img.shields.io/badge/vitepress-1.6.3-blue)](https://vitepress.dev/)
 [![PNPM Documentation](https://img.shields.io/badge/pnpm-10.2.0-orange)](https://pnpm.io/)
