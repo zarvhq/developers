@@ -29,9 +29,11 @@ POST https://services.zarv.com/api/v1/authentication
 
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "token_type": "Bearer",
-  "expires_in": 1800
+  "expires_in": 360,
+  "refreshExpiresIn": 1800
 }
 ```
 
@@ -59,8 +61,9 @@ const credentials = {
 axios
   .post('https://services.zarv.com/api/v1/authentication', credentials)
   .then((response) => {
-    const { access_token } = response.data
-    console.log('Token de Acesso:', access_token)
+    const { accessTokenT, refreshoken } = response.data
+    console.log('Token de Acesso:', accessToken)
+    console.log('Token de Renovação:', refreshToken)
   })
   .catch((error) => console.error(error))
 ```
@@ -81,9 +84,11 @@ type Credentials struct {
 }
 
 type TokenResponse struct {
-  AccessToken string `json:"access_token"`
-  TokenType   string `json:"token_type"`
-  ExpiresIn   int    `json:"expires_in"`
+  AccessToken      string `json:"accessToken"`
+  RefreshToken     string `json:"refreshToken"`
+  TokenType        string `json:"token_type"`
+  ExpiresIn        int    `json:"expires_in"`
+  RefreshExpiresIn int    `json:"refreshExpiresIn"`
 }
 
 func main() {
@@ -116,6 +121,7 @@ func main() {
   }
 
   fmt.Println("Token de Acesso:", tokenResp.AccessToken)
+  fmt.Println("Token de Renovação:", tokenResp.RefreshToken)
 }
 ```
 
@@ -134,7 +140,8 @@ response = requests.post(
 
 if response.status_code == 200:
     token_data = response.json()
-    print("Token de Acesso:", token_data["access_token"])
+    print("Token de Acesso:", token_data["accessToken"])
+    print("Token de Renovação:", token_data["refreshToken"])
 else:
     print("Erro:", response.status_code)
 ```
@@ -157,7 +164,165 @@ $response = curl_exec($ch);
 curl_close($ch);
 
 $tokenData = json_decode($response, true);
-echo "Token de Acesso: " . $tokenData['access_token'];
+echo "Token de Acesso: " . $tokenData['accessToken'] . "\n";
+echo "Token de Renovação: " . $tokenData['refreshToken'] . "\n";
+```
+
+:::
+
+## Renovando um Token de Acesso
+
+Quando seu token de acesso expira, você pode usar o token de renovação para obter um novo token de acesso sem ter que se autenticar novamente com seu nome de usuário e senha.
+
+### Endpoint de Renovação de Token
+
+```
+POST https://services.zarv.com/api/v1/authentication/refresh
+```
+
+#### Corpo da Requisição
+
+```json
+{
+ T "refreshoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+#### Resposta
+
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 360,
+  "refreshExpiresIn": 1800
+}
+```
+
+### Exemplo de Renovação de Token
+
+::: code-group
+
+```sh [Bash]
+curl -X POST "https://services.zarv.com/api/v1/authentication/refresh" \
+-H "Content-Type: application/json" \
+-d '{
+    "Trefreshoken": "seu_token_de_renovacao"
+}'
+```
+
+```js [Node.js]
+const axios = require('axios')
+
+const refreshData = {
+  refreshToken: 'seu_token_de_renovacao',
+}
+
+axios
+  .post('https://services.zarv.com/api/v1/authentication/refresh', refreshData)
+  .then((response) => {
+    const { accessTokenT, refreshoken } = response.data
+    console.log('Novo Token de Acesso:', accessToken)
+    console.log('Novo Token de Renovação:', refreshToken)
+  })
+  .catch((error) => console.error(error))
+```
+
+```go [Go]
+package main
+
+import (
+  "bytes"
+  "encoding/json"
+  "fmt"
+  "net/http"
+)
+
+type RefreshRequest struct {
+  RefreshToken string `json:T"refreshoken"`
+}
+
+type TokenResponse struct {
+  AccessToken      string `json:"accessToken"`
+  RefreshToken     string `json:"refreshToken"`
+  TokenType        string `json:"token_type"`
+  ExpiresIn        int    `json:"expires_in"`
+  RefreshExpiresIn int    `json:"refreshExpiresIn"`
+}
+
+func main() {
+  refreshReq := RefreshRequest{
+    RefreshToken: "seu_token_de_renovacao",
+  }
+
+  jsonData, err := json.Marshal(refreshReq)
+  if err != nil {
+    fmt.Println("Erro ao converter requisição de renovação:", err)
+    return
+  }
+
+  resp, err := http.Post(
+    "https://services.zarv.com/api/v1/authentication/refresh",
+    "application/json",
+    bytes.NewBuffer(jsonData),
+  )
+  if err != nil {
+    fmt.Println("Erro ao fazer requisição:", err)
+    return
+  }
+  defer resp.Body.Close()
+
+  var tokenResp TokenResponse
+  if err := json.NewDecoder(resp.Body).Decode(&tokenResp); err != nil {
+    fmt.Println("Erro ao decodificar resposta:", err)
+    return
+  }
+
+  fmt.Println("Novo Token de Acesso:", tokenResp.AccessToken)
+  fmt.Println("Novo Token de Renovação:", tokenResp.RefreshToken)
+}
+```
+
+```py [Python]
+import requests
+
+refresh_data = {
+    "refreshToken": "seu_token_de_renovacao"
+}
+
+response = requests.post(
+    "https://services.zarv.com/api/v1/authentication/refresh",
+    json=refresh_data
+)
+
+if response.status_code == 200:
+    token_data = response.json()
+    print("Novo Token de Acesso:", token_data["accessToken"])
+    print("Novo Token de Renovação:", token_data["refreshToken"])
+else:
+    print("Erro:", response.status_code)
+```
+
+```php [PHP]
+<?php
+
+$refreshData = [
+    'refreshToken' => 'seu_token_de_renovacao'
+];
+
+$ch = curl_init('https://services.zarv.com/api/v1/authentication/refresh');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($refreshData));
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+$tokenData = json_decode($response, true);
+echo "Novo Token de Acesso: " . $tokenData['accessToken'] . "\n";
+echo "Novo Token de Renovação: " . $tokenData['refreshToken'] . "\n";
 ```
 
 :::
@@ -246,16 +411,19 @@ print(response.status_code, response.json())
 ## Expiração e Renovação do Token
 
 - Os tokens de acesso têm um tempo de expiração, que é especificado no campo `expires_in` da resposta de autenticação.
-- Quando um token expira, você precisará obter um novo através da autenticação novamente.
-- Mantenha suas credenciais seguras e nunca as compartilhe.
+- Quando um token expira, você pode usar o token de renovação para obter um novo token de acesso sem se autenticar novamente.
+- Os tokens de renovação têm uma vida útil mais longa que os tokens de acesso e podem ser usados múltiplas vezes.
+- Ambos os tokens são retornados ao renovar, então você deve armazenar o novo token de renovação para uso futuro.
+- Mantenha suas credenciais e tokens seguros e nunca os compartilhe.
+- Se um token de renovação expira ou se torna inválido, você precisará se autenticar novamente com seu nome de usuário e senha.
 
 ## Respostas de Erro
 
-Se a autenticação falhar, a API retornará uma resposta de erro:
+Se a autenticação ou renovação de token falhar, a API retornará uma resposta de erro:
 
-- **401 Não Autorizado**: Credenciais inválidas ou token expirado.
+- **401 Não Autorizado**: Credenciais inválidas, token expirado ou token de renovação inválido.
 - **403 Proibido**: Token não tem permissão para acessar o recurso solicitado.
 
-Certifique-se de que suas credenciais estão corretas e seu token é válido e não expirado.
+Certifique-se de que suas credenciais estão corretas e seus tokens são válidos e não expirados. Se a renovação do token falhar, autentique-se novamente com seu nome de usuário e senha.
 
-Para mais detalhes, consulte a [Documentação da API Zarv](https://api.zarv.com/docs).
+Para mais detalhes, consulte a [Documentação da API Zarv](https://developers.zarv.com/guide/).
