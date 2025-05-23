@@ -8,10 +8,10 @@ hero:
   actions:
     - theme: brand
       text: Quickstart
-      link: /guide/getting-started
+      link: /guide
     - theme: alt
       text: API Reference
-      link: /reference/getting-started
+      link: /reference
   image:
     src: /images/home/heroe.png
     alt: Zarv Developers
@@ -25,7 +25,7 @@ features:
       src: /images/home/statistics.png
     title: Real-Time Risk Analysis
     details: Gain actionable intelligence with real-time monitoring and comprehensive risk assessments.
-  - icon: 
+  - icon:
       src: /images/home/workflow.png
     title: Customize Your Workflow
     details: Tailor risk management processes to fit your organization's unique needs and objectives.

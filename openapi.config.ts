@@ -12,7 +12,7 @@ export default {
   },
   jsonViewer: {
     // Set the JSON viewer depth.
-    deep: 1,
+    deep: 3,
     renderer: 'vue-json-pretty',
   },
   schemaViewer: {
@@ -59,7 +59,7 @@ export default {
     // Set the number of columns to use in the OAOperation component.
     cols: 1,
     // Set the default base URL.
-    defaultBaseUrl: 'https://api.zarv.com',
+    defaultBaseUrl: 'https://services.zarv.com',
   },
   // Set the i18n configuration.
   i18n: {
@@ -70,10 +70,6 @@ export default {
         ...locales.en,
         'operation.badgePrefix.operationId': 'Operation ID',
       },
-      es: {
-        ...locales.es,
-        'operation.badgePrefix.operationId': 'ID de operación',
-      },
       'pt-BR': {
         ...locales['pt-BR'],
         'operation.badgePrefix.operationId': 'ID da operação',
@@ -81,7 +77,6 @@ export default {
     },
     availableLocales: [
       { code: 'en', label: 'English' },
-      { code: 'es', label: 'Español' },
       { code: 'pt-BR', label: 'Português (Brasil)' },
     ],
   },

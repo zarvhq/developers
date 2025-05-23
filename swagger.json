@@ -26,9 +26,7 @@
                       },
                       "additionalProperties": {
                         "type": "object",
-                        "required": [
-                          "status"
-                        ],
+                        "required": ["status"],
                         "properties": {
                           "status": {
                             "type": "string"
@@ -43,9 +41,7 @@
                       "example": {},
                       "additionalProperties": {
                         "type": "object",
-                        "required": [
-                          "status"
-                        ],
+                        "required": ["status"],
                         "properties": {
                           "status": {
                             "type": "string"
@@ -64,9 +60,7 @@
                       },
                       "additionalProperties": {
                         "type": "object",
-                        "required": [
-                          "status"
-                        ],
+                        "required": ["status"],
                         "properties": {
                           "status": {
                             "type": "string"
@@ -100,9 +94,7 @@
                       },
                       "additionalProperties": {
                         "type": "object",
-                        "required": [
-                          "status"
-                        ],
+                        "required": ["status"],
                         "properties": {
                           "status": {
                             "type": "string"
@@ -122,9 +114,7 @@
                       },
                       "additionalProperties": {
                         "type": "object",
-                        "required": [
-                          "status"
-                        ],
+                        "required": ["status"],
                         "properties": {
                           "status": {
                             "type": "string"
@@ -147,9 +137,7 @@
                       },
                       "additionalProperties": {
                         "type": "object",
-                        "required": [
-                          "status"
-                        ],
+                        "required": ["status"],
                         "properties": {
                           "status": {
                             "type": "string"
@@ -164,9 +152,7 @@
             }
           }
         },
-        "tags": [
-          "Health Check"
-        ]
+        "tags": ["Health Check"]
       }
     },
     "/v1/fipe": {
@@ -200,9 +186,7 @@
             "description": "No Fipes Found"
           }
         },
-        "tags": [
-          "FIPE"
-        ]
+        "tags": ["FIPE"]
       }
     },
     "/v1/fipe/reference": {
@@ -233,9 +217,7 @@
             "description": "References retrieved successfully"
           }
         },
-        "tags": [
-          "FIPE"
-        ]
+        "tags": ["FIPE"]
       }
     },
     "/v1/fipe/update/brand": {
@@ -247,9 +229,7 @@
             "description": "Update brands"
           }
         },
-        "tags": [
-          "FIPE"
-        ]
+        "tags": ["FIPE"]
       }
     },
     "/v1/auth": {
@@ -295,9 +275,7 @@
           }
         },
         "summary": "Sign in to get an access token",
-        "tags": [
-          "Auth"
-        ]
+        "tags": ["Auth"]
       }
     },
     "/v1/auth/reset-token": {
@@ -318,9 +296,7 @@
           }
         ],
         "summary": "Reset the access token",
-        "tags": [
-          "Auth"
-        ]
+        "tags": ["Auth"]
       }
     },
     "/v1/profile/{id}": {
@@ -346,9 +322,7 @@
             "bearer": []
           }
         ],
-        "tags": [
-          "Profile"
-        ]
+        "tags": ["Profile"]
       }
     }
   },
@@ -379,15 +353,15 @@
   ],
   "servers": [
     {
-      "url": "https://local.zarv.dev/v1",
+      "url": "https://local.zarv.dev",
       "description": "Development"
     },
     {
-      "url": "https://api.zarv.dev/asset-id/v1",
+      "url": "https://services.zarv.net",
       "description": "Staging"
     },
     {
-      "url": "https://api.zarv.com/asset-id/v1",
+      "url": "https://services.zarv.com",
       "description": "Production"
     }
   ],
