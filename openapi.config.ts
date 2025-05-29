@@ -3,7 +3,6 @@ import { locales } from 'vitepress-openapi/client'
 export default {
   availableLanguages: [
     { code: 'en', label: 'English' },
-    { code: 'es', label: 'Español' },
     { code: 'pt-BR', label: 'Português (Brasil)' },
   ],
   requestBody: {
@@ -51,7 +50,7 @@ export default {
       'request-body',
       'parameters',
       'responses',
-      // 'code-samples',
+      'code-samples',
       // 'playground',
     ],
     // Slots to hide in the OAOperation component.

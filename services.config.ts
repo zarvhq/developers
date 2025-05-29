@@ -13,8 +13,8 @@ export const services = [
   {
     slug: 'zarv-id',
     label: 'Zarv ID',
-    specUrl: 'https://api-services.zarv.com/zarv-id/v2/docs/swagger.json',
-    // specUrl: 'http://localhost:3000/v2/docs/swagger.json',
+    // specUrl: 'https://api-services.zarv.com/zarv-id/v2/docs/swagger.json',
+    specUrl: 'http://localhost:3000/v2/docs/swagger.json',
   },
   // {
   //   slug: 'asset-id',

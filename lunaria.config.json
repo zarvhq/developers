@@ -22,12 +22,12 @@
   },
   "locales": [
     {
-      "label": "Português",
-      "lang": "pt"
+      "label": "English",
+      "lang": "en"
     },
     {
-      "label": "Español",
-      "lang": "es"
+      "label": "Português",
+      "lang": "pt"
     }
   ],
   "outDir": "dist/_translations",
