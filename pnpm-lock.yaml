@@ -74,8 +74,8 @@ importers:
         specifier: 2.0.0-alpha.5
         version: 2.0.0-alpha.5(@algolia/client-search@5.25.0)(@types/node@22.15.21)(jiti@1.21.7)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.89.0)(search-insights@2.17.3)(universal-cookie@8.0.1)
       vitepress-openapi:
-        specifier: 0.0.3-alpha.80
-        version: 0.0.3-alpha.80(vitepress@2.0.0-alpha.5(@algolia/client-search@5.25.0)(@types/node@22.15.21)(jiti@1.21.7)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.89.0)(search-insights@2.17.3)(universal-cookie@8.0.1))(vue@3.5.14)
+        specifier: 0.0.3-alpha.81
+        version: 0.0.3-alpha.81(vitepress@2.0.0-alpha.5(@algolia/client-search@5.25.0)(@types/node@22.15.21)(jiti@1.21.7)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.89.0)(search-insights@2.17.3)(universal-cookie@8.0.1))(vue@3.5.14)
       vitepress-plugin-group-icons:
         specifier: 1.5.5
         version: 1.5.5(markdown-it@14.1.0)(vite@6.3.5(@types/node@22.15.21)(jiti@1.21.7)(sass-embedded@1.89.0))
@@ -1825,8 +1825,8 @@ packages:
   regex@6.0.1:
     resolution: {integrity: sha512-uorlqlzAKjKQZ5P+kTJr3eeJGSVroLKoHmquUj4zHWuR+hEyNqlXsSKlYYF5F4NI6nl7tWCs0apKJ0lmfsXAPA==}
 
-  reka-ui@2.2.1:
-    resolution: {integrity: sha512-oLHiyBn6gTIQGnTnv8G5LQuFp9j8HuUNl0qdnW3XPhFb/07hrxzFpjo2kt/jxOZive+n/XWDbOjSj2h9Hih3qA==}
+  reka-ui@2.3.0:
+    resolution: {integrity: sha512-HKvJej9Sc0KYEvTAbsGHgOxpEWL4FWSR70Q6Ld+bVNuaCxK6LP3jyTtyTWS+A44hHA9/aYfOBZ1Q8WkgZsGZpA==}
     peerDependencies:
       vue: '>= 3.2.0'
 
@@ -2242,8 +2242,8 @@ packages:
       yaml:
         optional: true
 
-  vitepress-openapi@0.0.3-alpha.80:
-    resolution: {integrity: sha512-q6+LzUgBZeyUCg/QP17mMZxRGvrpgnCrb3k+p5ctjpiYyPMQnD+lVMk2LODj+AmxO++vVnVn19IJk+FSqu3pcQ==}
+  vitepress-openapi@0.0.3-alpha.81:
+    resolution: {integrity: sha512-OPUHbpbb6jL80Xb1P8Jb70P5Rwz6QPZaLvY0lbw1/2sQx1VevyHVmHdnkLVWskaySXudQmkugIBAo7ZIPXfsAA==}
     peerDependencies:
       vitepress: 2.0.0-alpha.5
       vue: ^3.0.0
@@ -4251,7 +4251,7 @@ snapshots:
     dependencies:
       regex-utilities: 2.3.0
 
-  reka-ui@2.2.1(vue@3.5.14):
+  reka-ui@2.3.0(vue@3.5.14):
     dependencies:
       '@floating-ui/dom': 1.7.0
       '@floating-ui/vue': 1.1.6(vue@3.5.14)
@@ -4668,13 +4668,13 @@ snapshots:
       jiti: 1.21.7
       sass-embedded: 1.89.0
 
-  vitepress-openapi@0.0.3-alpha.80(vitepress@2.0.0-alpha.5(@algolia/client-search@5.25.0)(@types/node@22.15.21)(jiti@1.21.7)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.89.0)(search-insights@2.17.3)(universal-cookie@8.0.1))(vue@3.5.14):
+  vitepress-openapi@0.0.3-alpha.81(vitepress@2.0.0-alpha.5(@algolia/client-search@5.25.0)(@types/node@22.15.21)(jiti@1.21.7)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.89.0)(search-insights@2.17.3)(universal-cookie@8.0.1))(vue@3.5.14):
     dependencies:
       '@vueuse/core': 13.2.0(vue@3.5.14)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       lucide-vue-next: 0.503.0(vue@3.5.14)
-      reka-ui: 2.2.1(vue@3.5.14)
+      reka-ui: 2.3.0(vue@3.5.14)
       vitepress: 2.0.0-alpha.5(@algolia/client-search@5.25.0)(@types/node@22.15.21)(jiti@1.21.7)(markdown-it-mathjax3@4.3.2)(postcss@8.5.3)(sass-embedded@1.89.0)(search-insights@2.17.3)(universal-cookie@8.0.1)
       vue: 3.5.14
     transitivePeerDependencies:
