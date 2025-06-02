@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       vitepress-plugin-llms:
-        specifier: 1.3.3
-        version: 1.3.3
+        specifier: 1.3.4
+        version: 1.3.4
     devDependencies:
       '@braintree/sanitize-url':
         specifier: 7.1.1
@@ -2254,8 +2254,8 @@ packages:
       markdown-it: '>=14'
       vite: '>=3'
 
-  vitepress-plugin-llms@1.3.3:
-    resolution: {integrity: sha512-5HIAXFaLgS3b4Z8B4HyemmNKWELRBBn5nnglzdZXUyfko8OCA/y8WP8JOsMI6VTw2Wu4vD3+hh5wTnkKuh79+A==}
+  vitepress-plugin-llms@1.3.4:
+    resolution: {integrity: sha512-owEPumKy5syjRRG0OSA2635NoeR/U+eiLIjurLTUMXxdmtJ0h6OrTLqvIFPYTV0gSQfaWY/owKdTxjZxv2n2bQ==}
 
   vitepress-plugin-mermaid@2.0.17:
     resolution: {integrity: sha512-IUzYpwf61GC6k0XzfmAmNrLvMi9TRrVRMsUyCA8KNXhg/mQ1VqWnO0/tBVPiX5UoKF1mDUwqn5QV4qAJl6JnUg==}
@@ -4691,7 +4691,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress-plugin-llms@1.3.3:
+  vitepress-plugin-llms@1.3.4:
     dependencies:
       byte-size: 9.0.1
       gray-matter: 4.0.3
