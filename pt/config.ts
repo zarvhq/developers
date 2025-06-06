@@ -137,9 +137,11 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
       items: [
         { text: 'Introdução', link: '/' },
         { text: 'Autenticação', link: 'authentication' },
+        { text: 'Autenticação v2', link: 'authentication-v2' },
         { text: 'Erros', link: 'errors' },
         { text: 'Limites de Taxa', link: 'rate-limits' },
         { text: 'Token de Acesso', base: '/pt/', link: 'request-token' },
+        { text: 'Webhook', link: 'webhook' },
       ],
     },
     {
