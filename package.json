@@ -51,6 +51,6 @@
     }
   },
   "dependencies": {
-    "vitepress-plugin-llms": "1.3.3"
+    "vitepress-plugin-llms": "1.4.0"
   }
 }
