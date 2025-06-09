@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       vitepress-plugin-llms:
-        specifier: 1.3.3
-        version: 1.3.3
+        specifier: 1.4.0
+        version: 1.4.0
     devDependencies:
       '@braintree/sanitize-url':
         specifier: 7.1.1
@@ -1746,6 +1746,10 @@ packages:
   path-to-regexp@6.3.0:
     resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
 
+  path-to-regexp@8.2.0:
+    resolution: {integrity: sha512-TdrF7fW9Rphjq4RjrW0Kp2AW0Ahwu9sRGTkS6bvDi0SCwZlEZYmcfDbEsTz8RVk0EHIS/Vd1bv3JhG+1xZuAyQ==}
+    engines: {node: '>=16'}
+
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
 
@@ -2112,8 +2116,8 @@ packages:
     resolution: {integrity: sha512-Y2fmSnZjQdDb9W4w4r1tswlMHylzWIeOKpx0aZH9BgGtACHhrk3OkT52AzwcuqTRBZtvvnTjDBh8eynMulu8Vg==}
     engines: {node: '>=14.16'}
 
-  tokenx@0.4.1:
-    resolution: {integrity: sha512-LCMniis0WsHel07xh3K9OIt5c9Xla1awtOoWBmUHZBQR7pvTvgGFuYpLiCZWohXPC1YuZORnN0+fCVYI/ie8Jg==}
+  tokenx@1.0.1:
+    resolution: {integrity: sha512-MhOngUHRuVE0CHP4cNEZ/XpdXETFL65nJpEvoTW+VYPuXsT/MTeNj+UNnekNsnxecmj2DEvUYPebqz+CsPTUSg==}
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
@@ -2254,8 +2258,8 @@ packages:
       markdown-it: '>=14'
       vite: '>=3'
 
-  vitepress-plugin-llms@1.3.3:
-    resolution: {integrity: sha512-5HIAXFaLgS3b4Z8B4HyemmNKWELRBBn5nnglzdZXUyfko8OCA/y8WP8JOsMI6VTw2Wu4vD3+hh5wTnkKuh79+A==}
+  vitepress-plugin-llms@1.4.0:
+    resolution: {integrity: sha512-szG5UVhY/sCHYmHMGloVTsgY9s/G8oqkUT9ZO3v2H/WZvg285rXrzdsDoqY2a9+98iiO5FJFR5WBu4DXChJXYw==}
 
   vitepress-plugin-mermaid@2.0.17:
     resolution: {integrity: sha512-IUzYpwf61GC6k0XzfmAmNrLvMi9TRrVRMsUyCA8KNXhg/mQ1VqWnO0/tBVPiX5UoKF1mDUwqn5QV4qAJl6JnUg==}
@@ -4178,6 +4182,8 @@ snapshots:
 
   path-to-regexp@6.3.0: {}
 
+  path-to-regexp@8.2.0: {}
+
   pathe@2.0.3: {}
 
   peek-readable@5.4.2: {}
@@ -4563,7 +4569,7 @@ snapshots:
       '@tokenizer/token': 0.3.0
       ieee754: 1.2.1
 
-  tokenx@0.4.1: {}
+  tokenx@1.0.1: {}
 
   tr46@0.0.3: {}
 
@@ -4691,17 +4697,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress-plugin-llms@1.3.3:
+  vitepress-plugin-llms@1.4.0:
     dependencies:
       byte-size: 9.0.1
       gray-matter: 4.0.3
       markdown-title: 1.0.2
       millify: 6.1.0
       minimatch: 10.0.1
+      path-to-regexp: 8.2.0
       picocolors: 1.1.1
       remark: 15.0.1
       remark-frontmatter: 5.0.0
-      tokenx: 0.4.1
+      tokenx: 1.0.1
       unist-util-remove: 4.0.0
       unist-util-visit: 5.0.0
     transitivePeerDependencies:
