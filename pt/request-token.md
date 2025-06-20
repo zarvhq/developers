@@ -9,12 +9,23 @@ import { ref } from 'vue'
 import { useUrlSearchParams } from '@vueuse/core'
 
 const origins = {
-  'data-partner': 'Parceiro de Dados',
-  'government': 'Governo',
-  'insurance': 'Companhia de Seguros',
-  'credit': 'Empresa de Finanças/Crédito',
+  'data-partner': 'Data Partner',
+  'government': 'Government',
+  'insurance': 'Insurance Company',
+  'credit': 'Finance/Credit Company',
   'startup': 'Startup',
-  'other': 'Outro',
+  'other': 'Other',
+}
+
+const roles = {
+  engineer: 'Engineer',
+  'product-manager': 'Product Manager',
+  'data-scientist': 'Data Scientist',
+  'business-analyst': 'Business Analyst',
+  ceo: 'CEO',
+  cto: 'CTO',
+  founder: 'Founder',
+  other: 'Other',
 }
 
 const params = useUrlSearchParams('hash-params', {
@@ -38,20 +49,36 @@ const submitForm = () => {
   loading.value = true;
   sent.value = false;
   if (!!email.value && !!name.value && !!phone.value && !!company.value && !!industry.value && !!role.value) {
-    window.analytics.identify(email.value.toLowerCase(), {
-      name: name.value,
-      phone: phone.value,
-      company: company.value,
-      industry: industry.value,
-      role: role.value,
+    fetch('https://n8n.zarv.net/webhook/developers/api-access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name.value,
+        email: email.value.toLowerCase(),
+        phone: phone.value,
+        company: company.value,
+        industryId: industry.value,
+        industry: origins[industry.value],
+        roleId: role.value,
+        role: roles[role.value]
+      }),
     })
-    window.analytics.track('DEVELOPER_TOKEN', {
-      name: name.value,
-      email: email.value.toLowerCase(),
-      phone: phone.value,
-      company: company.value,
-      industry: origins[industry.value],
-      role: role.value,
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const output = response.json();
+      if (output.success) {
+        sent.value = true;
+      } else {
+        error.value = true;
+      }
+    })
+    .catch(() => {
+      error.value = true;
+    })
+    .finally(() => {
+      loading.value = false;
     });
   } else {
     error.value = true;
