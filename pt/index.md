@@ -3,7 +3,7 @@ layout: home
 
 hero:
   # name: Zarv Developers
-  text: Construído para proteger. Projetado para confiança.
+  text: Construído para proteger. Projetado para confiar.
   tagline: Zarv é uma plataforma de gerenciamento de riscos impulsionada por IA que ajuda organizações a identificar, avaliar e mitigar riscos em tempo real.
   actions:
     - theme: brand
