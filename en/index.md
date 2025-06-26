@@ -35,11 +35,15 @@ features:
     details: Make informed decisions faster with predictive analytics and automated risk prioritization.
 ---
 
+<div class="flex flex-row gap-6 justify-center" style="position: relative; top: 50px">
+  <img src="https://status.zarv.com/api/badge/8/status?label=Console" alt="Console Status" />
+  <img src="https://status.zarv.com/api/badge/12/status?label=API" alt="API Status" />
+  <img src="https://status.zarv.com/api/badge/5/status?label=Auth" alt="Auth Status" />
+  <img src="https://status.zarv.com/api/badge/4/status?label=CDN" alt="CDN Status" />
+</div>
+
 <script setup>
 import { useData } from 'vitepress'
 
 const { isDark } = useData()
 </script>
-
-<iframe src="https://status.zarv.com/badge?theme=dark" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-if="isDark"></iframe>
-<iframe src="https://status.zarv.com/badge?theme=light" width="250" height="40" frameborder="0" scrolling="no" style="color-scheme: normal; margin: 60px auto" v-if="!isDark"></iframe>

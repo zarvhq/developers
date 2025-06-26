@@ -4,7 +4,7 @@ import { useData, useRoute, inBrowser } from 'vitepress'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import DefaultTheme from 'vitepress/theme'
 
-const { lang } = useData()
+const { lang, isDark } = useData()
 const cookies = useCookies(['locale'])
 const route = useRoute()
 
