@@ -38,11 +38,11 @@ importers:
         specifier: 13.5.0
         version: 13.5.0(focus-trap@7.6.5)(universal-cookie@8.0.1)(vue@3.5.17)
       cytoscape:
-        specifier: 3.32.0
-        version: 3.32.0
+        specifier: 3.32.1
+        version: 3.32.1
       cytoscape-cose-bilkent:
         specifier: 4.1.0
-        version: 4.1.0(cytoscape@3.32.0)
+        version: 4.1.0(cytoscape@3.32.1)
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -1049,8 +1049,8 @@ packages:
     peerDependencies:
       cytoscape: ^3.2.0
 
-  cytoscape@3.32.0:
-    resolution: {integrity: sha512-5JHBC9n75kz5851jeklCPmZWcg3hUe6sjqJvyk3+hVqFaKcHwHgxsjeN1yLmggoUc6STbtm9/NQyabQehfjvWQ==}
+  cytoscape@3.32.1:
+    resolution: {integrity: sha512-dbeqFTLYEwlFg7UGtcZhCCG/2WayX72zK3Sq323CEX29CY81tYfVhw1MIdduCtpstB0cTOhJswWlM/OEB3Xp+Q==}
     engines: {node: '>=0.10'}
 
   d3-array@2.12.1:
@@ -2687,9 +2687,9 @@ snapshots:
   '@mermaid-js/mermaid-mindmap@9.3.0':
     dependencies:
       '@braintree/sanitize-url': 6.0.4
-      cytoscape: 3.32.0
-      cytoscape-cose-bilkent: 4.1.0(cytoscape@3.32.0)
-      cytoscape-fcose: 2.2.0(cytoscape@3.32.0)
+      cytoscape: 3.32.1
+      cytoscape-cose-bilkent: 4.1.0(cytoscape@3.32.1)
+      cytoscape-fcose: 2.2.0(cytoscape@3.32.1)
       d3: 7.9.0
       khroma: 2.1.0
       non-layered-tidy-tree-layout: 2.0.2
@@ -3305,17 +3305,17 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cytoscape-cose-bilkent@4.1.0(cytoscape@3.32.0):
+  cytoscape-cose-bilkent@4.1.0(cytoscape@3.32.1):
     dependencies:
       cose-base: 1.0.3
-      cytoscape: 3.32.0
+      cytoscape: 3.32.1
 
-  cytoscape-fcose@2.2.0(cytoscape@3.32.0):
+  cytoscape-fcose@2.2.0(cytoscape@3.32.1):
     dependencies:
       cose-base: 2.2.0
-      cytoscape: 3.32.0
+      cytoscape: 3.32.1
 
-  cytoscape@3.32.0: {}
+  cytoscape@3.32.1: {}
 
   d3-array@2.12.1:
     dependencies:
@@ -3913,9 +3913,9 @@ snapshots:
       '@iconify/utils': 2.3.0
       '@mermaid-js/parser': 0.6.0
       '@types/d3': 7.4.3
-      cytoscape: 3.32.0
-      cytoscape-cose-bilkent: 4.1.0(cytoscape@3.32.0)
-      cytoscape-fcose: 2.2.0(cytoscape@3.32.0)
+      cytoscape: 3.32.1
+      cytoscape-cose-bilkent: 4.1.0(cytoscape@3.32.1)
+      cytoscape-fcose: 2.2.0(cytoscape@3.32.1)
       d3: 7.9.0
       d3-sankey: 0.12.3
       dagre-d3-es: 7.0.11

@@ -22,7 +22,7 @@
     "@types/node": "24.0.10",
     "@vueuse/core": "13.5.0",
     "@vueuse/integrations": "13.5.0",
-    "cytoscape": "3.32.0",
+    "cytoscape": "3.32.1",
     "cytoscape-cose-bilkent": "4.1.0",
     "dayjs": "1.11.13",
     "debug": "4.4.1",
