@@ -19,7 +19,7 @@
     "@docsearch/js": "3.9.0",
     "@lunariajs/core": "0.1.1",
     "@segment/analytics-next": "1.81.0",
-    "@types/node": "24.0.10",
+    "@types/node": "24.0.15",
     "@vueuse/core": "13.5.0",
     "@vueuse/integrations": "13.5.0",
     "cytoscape": "3.32.0",
