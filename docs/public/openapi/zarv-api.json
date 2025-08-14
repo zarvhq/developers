@@ -1,0 +1,660 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Zarv ID API",
+    "version": "2.0.1",
+    "description": "Documentação da API do Zarv ID"
+  },
+  "servers": [
+    {
+      "url": "https://services.zarv.com",
+      "description": "Produção"
+    }
+  ],
+  "tags": [
+    { "name": "Autenticação", "description": "API de Autenticação" },
+    { "name": "Verificação", "description": "API de Verificações" }
+  ],
+  "paths": {
+    "/api/v1/authentication": {
+      "post": {
+        "summary": "Login",
+        "description": "Autenticação para obter um token de acesso",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AuthenticationRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/verifications": {
+      "post": {
+        "summary": "Criar uma verificação",
+        "description": "Cria uma nova verificação para um CPF ou CNPJ",
+        "tags": ["Verificação"],
+        "security": [{ "Authentication v2": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VerificationRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Verificação criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Consultar verificações",
+        "description": "Obtém todas as verificações com filtros opcionais",
+        "tags": ["Verificação"],
+        "security": [{ "Authentication v2": [] }],
+        "parameters": [
+          {
+            "name": "nationalId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 11,
+              "maxLength": 14,
+              "example": "012345678900"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "example": "COMPLETED" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "minimum": 1, "example": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 25,
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de verificações",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponseList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/verifications/{id}": {
+      "get": {
+        "summary": "Consultar verificação por ID",
+        "description": "Obtém uma verificação específica pelo ID",
+        "tags": ["Verificação"],
+        "security": [{ "Authentication v2": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "805181ca-2956-49e1-81bb-93d1792d269d"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes da verificação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Authentication v2": {
+        "description": "For more details, see [Authentication v2](https://developers.zarv.com/reference/authentication-v2)",
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "AuthenticationRequest": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "format": "email",
+            "description": "Nome de usuário do usuário",
+            "example": "foo@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Senha do usuário",
+            "minLength": 4,
+            "example": "1234"
+          }
+        }
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Token de acesso",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Token de acesso",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          },
+          "expiresIn": {
+            "type": "number",
+            "description": "Tempo de expiração do token de acesso",
+            "example": 300
+          },
+          "refreshExpiresIn": {
+            "type": "number",
+            "description": "Tempo de expiração do token de atualização",
+            "example": 3600
+          },
+          "tokenType": {
+            "type": "string",
+            "description": "Tipo de token",
+            "example": "Bearer"
+          }
+        }
+      },
+      "VerificationRequest": {
+        "type": "object",
+        "properties": {
+          "nationalId": {
+            "type": "string",
+            "description": "CPF ou CNPJ",
+            "minLength": 11,
+            "maxLength": 14,
+            "example": "012345678900"
+          },
+          "verification": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["full", "light"],
+                "example": "full"
+              },
+              "finance": {
+                "type": "object",
+                "properties": {
+                  "restrictions": { "type": "boolean", "example": true }
+                }
+              }
+            }
+          }
+        },
+        "required": ["nationalId", "verification"]
+      },
+      "VerificationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "805181ca-2956-49e1-81bb-93d1792d269d"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "bc5a5b9e-3bb2-4998-b301-a6a39314d330"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "767b88ea-6f5e-4256-b6bb-726cb402cd7b"
+          },
+          "nationalId": { "type": "string", "example": "012345678900" },
+          "name": { "type": "string", "example": "FOO BAR" },
+          "status": {
+            "type": "string",
+            "enum": ["CREATED", "PROCESSING", "COMPLETED", "FAILED"],
+            "example": "COMPLETED"
+          },
+          "verification": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["full", "light"],
+                "example": "full"
+              },
+              "finance": {
+                "type": "object",
+                "properties": {
+                  "restrictions": { "type": "boolean", "example": true }
+                }
+              },
+              "result": {
+                "type": "object",
+                "properties": {
+                  "score": { "type": "number", "example": 1000 },
+                  "scoreFactor": { "type": "number", "example": 3 },
+                  "rules": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "example": [
+                      "PROFILE_SUSPECTED_PERSON_BLACKLIST",
+                      "FINANCE_SOCIAL_ASSISTANCES",
+                      "FINANCE_ASSET",
+                      "RELATED_GHOST_PERSONAL_RELATIONSHIPS",
+                      "LAWSUIT_PROCESS_REDFLAG_L1",
+                      "LAWSUIT_SUSPECT_PROCESS_L2"
+                    ]
+                  },
+                  "execution": {
+                    "type": "object",
+                    "properties": {
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-05-12T14:05:53Z"
+                      },
+                      "endedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-05-12T14:05:53Z"
+                      },
+                      "durationMs": { "type": "number", "example": 799 }
+                    }
+                  }
+                }
+              },
+              "person": {
+                "type": "object",
+                "properties": {
+                  "profile": {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string", "example": "FOO BAR" },
+                      "nationalId": {
+                        "type": "string",
+                        "example": "012345678900"
+                      },
+                      "fiscalStatus": {
+                        "type": "string",
+                        "enum": ["REGULAR", "SUSPECTED", "BLACKLISTED"],
+                        "example": "REGULAR"
+                      },
+                      "obitFlag": { "type": "boolean", "example": false },
+                      "birthDate": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-01-01"
+                      },
+                      "age": { "type": "number", "example": 30 },
+                      "gender": {
+                        "type": "string",
+                        "enum": ["M", "F"],
+                        "example": "F"
+                      },
+                      "contacts": {
+                        "type": "object",
+                        "properties": {
+                          "addresses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string", "example": "WORK" },
+                                "street": {
+                                  "type": "string",
+                                  "example": "Rua das Flores"
+                                },
+                                "number": {
+                                  "type": "string",
+                                  "example": "123"
+                                },
+                                "neighborhood": {
+                                  "type": "string",
+                                  "example": "Bairro das Flores"
+                                },
+                                "city": {
+                                  "type": "string",
+                                  "example": "São Paulo"
+                                },
+                                "state": { "type": "string", "example": "SP" },
+                                "postalCode": {
+                                  "type": "string",
+                                  "example": "1234567890"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "example": "2025-05-12T14:05:53Z"
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "example": "2025-05-12T14:05:53Z"
+                                }
+                              }
+                            }
+                          },
+                          "emails": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "foo@bar.com"
+                            }
+                          },
+                          "phones": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": ["CELULAR", "MOBILE", "FIXO", "WORK"],
+                                  "example": "MOBILE"
+                                },
+                                "number": {
+                                  "type": "string",
+                                  "example": "999999999"
+                                },
+                                "area": { "type": "string", "example": "13" },
+                                "country": {
+                                  "type": "string",
+                                  "example": "55"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "format": "date",
+                                  "example": "2025-05-12"
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "format": "date",
+                                  "example": "2025-05-12"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "indicators": {
+                        "type": "object",
+                        "properties": {
+                          "blacklisted": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": true },
+                              "value": { "type": "number", "example": 1 }
+                            }
+                          },
+                          "blacklistedCompanies": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": false },
+                              "value": { "type": "number", "example": 0 }
+                            }
+                          },
+                          "blacklistedRelated": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": false },
+                              "value": { "type": "number", "example": 0 }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "finance": {
+                    "type": "object",
+                    "properties": {
+                      "salary": { "type": "number", "example": 1000 },
+                      "income": { "type": "string", "example": "5 A 7 SM" },
+                      "totalAssets": {
+                        "type": "string",
+                        "example": "ABAIXO DE 100K"
+                      },
+                      "taxReturns": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "year": { "type": "string", "example": "2024" },
+                            "status": {
+                              "type": "string",
+                              "example": "SALDO INEXISTENTE DE IMPOSTO A PAGAR OU A RESTITUIR"
+                            },
+                            "bank": {
+                              "type": "string",
+                              "example": "BANCO DO BRASIL"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date",
+                              "example": "2025-05-12"
+                            }
+                          }
+                        }
+                      },
+                      "collections": {
+                        "type": "object",
+                        "properties": {
+                          "total": { "type": "number", "example": 17 },
+                          "totalOrigins": { "type": "number", "example": 2 },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-05-12"
+                          }
+                        }
+                      },
+                      "assistancePrograms": {
+                        "type": "object",
+                        "properties": {
+                          "programs": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "example": "BOLSA FAMÍLIA"
+                                },
+                                "city": {
+                                  "type": "string",
+                                  "example": "São Paulo"
+                                },
+                                "state": { "type": "string", "example": "SP" },
+                                "active": {
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "amount": { "type": "number", "example": 1000 },
+                                "totalAmount": {
+                                  "type": "number",
+                                  "example": 1000
+                                },
+                                "startedAt": {
+                                  "type": "string",
+                                  "format": "date",
+                                  "example": "2025-05-12"
+                                },
+                                "endedAt": {
+                                  "type": "string",
+                                  "format": "date",
+                                  "example": "2025-05-12"
+                                }
+                              }
+                            }
+                          },
+                          "total": { "type": "number", "example": 1 },
+                          "totalActive": { "type": "number", "example": 0 }
+                        }
+                      },
+                      "indicators": {
+                        "type": "object",
+                        "properties": {
+                          "monthlyIncome": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": false },
+                              "value": { "type": "number", "example": 1000 }
+                            }
+                          },
+                          "assistancePrograms": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": false },
+                              "value": { "type": "number", "example": 0 }
+                            }
+                          },
+                          "ltyTaxDeclarations": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": true },
+                              "value": { "type": "number", "example": 1 }
+                            }
+                          },
+                          "collections": {
+                            "type": "object",
+                            "properties": {
+                              "risky": { "type": "boolean", "example": true },
+                              "value": { "type": "number", "example": 17 }
+                            }
+                          }
+                        }
+                      },
+                      "restrictions": {
+                        "type": "object",
+                        "properties": {
+                          "registerLogs": {
+                            "type": "string",
+                            "example": "Cliente notificado, período de resposta encerrado, dados prontos para serem usados"
+                          },
+                          "isNegative": { "type": "boolean", "example": true },
+                          "hasData": { "type": "boolean", "example": true },
+                          "segment": {
+                            "type": "string",
+                            "example": "Atraso severo (Negativo ativo ou CCF ou ação ou atraso maior que 90 dias no CP.)"
+                          },
+                          "reportedBy": {
+                            "type": "string",
+                            "example": "BANCO SANTANDER BRASIL S.A."
+                          },
+                          "reportedAt": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-05-12"
+                          },
+                          "status": { "type": "string", "example": "Ativo" },
+                          "city": { "type": "string", "example": "São Paulo" },
+                          "amount": { "type": "string", "example": "R$869,73" },
+                          "type": {
+                            "type": "string",
+                            "example": "Créditos e Financiamentos"
+                          },
+                          "totalAmount": {
+                            "type": "number",
+                            "example": 869.73
+                          },
+                          "consultationLogs": {
+                            "type": "object",
+                            "properties": {
+                              "60": { "type": "number", "example": 0 },
+                              "90": { "type": "number", "example": 1 },
+                              "+90": { "type": "number", "example": 2 },
+                              "+30": { "type": "number", "example": 0 }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "lawsuits": { "type": "object" },
+                  "related": { "type": "object" }
+                }
+              },
+              "version": { "type": "string", "example": "v4" },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-05-12T14:05:53Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-05-12T14:05:53Z"
+              }
+            }
+          }
+        }
+      },
+      "VerificationResponseList": {
+        "type": "object",
+        "properties": {
+          "verifications": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/VerificationResponse" }
+          },
+          "page": { "type": "integer", "example": 1 },
+          "limit": { "type": "integer", "example": 10 },
+          "total": { "type": "integer", "example": 100 }
+        }
+      }
+    }
+  }
+}
