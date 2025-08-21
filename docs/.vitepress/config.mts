@@ -34,21 +34,24 @@ export default defineConfig({
       },
     ],
 
-    sidebar: [
-      {
-        text: "Introdução",
-        link: "/intro",
-      },
-      {
-        text: "Autenticação",
-        link: "/api/authentication",
-      },
-      {
-        text: "Referência de API",
-        link: "/api",
-      },
-      ...sidebar.generateSidebarGroups(),
-    ],
+    sidebar: {
+      "/detran/": [],
+      "/api/": [
+        {
+          text: "Introdução",
+          link: "/intro",
+        },
+        {
+          text: "Autenticação",
+          link: "/api/authentication",
+        },
+        {
+          text: "Referência de API",
+          link: "/api",
+        },
+        ...sidebar.generateSidebarGroups(),
+      ],
+    },
 
     socialLinks: [
       { icon: "github", link: "https://github.com/zarvhq" },
