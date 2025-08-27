@@ -9,6 +9,10 @@
     {
       "url": "https://services.zarv.com",
       "description": "Produção"
+    },
+    {
+      "url": "https://services.zarv.dev",
+      "description": "Staging"
     }
   ],
   "tags": [
@@ -76,6 +80,16 @@
         "tags": ["Verificação"],
         "security": [{ "Authentication v2": [] }],
         "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "bc5a5b9e-3bb2-4998-b301-a6a39314d330"
+            }
+          },
           {
             "name": "nationalId",
             "in": "query",
@@ -226,7 +240,7 @@
             "maxLength": 14,
             "example": "012345678900"
           },
-          "verification": {
+          "verifications": {
             "type": "object",
             "properties": {
               "type": {
