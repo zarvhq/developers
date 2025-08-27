@@ -175,7 +175,7 @@
   "components": {
     "securitySchemes": {
       "Authentication v2": {
-        "description": "For more details, see [Authentication v2](https://developers.zarv.com/reference/authentication-v2)",
+        "description": "For more details, see [Authentication v2](https://developers.zarv.com/api/authentication)",
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
