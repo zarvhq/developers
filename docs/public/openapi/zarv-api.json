@@ -81,16 +81,6 @@
         "security": [{ "Authentication v2": [] }],
         "parameters": [
           {
-            "name": "workspaceId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "bc5a5b9e-3bb2-4998-b301-a6a39314d330"
-            }
-          },
-          {
             "name": "nationalId",
             "in": "query",
             "required": false,
