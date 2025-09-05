@@ -53,6 +53,10 @@ export default defineConfig({
           text: "Referência de API",
           link: "/api",
         },
+        {
+          text: "Webhook de Verificação",
+          link: "/api/webhook",
+        },
         ...sidebar.generateSidebarGroups(),
       ],
     },
