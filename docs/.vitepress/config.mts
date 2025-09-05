@@ -1,17 +1,21 @@
 import { defineConfig } from "vitepress";
 import { useSidebar } from "vitepress-openapi";
 import spec from "../public/openapi/zarv-api.json" with { type: "json" };
+import ptBR from "./locales/pt-BR.ts";
 
 const sidebar = useSidebar({ spec, linkPrefix: "/api/" });
 
 export default defineConfig({
-  title: "Developers",
-  description:
-    "Welcome to the Zarv Developers Documentation - your hub for building with Zarv's embedded insurance and risk management platform. Here you'll find guides, API references, SDKs, and integration tutorials to help you onboard, protect, and manage assets using Zarv's powerful data, AI, and IoT capabilities.",
-
-  lang: "pt-BR",
-  base: "/",
-  outDir: "../dist",
+  locales: {
+    root: {
+      label: "Português (Brasil)",
+      lang: "pt-BR",
+      title: "Developers",
+      description:
+        "Bem vindo à documentação para desenvolvedores da Zarv - seu hub para construir com a plataforma de seguro e gerenciamento de riscos integrada da Zarv. Aqui você encontrará guias, referências de API, SDKs, e tutoriais de integração para ajudar você a se integrar, proteger, e gerenciar ativos usando as capacidades poderosas de dados, IA, e IoT da Zarv.",
+      themeConfig: ptBR,
+    },
+  },
 
   lastUpdated: true,
   cleanUrls: true,
@@ -57,11 +61,5 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/zarvhq" },
       { icon: "linkedin", link: "https://linkedin.com/company/zarv" },
     ],
-
-    footer: {
-      message:
-        '<div style="color: #c0c0c0;font-size:0.9em;margin-bottom:10px"><a href="https://www.zarv.com/legal/tos/?utm_source=developers&utm_campaign=footer">Termos de uso</a> | <a href="https://www.zarv.com/legal/privacy/?utm_source=developers&utm_campaign=footer">Politica de privacidade</a></div>',
-      copyright: `<div style="color: #c0c0c0; margin-bottom: 20px; font-size: 0.9em">Copyright © ${new Date().getFullYear()} <a href="https://www.zarv.com/?utm_source=developers&utm_campaign=footer">Zarv Inc</a>. Todos os direitos reservados.</div>`,
-    },
   },
 });
