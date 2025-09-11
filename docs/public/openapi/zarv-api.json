@@ -17,7 +17,8 @@
   ],
   "tags": [
     { "name": "Autenticação", "description": "API de Autenticação" },
-    { "name": "Verificação", "description": "API de Verificações" }
+    { "name": "Verificação", "description": "API de Verificações" },
+    { "name": "Veiculo", "description": "API de Veículos" }
   ],
   "paths": {
     "/api/v1/authentication": {
@@ -154,6 +155,110 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/asset": {
+      "post": {
+        "summary": "Criar um veículo",
+        "description": "Cria um novo veículo por Placa ou Vin",
+        "tags": ["Veiculo"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VehicleCreateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Veículo criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Listar meus veículos",
+        "description": "Listar todos os meus veículos",
+        "tags": ["Veiculo"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VehicleCreateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Veículos listado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/asset/{id}": {
+      "patch": {
+        "summary": "Editar um veículo",
+        "description": "Editar um veículo",
+        "tags": ["Veiculo"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VehicleCreateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Veículo editado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Consultar um veículo",
+        "description": "Consultar ums veículo",
+        "tags": ["Veiculo"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VehicleCreateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Veículos listado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleCreateResponse"
                 }
               }
             }
@@ -657,6 +762,39 @@
           "page": { "type": "integer", "example": 1 },
           "limit": { "type": "integer", "example": 10 },
           "total": { "type": "integer", "example": 100 }
+        }
+      },
+      "VehicleCreateRequest": {
+        "type": "object",
+        "properties": {
+          "license_plate": {
+            "type": "string",
+            "example": "DXZ8N65"
+          },
+          "workspaceId": {
+            "type": "vin",
+            "example": "JH4KA8160PC000949"
+          }
+        }
+      },
+      "VehicleCreateResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "805181ca-2956-49e1-81bb-93d1792d269d"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "bc5a5b9e-3bb2-4998-b301-a6a39314d330"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "767b88ea-6f5e-4256-b6bb-726cb402cd7b"
+          }
         }
       }
     }
