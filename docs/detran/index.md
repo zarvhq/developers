@@ -1,6 +1,7 @@
 ---
 aside: false
 outline: true
+editLink: false
 ---
 
 # Detran API <Badge type="warning" :text="`v ${apiVersion}`" />

@@ -3,6 +3,7 @@ sidebar: true
 aside: false
 outline: [1, 2]
 title: Zarv
+editLink: false
 ---
 
 <script setup lang="ts">
