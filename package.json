@@ -7,6 +7,9 @@
   "license": "MIT",
   "homepage": "https://developers.zarv.com",
   "type": "module",
+  "imports": {
+    "#docs/*": "./docs/*"
+  },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",

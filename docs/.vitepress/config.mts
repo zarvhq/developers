@@ -1,9 +1,12 @@
 import { defineConfig } from "vitepress";
 import { useSidebar } from "vitepress-openapi";
 import spec from "../public/openapi/zarv-api.json" with { type: "json" };
+import collectorSpec from "../public/openapi/collector-api.json" with { type: "json" };
+
 import ptBR from "./locales/pt-BR.ts";
 
 const sidebar = useSidebar({ spec, linkPrefix: "/api/" });
+const collectorSidebar = useSidebar({ spec: collectorSpec, linkPrefix: "/collector/" });
 
 export default defineConfig({
   locales: {
@@ -40,6 +43,17 @@ export default defineConfig({
 
     sidebar: {
       "/detran/": [],
+      "/collector/": [
+        {
+          text: "Introdução",
+          link: "/intro",
+        },
+        {
+          text: "Autenticação",
+          link: "/collector/authentication",
+        },
+        ...collectorSidebar.generateSidebarGroups(),
+      ],
       "/api/": [
         {
           text: "Introdução",
