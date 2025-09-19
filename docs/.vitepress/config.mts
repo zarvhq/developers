@@ -1,12 +1,15 @@
 import { defineConfig } from "vitepress";
 import { useSidebar } from "vitepress-openapi";
-import spec from "../public/openapi/zarv-api.json" with { type: "json" };
 import collectorSpec from "../public/openapi/collector-api.json" with { type: "json" };
+import zarvIdSpec from "../public/openapi/zarv-api.json" with { type: "json" };
 
 import ptBR from "./locales/pt-BR.ts";
 
-const sidebar = useSidebar({ spec, linkPrefix: "/api/" });
-const collectorSidebar = useSidebar({ spec: collectorSpec, linkPrefix: "/collector/" });
+const sidebar = useSidebar({ spec: zarvIdSpec, linkPrefix: "/api/zarv-id/" });
+const collectorSidebar = useSidebar({
+  spec: collectorSpec,
+  linkPrefix: "/api/collector/",
+});
 
 export default defineConfig({
   locales: {
@@ -43,10 +46,10 @@ export default defineConfig({
 
     sidebar: {
       "/detran/": [],
-      "/collector/": [
+      "/api/collector/": [
         {
           text: "Introdução",
-          link: "/intro",
+          link: "/api/collector",
         },
         {
           text: "Autenticação",
@@ -54,22 +57,22 @@ export default defineConfig({
         },
         ...collectorSidebar.generateSidebarGroups(),
       ],
-      "/api/": [
+      "/api/zarv-id/": [
         {
           text: "Introdução",
-          link: "/intro",
-        },
-        {
-          text: "Autenticação",
-          link: "/api/authentication",
-        },
-        {
-          text: "Referência de API",
           link: "/api",
         },
         {
+          text: "Autenticação",
+          link: "/api/zarv-id/authentication",
+        },
+        {
+          text: "Referência de API",
+          link: "/api/zarv-id",
+        },
+        {
           text: "Webhook de Verificação",
-          link: "/api/webhook",
+          link: "/api/zarv-id/webhook",
         },
         ...sidebar.generateSidebarGroups(),
       ],

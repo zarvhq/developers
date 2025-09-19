@@ -7,6 +7,7 @@ title: Zarv
 <script setup lang="ts">
 import { useRoute } from 'vitepress'
 import { useTheme } from 'vitepress-openapi/client'
+import spec from "../../public/openapi/zarv-api.json" with { type: "json" };
 
 const route = useRoute()
 
@@ -20,4 +21,4 @@ useTheme({
   })
 </script>
 
-<OAOperation :operationId="operationId"/>
+<OAOperation :spec="spec" :operationId="operationId"/>

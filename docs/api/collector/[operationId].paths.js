@@ -1,5 +1,5 @@
 import { usePaths } from "vitepress-openapi";
-import spec from "../public/openapi/zarv-api.json" with { type: "json" };
+import spec from "../../public/openapi/collector-api.json" with { type: "json" };
 
 export default {
   paths() {
@@ -9,7 +9,7 @@ export default {
         return {
           params: {
             operationId,
-            pageTitle: `${summary} - vitepress-openapi`,
+            pageTitle: `${summary} - Collector API`,
           },
         };
       });
