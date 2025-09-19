@@ -53,7 +53,7 @@ export default defineConfig({
         },
         {
           text: "Autenticação",
-          link: "/collector/authentication",
+          link: "/api/collector/authentication",
         },
         ...collectorSidebar.generateSidebarGroups(),
       ],
