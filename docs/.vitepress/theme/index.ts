@@ -5,7 +5,6 @@ import DefaultTheme from "vitepress/theme";
 import { h } from "vue";
 
 import "vitepress-openapi/dist/style.css";
-import spec from "../../public/openapi/zarv-api.json" with { type: "json" };
 import "./style.css";
 
 export default {
@@ -17,7 +16,6 @@ export default {
   },
   async enhanceApp({ app, router, siteData }) {
     useOpenapi({
-      spec,
       config: {},
     });
 

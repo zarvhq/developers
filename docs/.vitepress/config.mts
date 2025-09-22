@@ -1,9 +1,15 @@
 import { defineConfig } from "vitepress";
 import { useSidebar } from "vitepress-openapi";
-import spec from "../public/openapi/zarv-api.json" with { type: "json" };
+import collectorSpec from "../public/openapi/collector-api.json" with { type: "json" };
+import zarvIdSpec from "../public/openapi/zarv-api.json" with { type: "json" };
+
 import ptBR from "./locales/pt-BR.ts";
 
-const sidebar = useSidebar({ spec, linkPrefix: "/api/" });
+const sidebar = useSidebar({ spec: zarvIdSpec, linkPrefix: "/api/zarv-id/" });
+const collectorSidebar = useSidebar({
+  spec: collectorSpec,
+  linkPrefix: "/api/collector/",
+});
 
 export default defineConfig({
   locales: {
@@ -30,7 +36,7 @@ export default defineConfig({
 
     nav: [
       { text: "Home", link: "/" },
-      { text: "Referência de API", link: "/api" },
+      { text: "Referência das API's", link: "/api" },
       {
         text: "Status Page",
         link: "https://status.zarv.com",
@@ -40,22 +46,44 @@ export default defineConfig({
 
     sidebar: {
       "/detran/": [],
-      "/api/": [
-        {
-          text: "Introdução",
-          link: "/intro",
-        },
+      "/api/collector/": [
         {
           text: "Autenticação",
-          link: "/api/authentication",
+          link: "/api/collector/authentication",
         },
         {
-          text: "Referência de API",
-          link: "/api",
+          text: "Referência da API",
+          link: "/api/collector",
+        },
+        ...collectorSidebar.generateSidebarGroups(),
+      ],
+      "/api/zarv-id/": [
+        {
+          text: "Autenticação",
+          link: "/api/zarv-id/authentication",
         },
         {
           text: "Webhook de Verificação",
-          link: "/api/webhook",
+          link: "/api/zarv-id/webhook",
+        },
+        {
+          text: "Referência da API",
+          link: "/api/zarv-id",
+        },
+        ...sidebar.generateSidebarGroups(),
+      ],
+      "/api/assets/": [
+        {
+          text: "Autenticação",
+          link: "/api/assets/authentication",
+        },
+        {
+          text: "Webhook de Verificação",
+          link: "/api/assets/webhook",
+        },
+        {
+          text: "Referência da API",
+          link: "/api/assets",
         },
         ...sidebar.generateSidebarGroups(),
       ],
