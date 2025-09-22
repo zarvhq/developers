@@ -67,11 +67,6 @@
                     "description": "Data e hora da leitura GPS em formato ISO 8601",
                     "example": "2025-08-15T13:45:30Z"
                   },
-                  "deviceType": {
-                    "type": "string",
-                    "description": "Tipo do dispositivo GPS",
-                    "example": "gps"
-                  },
                   "deviceId": {
                     "type": "string",
                     "description": "Identificador único do dispositivo GPS",
@@ -102,7 +97,6 @@
                   "latitude",
                   "longitude",
                   "timestamp",
-                  "deviceType",
                   "deviceId"
                 ]
               }
@@ -208,11 +202,6 @@
                     "description": "Data e hora da captura da câmera em formato ISO 8601",
                     "example": "2025-08-15T13:45:30Z"
                   },
-                  "deviceType": {
-                    "type": "string",
-                    "description": "Tipo do dispositivo de câmera",
-                    "example": "cam"
-                  },
                   "deviceId": {
                     "type": "string",
                     "description": "Identificador único do dispositivo de câmera",
@@ -231,7 +220,6 @@
                   "latitude",
                   "longitude",
                   "timestamp",
-                  "deviceType",
                   "deviceId"
                 ]
               }
