@@ -36,7 +36,7 @@ export default defineConfig({
 
     nav: [
       { text: "Home", link: "/" },
-      { text: "Referência de API", link: "/api" },
+      { text: "Referência das API's", link: "/api" },
       {
         text: "Status Page",
         link: "https://status.zarv.com",
@@ -48,31 +48,27 @@ export default defineConfig({
       "/detran/": [],
       "/api/collector/": [
         {
-          text: "Introdução",
-          link: "/api/collector",
-        },
-        {
           text: "Autenticação",
           link: "/api/collector/authentication",
+        },
+        {
+          text: "Referência da API",
+          link: "/api/collector",
         },
         ...collectorSidebar.generateSidebarGroups(),
       ],
       "/api/zarv-id/": [
         {
-          text: "Introdução",
-          link: "/api",
-        },
-        {
           text: "Autenticação",
           link: "/api/zarv-id/authentication",
         },
         {
-          text: "Referência de API",
-          link: "/api/zarv-id",
-        },
-        {
           text: "Webhook de Verificação",
           link: "/api/zarv-id/webhook",
+        },
+        {
+          text: "Referência da API",
+          link: "/api/zarv-id",
         },
         ...sidebar.generateSidebarGroups(),
       ],

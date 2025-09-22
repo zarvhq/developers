@@ -2,7 +2,7 @@
 editLink: false
 ---
 
-# Documentação das APIs
+# Referência das API's
 
 <style>
 .api-grid {

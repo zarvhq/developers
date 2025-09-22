@@ -9,7 +9,7 @@ hero:
       text: Introdução
       link: /intro
     - theme: alt
-      text: Referência da API
+      text: Referência das API's
       link: /api
   image:
     src: /images/home/heroe.png
