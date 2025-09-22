@@ -1,385 +1,93 @@
 # Autenticação
 
-A API do Zarv utiliza autenticação OAuth2 para garantir acesso seguro. Todas as requisições à API devem incluir um token de acesso válido nos cabeçalhos da requisição.
+A API do Collector utiliza autenticação HTTP Basic para garantir acesso seguro.
+Todas as requisições à API devem incluir suas credenciais de usuário codificadas em Base64 no cabeçalho `Authorization`.
 
-## Obtendo um Token de Acesso
+## Como Funciona a Autenticação Basic
 
-Para acessar a API, você precisa obter um token de acesso autenticando com suas credenciais:
+A autenticação HTTP Basic é um método simples onde suas credenciais (nome de usuário e senha) são codificadas em Base64 e enviadas no cabeçalho `Authorization` de cada requisição.
 
-1. Faça login na sua conta Zarv.
-2. Use seu nome de usuário e senha para obter um token de acesso.
-3. Use o token de acesso em suas requisições à API.
-
-### Endpoint de Autenticação
+### Formato do Cabeçalho
 
 ```
-POST https://services.zarv.com/api/v1/authentication
+Authorization: Basic <credenciais_em_base64>
 ```
 
-#### Corpo da Requisição
+Onde `<credenciais_em_base64>` é a codificação Base64 de `username:password`.
 
-```json
-{
-  "username": "seu.email@zarv.com",
-  "password": "sua_senha"
-}
+## Preparando suas Credenciais
+
+Para usar a API, você precisa:
+
+1. Ter uma conta válida na Zarv
+2. Conhecer seu nome de usuário (email) e senha
+3. Codificar suas credenciais em Base64
+
+### Codificação Base64
+
+Para codificar suas credenciais, combine seu nome de usuário e senha com dois pontos (`:`) e codifique em Base64:
+
+```
+echo -n "seu.email@zarv.com:sua_senha" | base64
 ```
 
-#### Resposta
+Resultado: `c2V1LmVtYWlsQHphcnYuY29tOnN1YV9zZW5oYQ==`
 
-```json
-{
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "token_type": "Bearer",
-  "expires_in": 360,
-  "refreshExpiresIn": 1800
-}
-```
+## Exemplos de Uso
 
-### Exemplo de Autenticação
+### Fazendo Requisições com Basic Auth
 
 ::: code-group
-
-```sh [Bash]
-curl -X POST "https://services.zarv.com/api/v1/authentication" \
--H "Content-Type: application/json" \
--d '{
-    "username": "seu.email@zarv.com",
-    "password": "sua_senha"
-}'
-```
 
 ```js [Node.js]
 const axios = require("axios");
 
-const credentials = {
-  username: "seu.email@zarv.com",
-  password: "sua_senha",
-};
+// Método 1: Codificação manual
+const credentials = Buffer.from("seu.email@zarv.com:sua_senha").toString('base64');
+axios.get("https://collector.zarv.com/v3/api/<resource>", {
+  headers: {
+    'Authorization': `Basic ${credentials}`
+  }
+})
+.then(response => console.log(response.data))
+.catch(error => console.error(error));
 
-axios
-  .post("https://services.zarv.com/api/v1/authentication", credentials)
-  .then((response) => {
-    const { accessTokenT, refreshoken } = response.data;
-    console.log("Token de Acesso:", accessToken);
-    console.log("Token de Renovação:", refreshToken);
-  })
-  .catch((error) => console.error(error));
+// Método 2: Usando auth do axios
+axios.get("https://collector.zarv.com/v3/api/<resource>", {
+  auth: {
+    username: "seu.email@zarv.com",
+    password: "sua_senha"
+  }
+})
+.then(response => console.log(response.data))
+.catch(error => console.error(error));
 ```
 
 ```go [Go]
 package main
 
 import (
-  "bytes"
-  "encoding/json"
-  "fmt"
-  "net/http"
-)
-
-type Credentials struct {
-  Username string `json:"username"`
-  Password string `json:"password"`
-}
-
-type TokenResponse struct {
-  AccessToken      string `json:"accessToken"`
-  RefreshToken     string `json:"refreshToken"`
-  TokenType        string `json:"token_type"`
-  ExpiresIn        int    `json:"expires_in"`
-  RefreshExpiresIn int    `json:"refreshExpiresIn"`
-}
-
-func main() {
-  credentials := Credentials{
-    Username: "seu.email@zarv.com",
-    Password: "sua_senha",
-  }
-
-  jsonData, err := json.Marshal(credentials)
-  if err != nil {
-    fmt.Println("Erro ao converter credenciais:", err)
-    return
-  }
-
-  resp, err := http.Post(
-    "https://services.zarv.com/api/v1/authentication",
-    "application/json",
-    bytes.NewBuffer(jsonData),
-  )
-  if err != nil {
-    fmt.Println("Erro ao fazer requisição:", err)
-    return
-  }
-  defer resp.Body.Close()
-
-  var tokenResp TokenResponse
-  if err := json.NewDecoder(resp.Body).Decode(&tokenResp); err != nil {
-    fmt.Println("Erro ao decodificar resposta:", err)
-    return
-  }
-
-  fmt.Println("Token de Acesso:", tokenResp.AccessToken)
-  fmt.Println("Token de Renovação:", tokenResp.RefreshToken)
-}
-```
-
-```py [Python]
-import requests
-
-credentials = {
-    "username": "seu.email@zarv.com",
-    "password": "sua_senha"
-}
-
-response = requests.post(
-    "https://services.zarv.com/api/v1/authentication",
-    json=credentials
-)
-
-if response.status_code == 200:
-    token_data = response.json()
-    print("Token de Acesso:", token_data["accessToken"])
-    print("Token de Renovação:", token_data["refreshToken"])
-else:
-    print("Erro:", response.status_code)
-```
-
-```php [PHP]
-<?php
-
-$credentials = [
-    'username' => 'seu.email@zarv.com',
-    'password' => 'sua_senha'
-];
-
-$ch = curl_init('https://services.zarv.com/api/v1/authentication');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($credentials));
-curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-
-$response = curl_exec($ch);
-curl_close($ch);
-
-$tokenData = json_decode($response, true);
-echo "Token de Acesso: " . $tokenData['accessToken'] . "\n";
-echo "Token de Renovação: " . $tokenData['refreshToken'] . "\n";
-```
-
-:::
-
-## Renovando um Token de Acesso
-
-Quando seu token de acesso expira, você pode usar o token de renovação para obter um novo token de acesso sem ter que se autenticar novamente com seu nome de usuário e senha.
-
-### Endpoint de Renovação de Token
-
-```
-POST https://services.zarv.com/api/v1/authentication/refresh
-```
-
-#### Corpo da Requisição
-
-```json
-{
- T "refreshoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
-#### Resposta
-
-```json
-{
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "token_type": "Bearer",
-  "expires_in": 360,
-  "refreshExpiresIn": 1800
-}
-```
-
-### Exemplo de Renovação de Token
-
-::: code-group
-
-```sh [Bash]
-curl -X POST "https://services.zarv.com/api/v1/authentication/refresh" \
--H "Content-Type: application/json" \
--d '{
-    "Trefreshoken": "seu_token_de_renovacao"
-}'
-```
-
-```js [Node.js]
-const axios = require("axios");
-
-const refreshData = {
-  refreshToken: "seu_token_de_renovacao",
-};
-
-axios
-  .post("https://services.zarv.com/api/v1/authentication/refresh", refreshData)
-  .then((response) => {
-    const { accessTokenT, refreshoken } = response.data;
-    console.log("Novo Token de Acesso:", accessToken);
-    console.log("Novo Token de Renovação:", refreshToken);
-  })
-  .catch((error) => console.error(error));
-```
-
-```go [Go]
-package main
-
-import (
-  "bytes"
-  "encoding/json"
-  "fmt"
-  "net/http"
-)
-
-type RefreshRequest struct {
-  RefreshToken string `json:T"refreshoken"`
-}
-
-type TokenResponse struct {
-  AccessToken      string `json:"accessToken"`
-  RefreshToken     string `json:"refreshToken"`
-  TokenType        string `json:"token_type"`
-  ExpiresIn        int    `json:"expires_in"`
-  RefreshExpiresIn int    `json:"refreshExpiresIn"`
-}
-
-func main() {
-  refreshReq := RefreshRequest{
-    RefreshToken: "seu_token_de_renovacao",
-  }
-
-  jsonData, err := json.Marshal(refreshReq)
-  if err != nil {
-    fmt.Println("Erro ao converter requisição de renovação:", err)
-    return
-  }
-
-  resp, err := http.Post(
-    "https://services.zarv.com/api/v1/authentication/refresh",
-    "application/json",
-    bytes.NewBuffer(jsonData),
-  )
-  if err != nil {
-    fmt.Println("Erro ao fazer requisição:", err)
-    return
-  }
-  defer resp.Body.Close()
-
-  var tokenResp TokenResponse
-  if err := json.NewDecoder(resp.Body).Decode(&tokenResp); err != nil {
-    fmt.Println("Erro ao decodificar resposta:", err)
-    return
-  }
-
-  fmt.Println("Novo Token de Acesso:", tokenResp.AccessToken)
-  fmt.Println("Novo Token de Renovação:", tokenResp.RefreshToken)
-}
-```
-
-```py [Python]
-import requests
-
-refresh_data = {
-    "refreshToken": "seu_token_de_renovacao"
-}
-
-response = requests.post(
-    "https://services.zarv.com/api/v1/authentication/refresh",
-    json=refresh_data
-)
-
-if response.status_code == 200:
-    token_data = response.json()
-    print("Novo Token de Acesso:", token_data["accessToken"])
-    print("Novo Token de Renovação:", token_data["refreshToken"])
-else:
-    print("Erro:", response.status_code)
-```
-
-```php [PHP]
-<?php
-
-$refreshData = [
-    'refreshToken' => 'seu_token_de_renovacao'
-];
-
-$ch = curl_init('https://services.zarv.com/api/v1/authentication/refresh');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($refreshData));
-curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-
-$response = curl_exec($ch);
-curl_close($ch);
-
-$tokenData = json_decode($response, true);
-echo "Novo Token de Acesso: " . $tokenData['accessToken'] . "\n";
-echo "Novo Token de Renovação: " . $tokenData['refreshToken'] . "\n";
-```
-
-:::
-
-## Usando o Token de Acesso
-
-Inclua o token de acesso obtido no cabeçalho `Authorization` das suas requisições HTTP. O token deve ser prefixado com a palavra `Bearer`.
-
-### Exemplo de Requisição
-
-::: code-group
-
-```http [HTTP]
-GET /v1/resource HTTP/1.1
-Host: api.zarv.com
-Authorization: Bearer SEU_TOKEN_DE_ACESSO
-```
-
-```bash [cURL]
-curl -X GET "https://api.zarv.com/v1/resource" \
--H "Authorization: Bearer SEU_TOKEN_DE_ACESSO"
-```
-
-```js [Node.js]
-const axios = require("axios");
-
-const accessToken = "SEU_TOKEN_DE_ACESSO";
-
-axios
-  .get("https://api.zarv.com/v1/resource", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
-  .then((response) => console.log(response.data))
-  .catch((error) => console.error(error));
-```
-
-```go [Go]
-package main
-
-import (
+  "encoding/base64"
   "fmt"
   "net/http"
 )
 
 func main() {
-  accessToken := "SEU_TOKEN_DE_ACESSO"
-
-  req, err := http.NewRequest("GET", "https://api.zarv.com/v1/resource", nil)
+  username := "seu.email@zarv.com"
+  password := "sua_senha"
+  
+  // Codificar credenciais em Base64
+  credentials := base64.StdEncoding.EncodeToString([]byte(username + ":" + password))
+  
+  req, err := http.NewRequest("GET", "https://collector.zarv.com/v3/api/<resource>", nil)
   if err != nil {
     fmt.Println("Erro ao criar requisição:", err)
     return
   }
 
-  req.Header.Set("Authorization", "Bearer "+accessToken)
-
+  req.Header.Set("Host", "collector.zarv.com")
+  req.Header.Set("Authorization", "Basic "+credentials)
+  
   client := &http.Client{}
   resp, err := client.Do(req)
   if err != nil {
@@ -387,43 +95,132 @@ func main() {
     return
   }
   defer resp.Body.Close()
-
+  
   fmt.Println("Status da resposta:", resp.Status)
 }
 ```
 
+:::
+
+## Exemplo de Requisição HTTP
+
+```http
+GET /v3/api/<resource> HTTP/1.1
+Host: collector.zarv.com
+Authorization: Basic c2V1LmVtYWlsQHphcnYuY29tOnN1YV9zZW5oYQ==
+Content-Type: application/json
+```
+
+## Segurança e Boas Práticas
+
+### Segurança das Credenciais
+
+- **HTTPS Obrigatório**: Sempre use HTTPS para proteger suas credenciais em trânsito
+- **Armazenamento Seguro**: Nunca armazene credenciais em código-fonte ou logs
+- **Variáveis de Ambiente**: Use variáveis de ambiente para armazenar credenciais
+
+### Exemplo com Variáveis de Ambiente
+
+::: code-group
+
+```bash [Bash]
+# Definir variáveis de ambiente
+export ZARV_USERNAME="seu.email@zarv.com"
+export ZARV_PASSWORD="sua_senha"
+
+# Usar nas requisições
+curl -X GET "https://collector.zarv.com/v3/api/<resource>" \
+-u "$ZARV_USERNAME:$ZARV_PASSWORD"
+```
+
+```js [Node.js]
+const axios = require("axios");
+
+const username = process.env.ZARV_USERNAME;
+const password = process.env.ZARV_PASSWORD;
+
+axios.get("https://collector.zarv.com/v3/api/<resource>", {
+  auth: {
+    username: username,
+    password: password
+  }
+})
+.then(response => console.log(response.data))
+.catch(error => console.error(error));
+```
+
 ```py [Python]
+import os
 import requests
 
-access_token = "SEU_TOKEN_DE_ACESSO"
-url = "https://api.zarv.com/v1/resource"
+username = os.getenv('ZARV_USERNAME')
+password = os.getenv('ZARV_PASSWORD')
 
-headers = {
-    "Authorization": f"Bearer {access_token}"
-}
-
-response = requests.get(url, headers=headers)
+response = requests.get(
+    "https://collector.zarv.com/v3/api/<resource>",
+    auth=(username, password)
+)
 print(response.status_code, response.json())
 ```
 
 :::
 
-## Expiração e Renovação do Token
-
-- Os tokens de acesso têm um tempo de expiração, que é especificado no campo `expires_in` da resposta de autenticação.
-- Quando um token expira, você pode usar o token de renovação para obter um novo token de acesso sem se autenticar novamente.
-- Os tokens de renovação têm uma vida útil mais longa que os tokens de acesso e podem ser usados múltiplas vezes.
-- Ambos os tokens são retornados ao renovar, então você deve armazenar o novo token de renovação para uso futuro.
-- Mantenha suas credenciais e tokens seguros e nunca os compartilhe.
-- Se um token de renovação expira ou se torna inválido, você precisará se autenticar novamente com seu nome de usuário e senha.
-
 ## Respostas de Erro
 
-Se a autenticação ou renovação de token falhar, a API retornará uma resposta de erro:
+Se a autenticação falhar, a API retornará uma resposta de erro:
 
-- **401 Não Autorizado**: Credenciais inválidas, token expirado ou token de renovação inválido.
-- **403 Proibido**: Token não tem permissão para acessar o recurso solicitado.
+### 401 Não Autorizado
 
-Certifique-se de que suas credenciais estão corretas e seus tokens são válidos e não expirados. Se a renovação do token falhar, autentique-se novamente com seu nome de usuário e senha.
+Retornado quando:
+- Credenciais são inválidas
+- Nome de usuário ou senha incorretos
+- Cabeçalho Authorization está ausente ou malformado
 
-Para mais detalhes, consulte a [Documentação da API Zarv](https://developers.zarv.com/guide/).
+HTTP Status code: 401
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Credenciais inválidas"
+}
+```
+
+### 403 Proibido
+
+Retornado quando:
+- Credenciais são válidas, mas não têm permissão para acessar o recurso
+- Conta está suspensa ou inativa
+
+HTTP Status code: 403
+
+```json
+{
+  "error": "Forbidden",
+  "message": "Acesso negado ao recurso solicitado"
+}
+```
+
+Uma resposta bem-sucedida (status 200) indica que suas credenciais estão corretas.
+
+## Solução de Problemas
+
+### Problemas Comuns
+
+1. **Erro 401**: Verifique se suas credenciais estão corretas
+2. **Codificação Incorreta**: Certifique-se de que a codificação Base64 está correta
+3. **HTTPS**: Sempre use HTTPS, nunca HTTP
+4. **Caracteres Especiais**: Certifique-se de que caracteres especiais na senha estão sendo tratados corretamente
+
+### Verificação de Codificação
+
+Para verificar se sua codificação Base64 está correta:
+
+```bash
+# Codificar
+echo -n "seu.email@zarv.com:sua_senha" | base64
+
+# Decodificar para verificar
+echo "c2V1LmVtYWlsQHphcnYuY29tOnN1YV9zZW5oYQ==" | base64 -d
+```
+
+Para obter ajuda, consulte o time da zarv.

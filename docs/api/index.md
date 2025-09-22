@@ -52,14 +52,14 @@ editLink: false
 
 <div class="api-grid">
 
-  <!-- <div class="api-card">
+  <div class="api-card">
     <a href="/api/collector">
       <div class="api-card-content">
         <h3 class="api-card-title">Collector</h3>
         <p class="api-card-description">API de coleta de dados</p>
       </div>
     </a>
-  </div> -->
+  </div>
 
   <div class="api-card">
     <a href="/api/zarv-id">
