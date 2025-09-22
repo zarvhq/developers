@@ -9,10 +9,6 @@
     {
       "url": "https://services.zarv.com",
       "description": "Produção"
-    },
-    {
-      "url": "https://services.zarv.dev",
-      "description": "Staging"
     }
   ],
   "tags": [

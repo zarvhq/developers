@@ -5,6 +5,12 @@
     "version": "1.2.1",
     "description": "API para registro, consulta e gestão de inadimplência veicular, incluindo autenticação, cancelamento, apreensão e averbação."
   },
+  "servers": [
+    {
+      "url": "https://collector.zarv.com",
+      "description": "Produção"
+    }
+  ],
   "paths": {
     "/api/v3/gps-signal": {
       "post": {
