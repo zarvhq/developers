@@ -72,6 +72,21 @@ export default defineConfig({
         },
         ...sidebar.generateSidebarGroups(),
       ],
+      "/api/assets/": [
+        {
+          text: "Autenticação",
+          link: "/api/assets/authentication",
+        },
+        {
+          text: "Webhook de Verificação",
+          link: "/api/assets/webhook",
+        },
+        {
+          text: "Referência da API",
+          link: "/api/assets",
+        },
+        ...sidebar.generateSidebarGroups(),
+      ],
     },
 
     socialLinks: [

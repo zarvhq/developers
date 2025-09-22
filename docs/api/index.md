@@ -13,8 +13,8 @@ editLink: false
 }
 
 .api-card {
-  flex: 1;
-  min-width: 200px;
+  flex: 0 0 calc(50% - 1rem);
+  min-width: 280px;
 }
 
 .api-card a {
@@ -28,6 +28,8 @@ editLink: false
   transition: all 0.2s ease;
   background: var(--vp-c-bg-soft);
   cursor: pointer;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .api-card-content:hover {
@@ -49,6 +51,7 @@ editLink: false
 </style>
 
 <div class="api-grid">
+
   <div class="api-card">
     <a href="/api/collector">
       <div class="api-card-content">
@@ -57,6 +60,7 @@ editLink: false
       </div>
     </a>
   </div>
+
   <div class="api-card">
     <a href="/api/zarv-id">
       <div class="api-card-content">
@@ -65,4 +69,14 @@ editLink: false
       </div>
     </a>
   </div>
+
+  <div class="api-card">
+    <a href="/api/assets">
+      <div class="api-card-content">
+        <h3 class="api-card-title">Assets</h3>
+        <p class="api-card-description">API de gerenciamento de ativos</p>
+      </div>
+    </a>
+  </div>
+
 </div>
