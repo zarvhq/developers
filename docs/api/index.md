@@ -70,13 +70,13 @@ editLink: false
     </a>
   </div>
 
-  <div class="api-card">
+  <!-- <div class="api-card">
     <a href="/api/assets">
       <div class="api-card-content">
         <h3 class="api-card-title">Assets</h3>
         <p class="api-card-description">API de gerenciamento de ativos</p>
       </div>
     </a>
-  </div>
+  </div> -->
 
 </div>
