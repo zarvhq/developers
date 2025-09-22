@@ -11,13 +11,12 @@ A API Zarv permite que desenvolvedores criem aplicações poderosas aproveitando
 Antes de começar, certifique-se de ter o seguinte:
 
 - Uma conta Zarv ativa.
-- Credenciais da API (chave e segredo da API).
 - Conhecimento básico sobre APIs RESTful e JSON.
 
 ## Passos para Começar
 
 1. **Obtenha Credenciais da API**  
-   Faça login na sua conta Zarv e navegue até a seção de API para gerar sua chave e segredo da API.
+   Solicite a sua credencial de acordo com a api que deseja utilizar para o time da zarv
 
 2. **Configure Seu Ambiente**  
    Use sua linguagem de programação e ferramentas preferidas para fazer requisições HTTP para a API Zarv.
