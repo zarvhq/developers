@@ -162,6 +162,71 @@
         }
       }
     },
+    "/api/v2/verifications/{id}/pdf": {
+      "get": {
+        "summary": "Obter PDF da verificação",
+        "description": "Retorna os bytes do arquivo PDF de uma verificação específica pelo ID. A resposta contém o conteúdo binário do arquivo e nao uma URL para download.",
+        "tags": ["Verificação"],
+        "security": [{ "Authentication v2": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "805181ca-2956-49e1-81bb-93d1792d269d"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bytes do arquivo PDF da verificação",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "No verificationID provided"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao gerar ou obter o PDF",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/asset": {
       "post": {
         "summary": "Criar um veículo",
