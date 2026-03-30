@@ -13,7 +13,8 @@
   ],
   "tags": [
     { "name": "Autenticação", "description": "API de Autenticação" },
-    { "name": "Verificação", "description": "API de Verificações" }
+    { "name": "Verificação", "description": "API de Verificações" },
+    { "name": "Blacklist", "description": "API de Lista Restritiva" }
   ],
   "paths": {
     "/api/v1/authentication": {
@@ -248,6 +249,129 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/v2/blacklist": {
+      "get": {
+        "summary": "Consultar lista restritiva",
+        "description": "Obtém os registros da lista restritiva com paginação por workspace",
+        "tags": ["Blacklist"],
+        "security": [{ "Authentication v2": [] }],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "fc31805a-9ac5-423b-b3cb-b626c769b27c"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista restritiva consultada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BlacklistResponseList" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar item na lista restritiva",
+        "description": "Cria um novo registro na lista restritiva para um workspace",
+        "tags": ["Blacklist"],
+        "security": [{ "Authentication v2": [] }],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "fc31805a-9ac5-423b-b3cb-b626c769b27c"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BlacklistRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item adicionado na lista restritiva com sucesso",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BlacklistResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/blacklist/{nationalId}": {
+      "delete": {
+        "summary": "Remover item da lista restritiva",
+        "description": "Remove um registro da lista restritiva por nationalId e workspace",
+        "tags": ["Blacklist"],
+        "security": [{ "Authentication v2": [] }],
+        "parameters": [
+          {
+            "name": "nationalId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 11,
+              "maxLength": 14,
+              "example": "91439362025"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "fc31805a-9ac5-423b-b3cb-b626c769b27c"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Item removido da lista restritiva com sucesso"
           }
         }
       }
@@ -785,6 +909,89 @@
             "description": "ID da verificação",
             "example": "805181ca-2956-49e1-81bb-93d1792d269d"
           }
+        }
+      },
+      "BlacklistRequest": {
+        "type": "object",
+        "required": ["nationalId", "type", "description"],
+        "properties": {
+          "nationalId": {
+            "type": "string",
+            "description": "CPF ou CNPJ a ser incluído na lista restritiva",
+            "minLength": 11,
+            "maxLength": 14,
+            "example": "91439362025"
+          },
+          "type": {
+            "type": "string",
+            "description": "Tipo da restrição",
+            "enum": ["credit", "fraud", "other"],
+            "example": "fraud"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descrição da restrição",
+            "example": "Fraude"
+          }
+        }
+      },
+      "BlacklistResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "workspaceId",
+          "userId",
+          "nationalId",
+          "type",
+          "description",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "53190a88-7866-4fc4-9986-5e24f7d8da97"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "fc31805a-9ac5-423b-b3cb-b626c769b27c"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "a7e3545c-b7e1-4156-8363-7d3ecca8c8d9"
+          },
+          "nationalId": {
+            "type": "string",
+            "example": "91439362025"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["CREDIT", "FRAUD", "OTHER"],
+            "example": "FRAUD"
+          },
+          "description": {
+            "type": "string",
+            "example": "Fraude"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-03-30T17:53:52Z"
+          }
+        }
+      },
+      "BlacklistResponseList": {
+        "type": "object",
+        "properties": {
+          "blacklist": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BlacklistResponse" }
+          },
+          "page": { "type": "integer", "example": 1 },
+          "limit": { "type": "integer", "example": 10 },
+          "total": { "type": "integer", "example": 1 }
         }
       }
     }
