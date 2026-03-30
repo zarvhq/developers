@@ -221,6 +221,36 @@
           }
         }
       }
+    },
+    "/api/v2/verifications/{id}/feedbacks": {
+      "post": {
+        "summary": "Criar feedback para uma verificação",
+        "description": "Criar feedback para uma verificação",
+        "tags": ["Verificação"],
+        "security": [{ "Authentication v2": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerificationFeebbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Feedback criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationFeedbackResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -718,6 +748,43 @@
           "page": { "type": "integer", "example": 1 },
           "limit": { "type": "integer", "example": 10 },
           "total": { "type": "integer", "example": 100 }
+        }
+      },
+      "VerificationFeebbackRequest": {
+        "type": "object",
+        "required": ["verificationId", "status"],
+        "properties": {
+          "verificationId": {
+            "type": "string",
+            "description": "ID da verificação",
+            "example": "805181ca-2956-49e1-81bb-93d1792d269d"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["STANDBY", "REPROVED", "APPROVED"],
+            "example": "APPROVED"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Comentário opcional do feedback",
+            "example": "Documentacao validada com sucesso"
+          }
+        }
+      },
+      "VerificationFeedbackResponse": {
+        "type": "object",
+        "required": ["status", "verificationId"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["STANDBY", "REPROVED", "APPROVED"],
+            "example": "APPROVED"
+          },
+          "verificationId": {
+            "type": "string",
+            "description": "ID da verificação",
+            "example": "805181ca-2956-49e1-81bb-93d1792d269d"
+          }
         }
       }
     }
