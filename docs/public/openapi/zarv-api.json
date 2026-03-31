@@ -14,7 +14,7 @@
   "tags": [
     { "name": "Autenticação", "description": "API de Autenticação" },
     { "name": "Verificação", "description": "API de Verificações" },
-    { "name": "Blacklist", "description": "API de Lista Restritiva" }
+    { "name": "Lista Restritiva", "description": "API de Lista Restritiva" }
   ],
   "paths": {
     "/api/v1/authentication": {
