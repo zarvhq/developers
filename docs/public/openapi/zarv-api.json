@@ -257,7 +257,7 @@
       "get": {
         "summary": "Consultar lista restritiva",
         "description": "Obtém os registros da lista restritiva com paginação por workspace",
-        "tags": ["Blacklist"],
+        "tags": ["Lista Restritiva"],
         "security": [{ "Authentication v2": [] }],
         "parameters": [
           {
@@ -344,7 +344,7 @@
       "delete": {
         "summary": "Remover item da lista restritiva",
         "description": "Remove um registro da lista restritiva por nationalId e workspace",
-        "tags": ["Blacklist"],
+        "tags": ["Lista Restritiva"],
         "security": [{ "Authentication v2": [] }],
         "parameters": [
           {
