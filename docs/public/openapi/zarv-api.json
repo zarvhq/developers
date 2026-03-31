@@ -306,7 +306,7 @@
       "post": {
         "summary": "Adicionar item na lista restritiva",
         "description": "Cria um novo registro na lista restritiva para um workspace",
-        "tags": ["Blacklist"],
+        "tags": ["Lista Restritiva"],
         "security": [{ "Authentication v2": [] }],
         "parameters": [
           {
