@@ -935,7 +935,8 @@
           "metadata": {
             "type": "object",
             "description": "Metadata livre aplicada a todas as verificações criadas no lote.",
-            "additionalProperties": true
+            "additionalProperties": true,
+            "example": { "campaignId": "summer-2026", "source": "partner-xyz" }
           }
         }
       },
@@ -943,9 +944,9 @@
         "type": "object",
         "description": "Resumo do lote e status por `nationalId`. A invariante `success + errors == total` é mantida mesmo com `nationalId` duplicados — nesse caso `len(items) <= total`.",
         "properties": {
-          "total": { "type": "integer", "description": "Quantidade de tentativas (= tamanho da lista `nationalId` enviada).", "example": 4 },
-          "success": { "type": "integer", "description": "Quantidade de itens aceitos para processamento.", "example": 2 },
-          "errors": { "type": "integer", "description": "Quantidade de itens que falharam na criação.", "example": 2 },
+          "total": { "type": "integer", "description": "Quantidade de tentativas (= tamanho da lista `nationalId` enviada)." },
+          "success": { "type": "integer", "description": "Quantidade de itens aceitos para processamento." },
+          "errors": { "type": "integer", "description": "Quantidade de itens que falharam na criação." },
           "items": {
             "type": "object",
             "description": "Status por item, indexado pelo `nationalId`. Sucessos têm `id` (verification ID para polling); falhas têm `error`.",
@@ -956,6 +957,17 @@
               "11111111111": { "error": "invalid national id" },
               "22222222222": { "error": "There is not enough balance: insufficient balance" }
             }
+          }
+        },
+        "example": {
+          "total": 4,
+          "success": 2,
+          "errors": 2,
+          "items": {
+            "012345678900": { "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab" },
+            "98765432100": { "id": "e5f6g7h8-1234-5678-90ab-cdef12345678" },
+            "11111111111": { "error": "invalid national id" },
+            "22222222222": { "error": "There is not enough balance: insufficient balance" }
           }
         }
       },
