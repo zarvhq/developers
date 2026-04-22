@@ -126,6 +126,33 @@
         }
       }
     },
+    "/api/v2/verifications/batch": {
+      "post": {
+        "summary": "Criar verificações em lote",
+        "description": "Cria múltiplas verificações de CPF ou CNPJ em uma única requisição. Cada item é validado e cobrado individualmente; itens inválidos ou sem saldo são retornados em `details` sem interromper o processamento dos demais.",
+        "tags": ["Verificação"],
+        "security": [{ "Authentication v2": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BatchRequest" }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Lote aceito para processamento. A resposta contém o resumo do lote e, em `details`, os itens que falharam na criação.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BatchResponse" }
+              }
+            }
+          },
+          "400": { "description": "Corpo da requisição inválido" }
+        }
+      }
+    },
     "/api/v2/verifications/{id}": {
       "get": {
         "summary": "Consultar verificação por ID",
@@ -872,6 +899,46 @@
           "page": { "type": "integer", "example": 1 },
           "limit": { "type": "integer", "example": 10 },
           "total": { "type": "integer", "example": 100 }
+        }
+      },
+      "BatchRequest": {
+        "type": "object",
+        "required": ["verifications"],
+        "properties": {
+          "verifications": {
+            "type": "array",
+            "description": "Lista de verificações a criar. Cada item segue o mesmo contrato de `VerificationRequest`.",
+            "minItems": 1,
+            "items": { "$ref": "#/components/schemas/VerificationRequest" }
+          }
+        }
+      },
+      "BatchResponse": {
+        "type": "object",
+        "properties": {
+          "total": { "type": "integer", "description": "Total de itens enviados no lote", "example": 10 },
+          "success": { "type": "integer", "description": "Quantidade de itens aceitos para processamento", "example": 8 },
+          "errors": { "type": "integer", "description": "Quantidade de itens que falharam", "example": 2 },
+          "details": {
+            "type": "array",
+            "description": "Detalhe de cada item que falhou",
+            "items": { "$ref": "#/components/schemas/BatchError" }
+          }
+        }
+      },
+      "BatchError": {
+        "type": "object",
+        "properties": {
+          "national_id": {
+            "type": "string",
+            "description": "CPF ou CNPJ do item que falhou",
+            "example": "012345678900"
+          },
+          "error": {
+            "type": "string",
+            "description": "Motivo da falha (validação, saldo insuficiente, erro interno, etc.)",
+            "example": "There is not enough balance: insufficient balance"
+          }
         }
       },
       "VerificationFeebbackRequest": {
