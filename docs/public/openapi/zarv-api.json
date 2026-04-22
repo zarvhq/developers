@@ -129,7 +129,7 @@
     "/api/v2/verifications/batch": {
       "post": {
         "summary": "Criar verificações em lote",
-        "description": "Cria múltiplas verificações de CPF ou CNPJ em uma única requisição. Cada item é validado e cobrado individualmente; itens inválidos ou sem saldo são retornados em `details` sem interromper o processamento dos demais.",
+        "description": "Cria uma verificação para cada `nationalId` da lista, aplicando a mesma configuração de `verifications` a todos os itens. Cada item é validado e cobrado individualmente; o resultado de cada um vem em `items`, um mapa indexado pelo `nationalId`. Itens aceitos retornam `id` (verification ID) para polling posterior; itens rejeitados retornam `error`. Face recognition e CNH não são suportados em lote — se presentes no corpo, são ignorados.",
         "tags": ["Verificação"],
         "security": [{ "Authentication v2": [] }],
         "requestBody": {
@@ -142,14 +142,14 @@
         },
         "responses": {
           "202": {
-            "description": "Lote aceito para processamento. A resposta contém o resumo do lote e, em `details`, os itens que falharam na criação.",
+            "description": "Lote aceito para processamento. A resposta contém o resumo do lote e, em `items`, o status de cada `nationalId` enviado.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/BatchResponse" }
               }
             }
           },
-          "400": { "description": "Corpo da requisição inválido" }
+          "400": { "description": "Corpo da requisição inválido ou `nationalId` vazio" }
         }
       }
     },
@@ -903,40 +903,74 @@
       },
       "BatchRequest": {
         "type": "object",
-        "required": ["verifications"],
+        "required": ["nationalId", "verifications"],
+        "description": "Configuração compartilhada + lista de CPFs/CNPJs. Todos os itens são processados com a mesma configuração de `verifications`.",
         "properties": {
-          "verifications": {
+          "nationalId": {
             "type": "array",
-            "description": "Lista de verificações a criar. Cada item segue o mesmo contrato de `VerificationRequest`.",
+            "description": "Lista de CPFs ou CNPJs. Duplicados no input não causam erro, mas no `items` de resposta apenas a última tentativa permanece.",
             "minItems": 1,
-            "items": { "$ref": "#/components/schemas/VerificationRequest" }
+            "items": { "type": "string", "example": "012345678900" }
+          },
+          "verifications": {
+            "type": "object",
+            "description": "Configuração aplicada a todos os itens. Campos `faceRecognition` e `cnh`, se presentes, são ignorados.",
+            "properties": {
+              "type": { "type": "string", "enum": ["full", "light"], "example": "full" },
+              "finance": {
+                "type": "object",
+                "properties": {
+                  "restrictions": { "type": "boolean", "example": true }
+                }
+              }
+            }
+          },
+          "callback": {
+            "type": "object",
+            "description": "Callback aplicado a todas as verificações criadas no lote.",
+            "properties": {
+              "url": { "type": "string", "example": "https://example.com/webhooks/verifications" }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata livre aplicada a todas as verificações criadas no lote.",
+            "additionalProperties": true
           }
         }
       },
       "BatchResponse": {
         "type": "object",
+        "description": "Resumo do lote e status por `nationalId`. A invariante `success + errors == total` é mantida mesmo com `nationalId` duplicados — nesse caso `len(items) <= total`.",
         "properties": {
-          "total": { "type": "integer", "description": "Total de itens enviados no lote", "example": 10 },
-          "success": { "type": "integer", "description": "Quantidade de itens aceitos para processamento", "example": 8 },
-          "errors": { "type": "integer", "description": "Quantidade de itens que falharam", "example": 2 },
-          "details": {
-            "type": "array",
-            "description": "Detalhe de cada item que falhou",
-            "items": { "$ref": "#/components/schemas/BatchError" }
+          "total": { "type": "integer", "description": "Quantidade de tentativas (= tamanho da lista `nationalId` enviada).", "example": 4 },
+          "success": { "type": "integer", "description": "Quantidade de itens aceitos para processamento.", "example": 2 },
+          "errors": { "type": "integer", "description": "Quantidade de itens que falharam na criação.", "example": 2 },
+          "items": {
+            "type": "object",
+            "description": "Status por item, indexado pelo `nationalId`. Sucessos têm `id` (verification ID para polling); falhas têm `error`.",
+            "additionalProperties": { "$ref": "#/components/schemas/BatchStatus" },
+            "example": {
+              "012345678900": { "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab" },
+              "98765432100": { "id": "e5f6g7h8-1234-5678-90ab-cdef12345678" },
+              "11111111111": { "error": "invalid national id" },
+              "22222222222": { "error": "There is not enough balance: insufficient balance" }
+            }
           }
         }
       },
-      "BatchError": {
+      "BatchStatus": {
         "type": "object",
+        "description": "Outcome de um item do lote. Exatamente um dos campos (`id` ou `error`) é populado.",
         "properties": {
-          "national_id": {
+          "id": {
             "type": "string",
-            "description": "CPF ou CNPJ do item que falhou",
-            "example": "012345678900"
+            "description": "Verification ID quando o item foi aceito e enfileirado para processamento. Use em `GET /v2/verifications/{id}` para polling.",
+            "example": "a1b2c3d4-5678-90ab-cdef-1234567890ab"
           },
           "error": {
             "type": "string",
-            "description": "Motivo da falha (validação, saldo insuficiente, erro interno, etc.)",
+            "description": "Motivo da falha (validação, saldo insuficiente, erro interno, etc.) quando o item foi rejeitado antes do enfileiramento.",
             "example": "There is not enough balance: insufficient balance"
           }
         }
