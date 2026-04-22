@@ -75,28 +75,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  slack-notifications:
-    name: Slack Notification
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    needs: [build, deploy]
-    steps:
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: github-notifications
-          SLACK_MESSAGE_TYPE: ${{ needs.deploy.result == 'success' && 'success' || 'error' }}
-          SLACK_FOOTER: GitHub Actions
-          SLACK_COLOR: ${{ needs.deploy.result }}
-          SLACK_TITLE: GitHub Actions - developers
-          SLACK_ICON_EMOJI: ':github'
-          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-          SLACK_USERNAME: github
-          SLACK_MESSAGE: |
-            Status: ${{ needs.deploy.result }}
-            Repository: <${{ github.event.repository.html_url }}|${{ github.event.repository.name }}>
-            Commit: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>
-            Committer Email: ${{ github.event.head_commit.author.email }}
-            Branch: `${{ github.ref }}`
