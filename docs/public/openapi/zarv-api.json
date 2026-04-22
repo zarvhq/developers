@@ -136,7 +136,16 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/BatchRequest" }
+              "schema": { "$ref": "#/components/schemas/BatchRequest" },
+              "example": {
+                "nationalId": ["012345678900", "98765432100"],
+                "verifications": {
+                  "type": "full",
+                  "finance": { "restrictions": true }
+                },
+                "callback": { "url": "https://example.com/webhooks/verifications" },
+                "metadata": { "campaignId": "summer-2026", "source": "partner-xyz" }
+              }
             }
           }
         },
@@ -145,7 +154,18 @@
             "description": "Lote aceito para processamento. A resposta contém o resumo do lote e, em `items`, o status de cada `nationalId` enviado.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/BatchResponse" }
+                "schema": { "$ref": "#/components/schemas/BatchResponse" },
+                "example": {
+                  "total": 4,
+                  "success": 2,
+                  "errors": 2,
+                  "items": {
+                    "012345678900": { "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab" },
+                    "98765432100": { "id": "e5f6g7h8-1234-5678-90ab-cdef12345678" },
+                    "11111111111": { "error": "invalid national id" },
+                    "22222222222": { "error": "There is not enough balance: insufficient balance" }
+                  }
+                }
               }
             }
           },
