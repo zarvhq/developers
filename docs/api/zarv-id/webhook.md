@@ -19,7 +19,11 @@ Ao criar uma solicitação de verificação, você pode configurar o webhook inc
   },
   "callback": {
     "url": "https://your-domain.com/webhook-endpoint",
-    "method": "POST"
+    "method": "POST",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "X-Tenant-Id": "my-tenant"
+    }
   },
   "metadata": {
     "key": "value"
@@ -29,10 +33,11 @@ Ao criar uma solicitação de verificação, você pode configurar o webhook inc
 
 ### Parâmetros de Configuração do Callback
 
-| Parâmetro | Tipo   | Obrigatório | Descrição                          |
-| --------- | ------ | ----------- | ---------------------------------- |
-| url       | string | Sim         | A URL onde o webhook será enviado  |
-| method    | string | Sim         | Método HTTP a ser usado (POST/PUT) |
+| Parâmetro | Tipo             | Obrigatório | Descrição                                                                               |
+| --------- | ---------------- | ----------- | --------------------------------------------------------------------------------------- |
+| url       | string           | Sim         | A URL onde o webhook será enviado                                                       |
+| method    | string           | Sim         | Método HTTP a ser usado (POST/PUT)                                                      |
+| headers   | object (string→string) | Não    | Headers HTTP adicionais enviados junto do webhook (ex: `Authorization`, `X-Tenant-Id`). Útil para autenticação no seu endpoint. |
 
 ### Metadados
 

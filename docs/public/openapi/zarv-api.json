@@ -143,7 +143,13 @@
                   "type": "full",
                   "finance": { "restrictions": true }
                 },
-                "callback": { "url": "https://example.com/webhooks/verifications" },
+                "callback": {
+                  "url": "https://example.com/webhooks/verifications",
+                  "method": "POST",
+                  "headers": {
+                    "Authorization": "Bearer <token>"
+                  }
+                },
                 "metadata": { "campaignId": "summer-2026", "source": "partner-xyz" }
               }
             }
@@ -947,9 +953,29 @@
           },
           "callback": {
             "type": "object",
-            "description": "Callback aplicado a todas as verificações criadas no lote.",
+            "description": "Callback HTTP disparado quando cada verificação do lote muda pra `COMPLETED` ou `FAILED`. Aplicado a todas as verificações do lote.",
+            "required": ["url", "method"],
             "properties": {
-              "url": { "type": "string", "example": "https://example.com/webhooks/verifications" }
+              "url": {
+                "type": "string",
+                "description": "URL para onde o webhook será enviado.",
+                "example": "https://example.com/webhooks/verifications"
+              },
+              "method": {
+                "type": "string",
+                "description": "Método HTTP usado na chamada do webhook.",
+                "enum": ["POST", "PUT"],
+                "example": "POST"
+              },
+              "headers": {
+                "type": "object",
+                "description": "Headers HTTP adicionais enviados junto do webhook. Útil para autenticação no seu endpoint (ex: `Authorization: Bearer ...`).",
+                "additionalProperties": { "type": "string" },
+                "example": {
+                  "Authorization": "Bearer <token>",
+                  "X-Tenant-Id": "my-tenant"
+                }
+              }
             }
           },
           "metadata": {
